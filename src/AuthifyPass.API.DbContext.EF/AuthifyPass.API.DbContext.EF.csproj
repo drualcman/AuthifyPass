@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AuthifyPass.API.Core\AuthifyPass.API.Core.csproj" />
     <ProjectReference Include="..\AuthifyPass.API.Repositories\AuthifyPass.API.Repositories.csproj" />
   </ItemGroup>
 

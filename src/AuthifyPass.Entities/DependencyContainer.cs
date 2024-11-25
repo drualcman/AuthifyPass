@@ -10,7 +10,8 @@ public static class DependencyContainer
     public static IServiceCollection AddEntityServices(this IServiceCollection services)
     {
         services.TryAddScoped(typeof(IModelValidatorHub<>), typeof(ModelValidatorHub<>));
-        services.TryAddScoped<IModelValidator<RegisterClientDto>, RegisterClientValidator>();
+        services.AddScoped<IModelValidator<RegisterClientDto>, RegisterClientValidator>();
+        services.AddSingleton<IIdentifierGenerator, IdentifierGenerator>();
         services.AddLocalization();
         return services;
     }

@@ -61,7 +61,7 @@ namespace AuthifyPass.Entities.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email can&apos;t be emty.
+        ///   Looks up a localized string similar to Email can&apos;t be empty.
         /// </summary>
         internal static string EmailEmpty {
             get {
