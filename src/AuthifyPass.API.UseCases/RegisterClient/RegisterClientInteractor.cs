@@ -1,11 +1,4 @@
-﻿using AuthifyPass.API.Core.DTOs;
-using AuthifyPass.API.Core.Guards;
-using AuthifyPass.API.Core.Interfaces;
-using AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
-using AuthifyPass.Entities.DTOs;
-using AuthifyPass.Entities.Interfaces;
-
-namespace AuthifyPass.API.UseCases.RegisterClient;
+﻿namespace AuthifyPass.API.UseCases.RegisterClient;
 internal class RegisterClientInteractor(IClientRepository repository,
     IModelValidatorHub<RegisterClientDto> validator,
     IRegisterClientOutputPort output,
@@ -25,6 +18,7 @@ internal class RegisterClientInteractor(IClientRepository repository,
             sharedSecret: sharedSecret
             );
         await repository.AddClientAsync(client);
+        await repository.SaveChangesAsync();
         await output.Handle(register.Name, clientId, sharedSecret);
     }
 }

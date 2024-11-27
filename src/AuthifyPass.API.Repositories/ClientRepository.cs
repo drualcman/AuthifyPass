@@ -1,11 +1,4 @@
-﻿using AuthifyPass.API.Core.DTOs;
-using AuthifyPass.API.Core.Interfaces;
-using AuthifyPass.API.Repositories.Entities;
-using AuthifyPass.API.Repositories.Interfaces;
-using AuthifyPass.Entities.DTOs;
-using AuthifyPass.Entities.Entities;
-
-namespace AuthifyPass.API.Repositories;
+﻿namespace AuthifyPass.API.Repositories;
 internal class ClientRepository(IWritableDbContext dbWriter, IReadbleDbContext dbReader) : IClientRepository
 {
     public async Task AddClientAsync(AddClientDto client)
@@ -31,11 +24,13 @@ internal class ClientRepository(IWritableDbContext dbWriter, IReadbleDbContext d
 
     public Task<Client?> GetByClientIdAsync(string clientId)
     {
-        return Task.FromResult(new Client(clientId,"","","","",DateTime.UtcNow));
+        return Task.FromResult(new Client(clientId, "", "", "", "", DateTime.UtcNow));
     }
 
     public Task UpdateClientAsync(UpdateClientDto client)
     {
         return Task.CompletedTask;
     }
+
+    public async Task SaveChangesAsync() => await dbWriter.SaveChangesAsync();
 }

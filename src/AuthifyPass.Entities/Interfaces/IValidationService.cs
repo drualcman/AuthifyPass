@@ -1,7 +1,4 @@
-﻿using AuthifyPass.Entities.ValueObjects;
-using System.Linq.Expressions;
-
-namespace AuthifyPass.Entities.Interfaces;
+﻿namespace AuthifyPass.Entities.Interfaces;
 public interface IValidationService<T>
 {
     IValidationRules<T, TProperty> AddRuleFor<TProperty>(

@@ -1,6 +1,4 @@
-﻿using AuthifyPass.Entities.Abstractions;
-
-namespace AuthifyPass.FluentValidator;
+﻿namespace AuthifyPass.FluentValidator;
 internal class CollectionValidationRules<T, TProperties>(IRuleBuilderInitialCollection<T, TProperties> RuleBuilderInitialCollection)
     : ICollectionValidationRules<T, TProperties>
 {

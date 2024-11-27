@@ -1,6 +1,4 @@
-﻿using AuthifyPass.API.Repositories.Entities;
-
-namespace AuthifyPass.API.Repositories.Interfaces;
+﻿namespace AuthifyPass.API.Repositories.Interfaces;
 public interface IReadbleDbContext
 {
     Task<ClientEntity?> GetByClientIdAsync(string clientId);

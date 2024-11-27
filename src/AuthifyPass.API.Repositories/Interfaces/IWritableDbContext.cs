@@ -1,6 +1,4 @@
-﻿using AuthifyPass.API.Repositories.Entities;
-
-namespace AuthifyPass.API.Core.Interfaces;
+﻿namespace AuthifyPass.API.Core.Interfaces;
 public interface IWritableDbContext
 {
     Task AddClientAsync(ClientEntity client);
@@ -8,4 +6,5 @@ public interface IWritableDbContext
     Task DeleteClientAsync(string clientId);
     Task AddUserSecretAsync(UserSecretEntity userSecret);
     Task UpdateUserSecretAsync(UserSecretEntity userSecret);
+    Task SaveChangesAsync();
 }

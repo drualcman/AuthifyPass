@@ -1,0 +1,14 @@
+global using AuthifyPass.Entities.Abstractions;
+global using AuthifyPass.Entities.DTOs;
+global using AuthifyPass.Entities.Enums;
+global using AuthifyPass.Entities.Interfaces;
+global using AuthifyPass.Entities.Resources;
+global using AuthifyPass.Entities.Services;
+global using AuthifyPass.Entities.Validators;
+global using AuthifyPass.Entities.ValueObjects;
+global using Microsoft.Extensions.DependencyInjection.Extensions;
+global using Microsoft.Extensions.Localization;
+global using System.Linq.Expressions;
+global using System.Reflection;
+global using System.Security.Cryptography;
+global using System.Text;

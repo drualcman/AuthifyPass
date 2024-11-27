@@ -1,11 +1,4 @@
-﻿using AuthifyPass.Entities.Abstractions;
-using AuthifyPass.Entities.DTOs;
-using AuthifyPass.Entities.Enums;
-using AuthifyPass.Entities.Interfaces;
-using AuthifyPass.Entities.Resources;
-using Microsoft.Extensions.Localization;
-
-namespace AuthifyPass.Entities.Validators;
+﻿namespace AuthifyPass.Entities.Validators;
 internal class RegisterClientValidator : AbstractModelValidator<RegisterClientDto>
 {
     public RegisterClientValidator(IValidationService<RegisterClientDto> validationService,
@@ -22,8 +15,8 @@ internal class RegisterClientValidator : AbstractModelValidator<RegisterClientDt
         AddRuleFor(r => r.Password)
             .NotNull(localizer[nameof(RegisterClientValidatorErrors.Required)])
             .NotEmpty(localizer[nameof(RegisterClientValidatorErrors.Required)])
-            .Must(ContainsUppercase,localizer[nameof(RegisterClientValidatorErrors.PasswordUppercase)])
-            .Must(ContainsLowercase,localizer[nameof(RegisterClientValidatorErrors.PasswordLowercase)])
+            .Must(ContainsUppercase, localizer[nameof(RegisterClientValidatorErrors.PasswordUppercase)])
+            .Must(ContainsLowercase, localizer[nameof(RegisterClientValidatorErrors.PasswordLowercase)])
             .Must(ContainsDigit, localizer[nameof(RegisterClientValidatorErrors.PasswordDigit)])
             .Must(ContainsSpecialCharacter, localizer[nameof(RegisterClientValidatorErrors.PasswordSpecial)])
             .MinimumLength(13, localizer[nameof(RegisterClientValidatorErrors.PasswordLenght)]);
@@ -37,7 +30,7 @@ internal class RegisterClientValidator : AbstractModelValidator<RegisterClientDt
     private bool ContainsCharacter(string input, Func<char, bool> condition)
     {
         bool result = false;
-        if (!string.IsNullOrEmpty(input)) 
+        if (!string.IsNullOrEmpty(input))
         {
             ReadOnlySpan<char> chars = input.AsSpan();
             int i = 0;

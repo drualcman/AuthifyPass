@@ -1,7 +1,4 @@
-﻿using AuthifyPass.API.Core.Interfaces;
-using AuthifyPass.API.Repositories.Entities;
-
-namespace AuthifyPass.API.DbContext.EF;
+﻿namespace AuthifyPass.API.DbContext.EF;
 internal class WritableDbContext : IWritableDbContext
 {
     public Task AddClientAsync(ClientEntity client)
@@ -27,5 +24,10 @@ internal class WritableDbContext : IWritableDbContext
     public Task UpdateUserSecretAsync(UserSecretEntity userSecret)
     {
         return Task.CompletedTask;
+    }
+
+    public async Task SaveChangesAsync()
+    {
+        await Console.Out.WriteLineAsync("Data should be saved!");
     }
 }

@@ -1,6 +1,4 @@
-﻿using AuthifyPass.API.Core.DTOs;
-
-namespace AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
+﻿namespace AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
 public interface IRegisterClientOutputPort
 {
     RegisterClientResultDto Content { get; }

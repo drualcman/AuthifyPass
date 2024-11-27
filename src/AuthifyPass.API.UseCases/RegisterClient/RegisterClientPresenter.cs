@@ -1,9 +1,4 @@
-﻿using AuthifyPass.API.Core.DTOs;
-using AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
-using AuthifyPass.API.UseCases.Resources;
-using Microsoft.Extensions.Localization;
-
-namespace AuthifyPass.API.UseCases.RegisterClient;
+﻿namespace AuthifyPass.API.UseCases.RegisterClient;
 internal class RegisterClientPresenter(IStringLocalizer<RegisterClientContent> localizer) : IRegisterClientOutputPort
 {
     public RegisterClientResultDto Content { get; private set; }

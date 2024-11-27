@@ -1,7 +1,4 @@
-﻿using AuthifyPass.Entities.Exceptions;
-using AuthifyPass.Entities.Interfaces;
-
-namespace AuthifyPass.API.Core.Guards;
+﻿namespace AuthifyPass.API.Core.Guards;
 public static class GuardModel
 {
     public static async Task AgainstNotValid<T>(

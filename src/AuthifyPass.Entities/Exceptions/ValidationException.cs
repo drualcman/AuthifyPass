@@ -1,6 +1,4 @@
-﻿using AuthifyPass.Entities.ValueObjects;
-
-namespace AuthifyPass.Entities.Exceptions;
+﻿namespace AuthifyPass.Entities.Exceptions;
 public class ValidationException : Exception
 {
     public ValidationException()

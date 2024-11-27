@@ -1,8 +1,4 @@
-﻿using AuthifyPass.Entities.Interfaces;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace AuthifyPass.Entities.Services;
+﻿namespace AuthifyPass.Entities.Services;
 internal class IdentifierGenerator : IIdentifierGenerator
 {
     public string GenerateClientId()

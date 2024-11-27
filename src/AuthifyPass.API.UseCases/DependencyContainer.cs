@@ -1,7 +1,4 @@
-﻿using AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
-using AuthifyPass.API.UseCases.RegisterClient;
-
-namespace Microsoft.Extensions.DependencyInjection;
+﻿namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyContainer
 {
     public static IServiceCollection AddUseCases(this IServiceCollection services)

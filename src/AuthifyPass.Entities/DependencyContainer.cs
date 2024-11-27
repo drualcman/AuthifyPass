@@ -1,10 +1,4 @@
-﻿using AuthifyPass.Entities.DTOs;
-using AuthifyPass.Entities.Interfaces;
-using AuthifyPass.Entities.Services;
-using AuthifyPass.Entities.Validators;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-
-namespace Microsoft.Extensions.DependencyInjection;
+﻿namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyContainer
 {
     public static IServiceCollection AddEntityServices(this IServiceCollection services)

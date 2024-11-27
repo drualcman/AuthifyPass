@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace AuthifyPass.Entities.Interfaces;
+﻿namespace AuthifyPass.Entities.Interfaces;
 public interface IValidationRules<T, TProperty>
 {
     IValidationRules<T, TProperty> NotEmpty(string errorMessage);

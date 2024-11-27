@@ -1,1 +1,21 @@
 # AuthifyPass
+- Domain
+    - Entities
+- Application
+    - API
+        - Core
+        - Use Cases
+- Infraestructure
+    - API
+        - Repositories
+    - APP
+        - Views
+- Presentation
+    - API
+        - Minimal API
+        - IoC
+    - APP
+        - Blazor Client (web)
+- Frameworks
+    - DBContext using Entity Framework
+    - Fluent Validator

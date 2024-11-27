@@ -1,6 +1,4 @@
-﻿using AuthifyPass.Entities.Entities;
-
-namespace AuthifyPass.API.Core.Interfaces;
+﻿namespace AuthifyPass.API.Core.Interfaces;
 /// <summary>
 /// Interface for managing UserSecret entities in the database.
 /// </summary>

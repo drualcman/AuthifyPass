@@ -1,6 +1,4 @@
-﻿using AuthifyPass.FluentValidator;
-
-namespace Microsoft.Extensions.DependencyInjection;
+﻿namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyContainer
 {
     public static IServiceCollection AddValidationService(this IServiceCollection services)
