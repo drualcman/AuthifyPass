@@ -10,7 +10,7 @@ public static class UserEndPoints
 
         mainGroup.MapPost("", async (RegisterUserClientDto data, HttpContext context,
                         IRegisterUserInputPort input) => Results.Ok(await input.RegisterUserAsync(data, HeaderHelper.GetSharedKeyHeader(context))))
-            .Produces<string>(StatusCodes.Status200OK);
+            .Produces<RegisterUserClientResponseDto>(StatusCodes.Status200OK);
         mainGroup.MapPost("/validate-code", async (ValidateUserCodeDto data, HttpContext context,
                         IValidateUserCodeInputPort input) => Results.Ok(await input.ValidateUserCode(data, HeaderHelper.GetSharedKeyHeader(context))))
             .Produces<bool>(StatusCodes.Status200OK);

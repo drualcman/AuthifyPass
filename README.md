@@ -71,9 +71,12 @@ Encapsulates endpoints and configurations related to API presentation and access
       ```
     - **Headers**:
       - `x-authify-key`: Shared Secret authentication key.
-    - **Response**:
+    - **Response**: Image SVG it's a QR with QRDataDto in JSON format
       ```json
-      "string"
+      {
+        "sharedkey": "string",
+        "imageSVG": "string"
+      }
       ```
 
   - **POST `/user/validate-code`**:
@@ -91,3 +94,10 @@ Encapsulates endpoints and configurations related to API presentation and access
       ```json
       true | false
       ```
+#### QRDataDto
+```json
+{
+    "clientId": "string",
+    "sharedKey": "string"
+}
+```

@@ -5,3 +5,6 @@ global using AuthifyPass.API.Repositories.Entities;
 global using AuthifyPass.API.Repositories.Interfaces;
 global using AuthifyPass.Entities.DTOs;
 global using AuthifyPass.Entities.Entities;
+global using System.Text.Json;
+global using ZXing;
+global using ZXing.Common;

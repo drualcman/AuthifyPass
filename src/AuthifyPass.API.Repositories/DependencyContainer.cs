@@ -5,6 +5,7 @@ public static class DependencyContainer
     {
         services.AddScoped<IClientRepository, ClientRepository>();
         services.AddScoped<IUserSecretRepository, UserSecretRepository>();
+        services.AddScoped<IQRGeneratorRepository, QRGeneratorRepository>();
         return services;
     }
 

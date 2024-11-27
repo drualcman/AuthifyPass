@@ -4,12 +4,13 @@ internal class RegisterUserInteractor(
     IUserSecretRepository userRepository,
     IClientRepository clientRepository,
     IModelValidatorHub<RegisterUserClientDto> validator,
-    IStringLocalizer<RegisterUserContent> localizer) : IRegisterUserInputPort
+    IStringLocalizer<RegisterUserContent> localizer,
+    IQRGeneratorRepository qrGenerator) : IRegisterUserInputPort
 {
-    public async Task<string> RegisterUserAsync(RegisterUserClientDto data, string sharedSecret)
+    public async Task<RegisterUserClientResponseDto> RegisterUserAsync(RegisterUserClientDto data, string sharedSecret)
     {
         await GuardModel.AgainstNotValid(validator, data);
-        string userSharedKey = string.Empty;
+        RegisterUserClientResponseDto response = default;
         var client = await clientRepository.GetByClientIdAsync(data.ClientId);
         if (client is not null && !string.IsNullOrEmpty(client.SharedSecret) && client.SharedSecret.Equals(sharedSecret))
         {
@@ -21,10 +22,10 @@ internal class RegisterUserInteractor(
                 await userRepository.AddAsync(userSecret);
             else
                 await userRepository.UpdateAsync(userSecret);
-            userSharedKey = sharedkey;
+            response = new(sharedkey, qrGenerator.GenerateQRCode(new(data.ClientId, sharedkey)));
         }
         else
             throw new UnauthorizedAccessException(localizer[nameof(RegisterUserContent.ClientUnauthorized)]);
-        return userSharedKey;
+        return response;
     }
 }

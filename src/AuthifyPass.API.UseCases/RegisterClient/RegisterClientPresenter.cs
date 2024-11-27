@@ -1,7 +1,7 @@
 ﻿namespace AuthifyPass.API.UseCases.RegisterClient;
 internal class RegisterClientPresenter(IStringLocalizer<RegisterClientContent> localizer) : IRegisterClientOutputPort
 {
-    public RegisterClientResultDto Content { get; private set; }
+    public RegisterClientResponseDto Content { get; private set; }
 
     public Task Handle(string name, string clientId, string sharedSecret)
     {

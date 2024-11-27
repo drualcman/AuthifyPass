@@ -8,7 +8,7 @@ public static class ClientEndPoints
 
         mainGroup.MapPost("", async (RegisterClientDto data,
                     IRegisterClientController controller) => Results.Ok(await controller.CreateClientAsync(data)))
-            .Produces<RegisterClientResultDto>(StatusCodes.Status200OK);
+            .Produces<RegisterClientResponseDto>(StatusCodes.Status200OK);
 
         return app;
     }

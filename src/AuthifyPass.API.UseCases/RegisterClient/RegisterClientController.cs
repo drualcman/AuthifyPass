@@ -2,7 +2,7 @@
 internal class RegisterClientController(IRegisterClientInputPort input,
     IRegisterClientOutputPort presenter) : IRegisterClientController
 {
-    public async Task<RegisterClientResultDto> CreateClientAsync(RegisterClientDto client)
+    public async Task<RegisterClientResponseDto> CreateClientAsync(RegisterClientDto client)
     {
         await input.Handle(client);
         return presenter.Content;
