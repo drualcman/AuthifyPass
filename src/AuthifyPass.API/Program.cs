@@ -1,12 +1,3 @@
-using AuthifyPass.API.Components;
-using AuthifyPass.API.Core.DTOs;
-using AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
-using AuthifyPass.API.Core.Interfaces.UseCases.RegisterUser;
-using AuthifyPass.API.Core.Options;
-using AuthifyPass.API.Helpers;
-using AuthifyPass.API.Swagger;
-using AuthifyPass.Entities.DTOs;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.              
@@ -50,23 +41,7 @@ app.MapRazorComponents<App>()
     .AddAdditionalAssemblies(typeof(AuthifyPass.Views._Imports).Assembly);
 
 
-app.MapGet("/ping", () =>
-{
-    return Results.Ok("Pong!");
-})
-.WithName("Ping")
-.WithTags("Test Endpoints");
-
-app.MapPost("/client", async (RegisterClientDto data,
-    IRegisterClientController controller) => Results.Ok(await controller.CreateClientAsync(data)))
-.WithName("Create Client")
-.WithTags("Create Client")
-.Produces<RegisterClientResultDto>(StatusCodes.Status200OK);
-
-app.MapPost("/user", async (RegisterUserClientDto data, HttpContext context,
-    IRegisterUserInputPort input) => Results.Ok(await input.RegisterUserAsync(data, HeaderHelper.GetSharedKeyHeader(context))))
-.WithName("Create User")
-.WithTags("Create User")
-.Produces<string>(StatusCodes.Status200OK);
+app.UseClientEndPoints();
+app.UseUserEndPoints();
 
 await app.RunAsync();

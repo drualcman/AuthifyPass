@@ -7,6 +7,7 @@ public static class DependencyContainer
         services.AddScoped<IRegisterClientInputPort, RegisterClientInteractor>();
         services.AddScoped<IRegisterClientOutputPort, RegisterClientPresenter>();
         services.AddScoped<IRegisterUserInputPort, RegisterUserInteractor>();
+        services.AddScoped<IValidateUserCodeInputPort, ValidateUserCodeInteractor>();
         return services;
     }
 

@@ -7,13 +7,12 @@ internal class AddHeaderOperationFilter : IOperationFilter
 {
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        // Agregar un encabezado específico a todas las operaciones
         operation.Parameters.Add(new OpenApiParameter
         {
-            Name = "x-authify-key", // El nombre del encabezado
+            Name = "x-authify-key",
             In = ParameterLocation.Header,
-            Description = "Header for authentication",
-            Required = false, // Puedes configurarlo como obligatorio según tu lógica
+            Description = "Cliente shared secret for authentication",
+            Required = false,
             Schema = new OpenApiSchema { Type = "string" }
         });
     }

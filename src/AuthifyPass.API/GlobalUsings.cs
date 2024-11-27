@@ -1,0 +1,9 @@
+global using AuthifyPass.API.Components;
+global using AuthifyPass.API.Core.DTOs;
+global using AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
+global using AuthifyPass.API.Core.Interfaces.UseCases.RegisterUser;
+global using AuthifyPass.API.Core.Options;
+global using AuthifyPass.API.Endpoints;
+global using AuthifyPass.API.Helpers;
+global using AuthifyPass.API.Swagger;
+global using AuthifyPass.Entities.DTOs;

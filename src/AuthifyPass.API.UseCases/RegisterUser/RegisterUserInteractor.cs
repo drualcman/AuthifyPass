@@ -3,10 +3,12 @@ internal class RegisterUserInteractor(
     IIdentifierGenerator identifierGenerator,
     IUserSecretRepository userRepository,
     IClientRepository clientRepository,
+    IModelValidatorHub<RegisterUserClientDto> validator,
     IStringLocalizer<RegisterUserContent> localizer) : IRegisterUserInputPort
 {
     public async Task<string> RegisterUserAsync(RegisterUserClientDto data, string sharedSecret)
     {
+        await GuardModel.AgainstNotValid(validator, data);
         string userSharedKey = string.Empty;
         var client = await clientRepository.GetByClientIdAsync(data.ClientId);
         if (client is not null && !string.IsNullOrEmpty(client.SharedSecret) && client.SharedSecret.Equals(sharedSecret))
