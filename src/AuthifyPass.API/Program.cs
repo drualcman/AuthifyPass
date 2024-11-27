@@ -1,18 +1,19 @@
 using AuthifyPass.API.Components;
 using AuthifyPass.API.Core.DTOs;
 using AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
+using AuthifyPass.API.Core.Options;
 using AuthifyPass.Entities.DTOs;
-using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.              
-builder.Services.AddEndpointsApiExplorer(); 
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
-builder.Services.AddServices();
+builder.Services.AddServices(
+    dbOptions => builder.Configuration.GetSection(DataBaseOptions.SectionKey).Bind(dbOptions));
 
 var app = builder.Build();
 app.UseSwagger();
@@ -50,7 +51,7 @@ app.MapGet("/ping", () =>
 .WithName("Ping")
 .WithTags("Test Endpoints");
 
-app.MapPost("/create-client", async (RegisterClientDto data, 
+app.MapPost("/create-client", async (RegisterClientDto data,
     IRegisterClientController controller) => Results.Ok(await controller.CreateClientAsync(data)))
 .WithName("Create Client")
 .WithTags("Create Client")

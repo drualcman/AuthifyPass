@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthifyPass.API.Core", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthifyPass.API.Repositories", "src\AuthifyPass.API.Repositories\AuthifyPass.API.Repositories.csproj", "{3AF5BF86-4DA0-4C6A-A5EF-5DE523FF6C41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthifyPass.API.DbContext.EF", "src\AuthifyPass.API.DbContext.EF\AuthifyPass.API.DbContext.EF.csproj", "{E6DCBEA2-E0F2-4651-9FF8-3434415922AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthifyPass.API.DataBaseContext.EF", "src\AuthifyPass.API.DataBaseContext.EF\AuthifyPass.API.DataBaseContext.EF.csproj", "{E6DCBEA2-E0F2-4651-9FF8-3434415922AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthifyPass.API.UseCases", "src\AuthifyPass.API.UseCases\AuthifyPass.API.UseCases.csproj", "{8D32DAE9-31ED-4A02-95BA-7188DFE42EEB}"
 EndProject

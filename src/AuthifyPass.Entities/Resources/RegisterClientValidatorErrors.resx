@@ -126,7 +126,7 @@
   <data name="PasswordDigit" xml:space="preserve">
     <value>Must have some number</value>
   </data>
-  <data name="PasswordLenght" xml:space="preserve">
+  <data name="PasswordMinLenght" xml:space="preserve">
     <value>Minimum 13 characters</value>
   </data>
   <data name="PasswordLowercase" xml:space="preserve">
@@ -140,5 +140,11 @@
   </data>
   <data name="Required" xml:space="preserve">
     <value>Required field</value>
+  </data>
+  <data name="MaxLenght150" xml:space="preserve">
+    <value>Must have less than 150characters</value>
+  </data>
+  <data name="MaxLenght256" xml:space="preserve">
+    <value>Must have less than 256 characters</value>
   </data>
 </root>

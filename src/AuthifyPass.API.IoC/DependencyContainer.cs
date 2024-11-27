@@ -1,10 +1,11 @@
 ﻿namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyContainer
 {
-    public static IServiceCollection AddServices(this IServiceCollection services)
+    public static IServiceCollection AddServices(this IServiceCollection services,
+        Action<DataBaseOptions> databaseOptions)
     {
         services.AddEntityServices();
-        services.AddDbContextServices();
+        services.AddDbContextServices(databaseOptions);
         services.AddRepositoriesServices();
         services.AddValidationService();
         services.AddUseCases();

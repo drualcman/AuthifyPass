@@ -12,7 +12,7 @@ internal class IdentifierGenerator : IIdentifierGenerator
         return ComputeSha256Hash(input);
     }
 
-    private string ComputeSha256Hash(string input)
+    public string ComputeSha256Hash(string input)
     {
         using SHA256 sha256 = SHA256.Create();
         byte[] data = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));

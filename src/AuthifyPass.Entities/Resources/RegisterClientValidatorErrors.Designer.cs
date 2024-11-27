@@ -79,6 +79,24 @@ namespace AuthifyPass.Entities.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Must have less than 150characters.
+        /// </summary>
+        internal static string MaxLenght150 {
+            get {
+                return ResourceManager.GetString("MaxLenght150", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Must have less than 256 characters.
+        /// </summary>
+        internal static string MaxLenght256 {
+            get {
+                return ResourceManager.GetString("MaxLenght256", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Must have some number.
         /// </summary>
         internal static string PasswordDigit {
@@ -88,20 +106,20 @@ namespace AuthifyPass.Entities.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimum 13 characters.
-        /// </summary>
-        internal static string PasswordLenght {
-            get {
-                return ResourceManager.GetString("PasswordLenght", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Must have 1 lowercase.
         /// </summary>
         internal static string PasswordLowercase {
             get {
                 return ResourceManager.GetString("PasswordLowercase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum 13 characters.
+        /// </summary>
+        internal static string PasswordMinLenght {
+            get {
+                return ResourceManager.GetString("PasswordMinLenght", resourceCulture);
             }
         }
         

@@ -17,5 +17,6 @@ public class UserSecretEntity
     public DateTime CreatetAt { get; set; } = DateTime.UtcNow;
     public DateTime? PreviousSecretExpiryDate { get; set; }
     public DateTime LastRotatedAt { get; set; } = DateTime.UtcNow;
+    public ClientEntity? Client { get; set; }
 }
 

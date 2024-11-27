@@ -14,7 +14,7 @@ internal class RegisterClientInteractor(IClientRepository repository,
             clientId: clientId,
             name: register.Name,
             email: register.Email,
-            password: register.Password,
+            password: identifierGenerator.ComputeSha256Hash(register.Password),
             sharedSecret: sharedSecret
             );
         await repository.AddClientAsync(client);

@@ -8,10 +8,12 @@ internal class RegisterClientValidator : AbstractModelValidator<RegisterClientDt
         AddRuleFor(r => r.Email)
             .NotNull(localizer[nameof(RegisterClientValidatorErrors.Required)])
             .NotEmpty(localizer[nameof(RegisterClientValidatorErrors.EmailEmpty)])
-            .EmailAddress(localizer[nameof(RegisterClientValidatorErrors.EmailValidation)]);
+            .EmailAddress(localizer[nameof(RegisterClientValidatorErrors.EmailValidation)])
+            .MaximumLength(150, localizer[nameof(RegisterClientValidatorErrors.MaxLenght150)]);
         AddRuleFor(r => r.Name)
             .NotNull(localizer[nameof(RegisterClientValidatorErrors.Required)])
-            .NotEmpty(localizer[nameof(RegisterClientValidatorErrors.Required)]);
+            .NotEmpty(localizer[nameof(RegisterClientValidatorErrors.Required)])
+            .MaximumLength(256, localizer[nameof(RegisterClientValidatorErrors.MaxLenght256)]);
         AddRuleFor(r => r.Password)
             .NotNull(localizer[nameof(RegisterClientValidatorErrors.Required)])
             .NotEmpty(localizer[nameof(RegisterClientValidatorErrors.Required)])
@@ -19,7 +21,8 @@ internal class RegisterClientValidator : AbstractModelValidator<RegisterClientDt
             .Must(ContainsLowercase, localizer[nameof(RegisterClientValidatorErrors.PasswordLowercase)])
             .Must(ContainsDigit, localizer[nameof(RegisterClientValidatorErrors.PasswordDigit)])
             .Must(ContainsSpecialCharacter, localizer[nameof(RegisterClientValidatorErrors.PasswordSpecial)])
-            .MinimumLength(13, localizer[nameof(RegisterClientValidatorErrors.PasswordLenght)]);
+            .MinimumLength(13, localizer[nameof(RegisterClientValidatorErrors.PasswordMinLenght)])
+            .MaximumLength(256, localizer[nameof(RegisterClientValidatorErrors.MaxLenght256)]);
     }
 
     private bool ContainsUppercase(string input) => ContainsCharacter(input, char.IsUpper);
