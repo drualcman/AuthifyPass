@@ -1,7 +1,6 @@
-﻿using AuthifyPass.Entities.Helpers;
-
-namespace AuthifyPass.API.UseCases.ValidateUserCode;
+﻿namespace AuthifyPass.API.UseCases.ValidateUserCode;
 internal class ValidateUserCodeInteractor(
+    IIdentifierGenerator identifierGenerator,
     IUserSecretRepository userRepository,
     IClientRepository clientRepository,
     IStringLocalizer<RegisterUserContent> localizer,
@@ -13,7 +12,7 @@ internal class ValidateUserCodeInteractor(
         bool result = false;
         var client = await clientRepository.GetByClientIdAsync(data.ClientId);
         ThrowIfNullOrNotValid(secretShared, client);
-        var user = await userRepository.GetByClientIdAndUserIdAsync(data.ClientId, data.UserId);
+        var user = await userRepository.GetByClientIdAndUserIdAsync(data.ClientId, identifierGenerator.ComputeSha256Hash(data.UserId));
         if (user is not null)
         {
             result = TOTPHelper.ValidateTOTP(data.UserCode, user.ActiveSharedSecret);
@@ -27,11 +26,11 @@ internal class ValidateUserCodeInteractor(
     {
         if (client == null)
         {
-            throw new KeyNotFoundException("Invalid Client");
+            throw new UnauthorizedAccessException("Invalid Client");
         }
-        if (!client.SharedSecret.Equals(secretShared))
+        if (string.IsNullOrEmpty(client.SharedSecret) || !client.SharedSecret.Equals(secretShared))
         {
-            throw new KeyNotFoundException("Invalid Client");
+            throw new UnauthorizedAccessException("Invalid Client");
         }
     }
 }

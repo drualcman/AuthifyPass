@@ -9,8 +9,17 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
-builder.Services.AddServices(
+builder.Services.AddBackendServices(
     dbOptions => builder.Configuration.GetSection(DataBaseOptions.SectionKey).Bind(dbOptions));
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(config =>
+    {
+        config.AllowAnyHeader();
+        config.AllowAnyMethod();
+        config.AllowAnyOrigin();
+    });
+});
 
 var app = builder.Build();
 app.UseSwagger();
@@ -43,5 +52,8 @@ app.MapRazorComponents<App>()
 
 app.UseClientEndPoints();
 app.UseUserEndPoints();
+app.UseCors();
+
+app.UseExceptionHandler(builder => { });
 
 await app.RunAsync();

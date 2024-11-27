@@ -1,7 +1,4 @@
-﻿using AuthifyPass.Entities.Abstractions;
-using AuthifyPass.Entities.Enums;
-
-namespace AuthifyPass.API.UseCases.Validators;
+﻿namespace AuthifyPass.API.UseCases.Validators;
 internal class ValidateUserCodeDtoValidator : AbstractModelValidator<ValidateUserCodeDto>
 {
     public ValidateUserCodeDtoValidator(IValidationService<ValidateUserCodeDto> validationService,
