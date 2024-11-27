@@ -13,7 +13,7 @@ public static class UserEndPoints
             .Produces<string>(StatusCodes.Status200OK);
         mainGroup.MapPost("/validate-code", async (ValidateUserCodeDto data, HttpContext context,
                         IValidateUserCodeInputPort input) => Results.Ok(await input.ValidateUserCode(data, HeaderHelper.GetSharedKeyHeader(context))))
-            .Produces<string>(StatusCodes.Status200OK);
+            .Produces<bool>(StatusCodes.Status200OK);
         return app;
     }
 }
