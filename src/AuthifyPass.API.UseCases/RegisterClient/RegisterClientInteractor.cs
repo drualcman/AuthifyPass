@@ -18,7 +18,6 @@ internal class RegisterClientInteractor(IClientRepository repository,
             sharedSecret: sharedSecret
             );
         await repository.AddClientAsync(client);
-        await repository.SaveChangesAsync();
         await output.Handle(register.Name, clientId, sharedSecret);
     }
 }

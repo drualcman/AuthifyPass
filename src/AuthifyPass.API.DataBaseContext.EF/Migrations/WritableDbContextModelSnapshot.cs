@@ -70,12 +70,10 @@ namespace AuthifyPass.API.DataBaseContext.EF.Migrations
                         .HasColumnType("CHAR(32)");
 
                     b.Property<string>("UserId")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("CHAR(64)");
 
                     b.Property<string>("ActiveSharedSecret")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("CHAR(64)");
 
                     b.Property<DateTime>("CreatetAt")
                         .HasColumnType("datetime2");
@@ -87,8 +85,7 @@ namespace AuthifyPass.API.DataBaseContext.EF.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PreviousSharedSecret")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("CHAR(64)");
 
                     b.HasKey("ClientId", "UserId");
 

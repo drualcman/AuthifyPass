@@ -16,12 +16,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>RegisterClientContent.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\RegisterUserContent.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RegisterUserContent.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\RegisterClientContent.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RegisterClientContent.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\RegisterUserContent.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RegisterUserContent.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

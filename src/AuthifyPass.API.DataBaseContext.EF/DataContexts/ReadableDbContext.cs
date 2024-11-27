@@ -9,8 +9,8 @@ internal class ReadableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
     }
 
     public async Task<UserSecretEntity?> GetByClientIdAndUserIdAsync(string clientId, string userId) =>
-        await Users.FirstAsync(c => c.ClientId.Equals(clientId) && c.UserId.Equals(userId));
+        await Users.FirstOrDefaultAsync(c => c.ClientId.Equals(clientId) && c.UserId.Equals(userId));
 
     public async Task<ClientEntity?> GetByClientIdAsync(string clientId) =>
-        await Clients.FirstAsync(c => c.ClientId.Equals(clientId));
+        await Clients.FirstOrDefaultAsync(c => c.ClientId.Equals(clientId));
 }

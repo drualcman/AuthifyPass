@@ -1,7 +1,7 @@
 ﻿namespace AuthifyPass.Entities.DTOs;
 
-public class DeleteClientDto
+public class DeleteClientDto(string clientId, string sharedSecret)
 {
-    public string? ClientId { get; set; }
-    public string? SharedSecret { get; set; }
+    public string ClientId => clientId;
+    public string SharedSecret => sharedSecret;
 }

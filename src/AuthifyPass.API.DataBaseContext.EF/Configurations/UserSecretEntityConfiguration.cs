@@ -14,13 +14,13 @@ internal class UserSecretEntityConfiguration : IEntityTypeConfiguration<UserSecr
         builder
             .Property(x => x.UserId)
             .IsRequired()
-            .HasMaxLength(100);
+            .HasColumnType("CHAR(64)");
         builder
             .Property(x => x.ActiveSharedSecret)
-            .HasMaxLength(100);
+            .HasColumnType("CHAR(64)");
         builder
             .Property(x => x.PreviousSharedSecret)
-            .HasMaxLength(100);
+            .HasColumnType("CHAR(64)");
 
         builder
             .HasOne(x => x.Client)

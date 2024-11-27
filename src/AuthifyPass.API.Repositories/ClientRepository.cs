@@ -15,6 +15,7 @@ internal class ClientRepository(IWritableDbContext dbWriter, IReadbleDbContext d
             LastUpdateAt = createdAt,
         };
         await dbWriter.AddClientAsync(entity);
+        await dbWriter.SaveChangesAsync();
     }
 
     public Task DeleteClientAsync(string clientId)
@@ -22,15 +23,11 @@ internal class ClientRepository(IWritableDbContext dbWriter, IReadbleDbContext d
         return Task.CompletedTask;
     }
 
-    public Task<Client?> GetByClientIdAsync(string clientId)
+    public async Task<Client?> GetByClientIdAsync(string clientId)
     {
-        return Task.FromResult(new Client(clientId, "", "", "", "", DateTime.UtcNow));
+        var client = await dbReader.GetByClientIdAsync(clientId);
+        return new Client(client?.ClientId, client?.SharedSecret,
+            client?.Name, client?.Email, client?.Password,
+            client?.LastUpdateAt ?? DateTime.UtcNow);
     }
-
-    public Task UpdateClientAsync(UpdateClientDto client)
-    {
-        return Task.CompletedTask;
-    }
-
-    public async Task SaveChangesAsync() => await dbWriter.SaveChangesAsync();
 }

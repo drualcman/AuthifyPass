@@ -36,9 +36,9 @@ namespace AuthifyPass.API.DataBaseContext.EF.Migrations
                 columns: table => new
                 {
                     ClientId = table.Column<string>(type: "CHAR(32)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ActiveSharedSecret = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    PreviousSharedSecret = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    UserId = table.Column<string>(type: "CHAR(64)", nullable: false),
+                    ActiveSharedSecret = table.Column<string>(type: "CHAR(64)", nullable: true),
+                    PreviousSharedSecret = table.Column<string>(type: "CHAR(64)", nullable: true),
                     CreatetAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PreviousSecretExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastRotatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
