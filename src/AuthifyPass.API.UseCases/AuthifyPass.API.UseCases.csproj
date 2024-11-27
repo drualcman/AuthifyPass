@@ -10,37 +10,4 @@
     <ProjectReference Include="..\AuthifyPass.API.Core\AuthifyPass.API.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Resources\RegisterClientContent.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>RegisterClientContent.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\RegisterUserContent.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>RegisterUserContent.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\ValidateUserCodeContent.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>ValidateUserCodeContent.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\RegisterClientContent.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RegisterClientContent.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\RegisterUserContent.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RegisterUserContent.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ValidateUserCodeContent.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ValidateUserCodeContent.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>

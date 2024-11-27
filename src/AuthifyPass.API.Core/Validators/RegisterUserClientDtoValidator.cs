@@ -1,7 +1,7 @@
-﻿namespace AuthifyPass.API.UseCases.Validators;
-internal class ValidateUserCodeDtoValidator : AbstractModelValidator<ValidateUserCodeDto>
+﻿namespace AuthifyPass.API.Core.Validators;
+internal class RegisterUserClientDtoValidator : AbstractModelValidator<RegisterUserClientDto>
 {
-    public ValidateUserCodeDtoValidator(IValidationService<ValidateUserCodeDto> validationService,
+    public RegisterUserClientDtoValidator(IValidationService<RegisterUserClientDto> validationService,
         IStringLocalizer<ValidateUserCodeContent> localizer) :
         base(validationService, ValidationConstraint.ValidateIfThereAreNoPreviousErrors)
     {
@@ -9,9 +9,6 @@ internal class ValidateUserCodeDtoValidator : AbstractModelValidator<ValidateUse
             .NotNull(localizer[nameof(ValidateUserCodeContent.Required)])
             .NotEmpty(localizer[nameof(ValidateUserCodeContent.Required)]);
         AddRuleFor(r => r.ClientId)
-            .NotNull(localizer[nameof(ValidateUserCodeContent.Required)])
-            .NotEmpty(localizer[nameof(ValidateUserCodeContent.Required)]);
-        AddRuleFor(r => r.UserCode)
             .NotNull(localizer[nameof(ValidateUserCodeContent.Required)])
             .NotEmpty(localizer[nameof(ValidateUserCodeContent.Required)]);
     }
