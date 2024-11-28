@@ -97,6 +97,7 @@ Encapsulates endpoints and configurations related to API presentation and access
 #### QRDataDto
 ```json
 {
+    "name": "string",
     "clientId": "string",
     "sharedKey": "string"
 }

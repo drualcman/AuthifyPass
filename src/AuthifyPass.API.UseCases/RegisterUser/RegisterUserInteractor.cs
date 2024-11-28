@@ -22,7 +22,7 @@ internal class RegisterUserInteractor(
                 await userRepository.AddAsync(userSecret);
             else
                 await userRepository.UpdateAsync(userSecret);
-            response = new(sharedkey, qrGenerator.GenerateQRCode(new(data.ClientId, sharedkey)));
+            response = new(sharedkey, qrGenerator.GenerateQRCode(new(client.Name, data.ClientId, sharedkey)));
         }
         else
             throw new UnauthorizedAccessException(localizer[nameof(RegisterUserContent.ClientUnauthorized)]);
