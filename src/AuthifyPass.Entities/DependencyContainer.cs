@@ -1,5 +1,5 @@
 ﻿namespace Microsoft.Extensions.DependencyInjection;
-public static class DependencyContainer
+public static partial class DependencyContainer
 {
     public static IServiceCollection AddEntityServices(this IServiceCollection services)
     {

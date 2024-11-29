@@ -1,0 +1,38 @@
+﻿<!-- ModalComponent.razor -->
+<div class="modal @ModalClass">
+    <div class="modal-background" @onclick="Close"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">@Title</p>
+            <button class="delete" aria-label="close" @onclick="Close"></button>
+        </header>
+        <section class="modal-card-body">
+            @BodyContent
+        </section>
+        <footer class="modal-card-foot">
+            @FooterContent
+        </footer>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? BodyContent { get; set; }
+    [Parameter] public RenderFragment? FooterContent { get; set; }
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private string ModalClass => IsVisible ? "is-active" : "";
+
+    [Parameter] public bool IsVisible { get; set; }
+    [Parameter] public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    private async Task Close()
+    {
+        IsVisible = false;
+        await IsVisibleChanged.InvokeAsync(IsVisible);
+        if (OnClose.HasDelegate)
+        {
+            await OnClose.InvokeAsync();
+        }
+    }
+}

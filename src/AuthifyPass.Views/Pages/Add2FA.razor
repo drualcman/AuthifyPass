@@ -1,0 +1,15 @@
+﻿@page "/add"
+@rendermode InteractiveAuto
+
+<h3>Add New Code</h3>
+
+<EditForm Model="newCode" OnValidSubmit="AddCode">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <InputText @bind-Value="newCode.Title" placeholder="Title" />
+    <InputText @bind-Value="newCode.Name" placeholder="Company Name" />
+    <InputText @bind-Value="newCode.ClientId" placeholder="Client ID" />
+    <InputText @bind-Value="newCode.SharedKey" placeholder="Shared Key" />
+    <button type="submit">Add</button>
+</EditForm>
+

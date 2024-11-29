@@ -1,7 +1,47 @@
 ﻿@page "/"
+@rendermode InteractiveAuto
 
-<PageTitle>Home</PageTitle>
+<h3>Your 2FA Codes</h3>
 
-<h1>Hello, world!</h1>
+<div>
+    <a href="add" class="button is-link">Add New 2FA</a>
+</div>
 
-Welcome to your new app.
+<div class="codes-list">
+    @if (twoFactorCodes is not null && twoFactorCodes.Any())
+    {
+        @foreach (var item in twoFactorCodes)
+        {
+            <div class="code-card">
+                <h4>@item.Title</h4>
+                <p>@item.Name</p>
+                <h2>@item.CurrentCode</h2>
+                <div class="actions">
+                    <button @onclick="() => CopyToClipboard(item.CurrentCode)">Copy</button>
+                    <button @onclick="() => OpenDeleteModal(item)">Delete</button>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No 2FA codes stored.</p>
+    }
+</div>
+
+<ModalComponent Title="Confirm Delete"
+                @bind-IsVisible="isDeleteModalVisible"
+                OnClose="ClearSelectedCode">
+    <BodyContent>
+        <p>Are you sure you want to delete the 2FA for <strong>@SelectedItem?.Title</strong>?</p>
+        <p class="has-text-danger">This action cannot be undone.</p>
+    </BodyContent>
+    <FooterContent>
+        <button class="button is-danger" @onclick="DeleteSelectedCode">Delete</button>
+        <button class="button" @onclick="CloseModal">Cancel</button>
+    </FooterContent>
+</ModalComponent>
+
+<CountDownComponent TimeToCount=30 OnReset=RefreshCodes />
+
+

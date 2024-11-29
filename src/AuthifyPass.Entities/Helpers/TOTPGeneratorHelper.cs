@@ -7,6 +7,11 @@ public class TOTPGeneratorHelper
     // Method to generate the TOTP code
     public static string GenerateTOTP(string sharedSecret)
     {
+        if (string.IsNullOrEmpty(sharedSecret))
+        {
+            throw new ArgumentException("Shared secret cannot be null or empty.");
+        }
+
         // Convert the shared secret to a byte array
         byte[] key = Base32Decode(sharedSecret);
 
@@ -15,7 +20,10 @@ public class TOTPGeneratorHelper
 
         // Convert time step to byte array (big-endian)
         byte[] timeBytes = BitConverter.GetBytes(timeStep);
-        Array.Reverse(timeBytes); // Ensure big-endian byte order
+        if (BitConverter.IsLittleEndian)
+        {
+            Array.Reverse(timeBytes); // Ensure big-endian byte order
+        }
 
         // Generate HMAC-SHA1 hash
         using var hmac = new HMACSHA1(key);
@@ -35,25 +43,36 @@ public class TOTPGeneratorHelper
     private static byte[] Base32Decode(string base32)
     {
         const string base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-        StringBuilder sb = new StringBuilder();
-        foreach (char c in base32)
+        if (string.IsNullOrEmpty(base32))
         {
-            sb.Append(base32Alphabet.IndexOf(char.ToUpper(c), StringComparison.Ordinal));
+            throw new ArgumentException("Invalid base32 input: input cannot be null or empty.");
         }
 
-        byte[] result = new byte[sb.Length * 5 / 8];
-        int index = 0;
-        for (int i = 0; i < sb.Length; i += 8)
+        // Normalize the input
+        base32 = base32.TrimEnd('=').ToUpperInvariant();
+
+        int byteCount = base32.Length * 5 / 8; // Base32 encodes 5 bits per character
+        byte[] result = new byte[byteCount];
+
+        int bitBuffer = 0;
+        int bitsLeft = 0;
+        int resultIndex = 0;
+
+        foreach (char c in base32)
         {
-            long value = 0;
-            for (int j = 0; j < 8 && i + j < sb.Length; j++)
+            int charIndex = base32Alphabet.IndexOf(c);
+            if (charIndex < 0)
             {
-                value = value << 5 | sb[i + j];
+                throw new ArgumentException($"Invalid base32 character: {c}");
             }
 
-            for (int j = 0; j < 5; j++)
+            bitBuffer = (bitBuffer << 5) | charIndex;
+            bitsLeft += 5;
+
+            if (bitsLeft >= 8)
             {
-                result[index++] = (byte)(value >> 32 - 8 * (j + 1) & 0xFF);
+                result[resultIndex++] = (byte)(bitBuffer >> (bitsLeft - 8));
+                bitsLeft -= 8;
             }
         }
 

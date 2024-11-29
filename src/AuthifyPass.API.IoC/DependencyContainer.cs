@@ -7,10 +7,10 @@ public static class DependencyContainer
         services.AddEntityServices();
         services.AddValidationService();
         services.AddValidationExceptionsHandlers();
-        services.AddExceptionDelegatingHandler();
         services.AddDbContextServices(databaseOptions);
         services.AddRepositoriesServices();
-        services.AddUseCases();
+        services.AddUseCasesServices();
+        services.AddViewsServices();
         return services;
     }
 
