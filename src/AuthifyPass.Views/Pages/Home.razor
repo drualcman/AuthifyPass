@@ -8,9 +8,9 @@
 </div>
 
 <div class="codes-list">
-    @if (twoFactorCodes is not null && twoFactorCodes.Any())
+    @if (TwoFactorCodes is not null && TwoFactorCodes.Any())
     {
-        @foreach (var item in twoFactorCodes)
+        foreach (var item in TwoFactorCodes)
         {
             <div class="code-card">
                 <h4>@item.Title</h4>

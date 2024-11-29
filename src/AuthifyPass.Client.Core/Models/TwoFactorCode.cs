@@ -1,4 +1,4 @@
-﻿namespace AuthifyPass.Views.Models;
+﻿namespace AuthifyPass.Client.Core.Models;
 public class TwoFactorCode
 {
     public int Id { get; set; }

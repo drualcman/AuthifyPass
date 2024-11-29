@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AuthifyPass.Entities\AuthifyPass.Entities.csproj" />
+    <ProjectReference Include="..\AuthifyPass.Client.Core\AuthifyPass.Client.Core.csproj" />
   </ItemGroup>
 
 </Project>

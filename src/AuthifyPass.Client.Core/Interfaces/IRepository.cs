@@ -1,4 +1,4 @@
-﻿namespace AuthifyPass.Views.Interfaces;
+﻿namespace AuthifyPass.Client.Core.Interfaces;
 public interface IRepository
 {
     Task<IEnumerable<TwoFactorCode>> GetTwoFactorCodes();

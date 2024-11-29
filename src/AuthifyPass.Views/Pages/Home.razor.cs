@@ -1,18 +1,20 @@
+using AuthifyPass.Client.Core.Interfaces;
+using AuthifyPass.Client.Core.Models;
+
 namespace AuthifyPass.Views.Pages;
 public partial class Home
 {
     [Inject] IRepository Repository { get; set; }
     [Inject] IJSRuntime JSRuntime { get; set; }
 
-    private IEnumerable<TwoFactorCode> twoFactorCodes = [];
+    private List<TwoFactorCode> TwoFactorCodes = [];
     private TwoFactorCode? SelectedItem = null;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            twoFactorCodes = await Repository.GetTwoFactorCodes();
-            await RefreshCodes();
+            await SetCodes();
         }
     }
 
@@ -44,16 +46,22 @@ public partial class Home
         if (SelectedItem is not null)
         {
             await Repository.Delete(SelectedItem.Id);
-            twoFactorCodes = await Repository.GetTwoFactorCodes();
-            await RefreshCodes();
+            await SetCodes();
         }
         CloseModal();
         ClearSelectedCode();
     }
 
+    async Task SetCodes()
+    {
+        TwoFactorCodes = new(await Repository.GetTwoFactorCodes());
+        await RefreshCodes();
+
+    }
+
     private async Task RefreshCodes()
     {
-        foreach (var item in twoFactorCodes)
+        foreach (var item in TwoFactorCodes)
         {
             Console.WriteLine($"antes {item.CurrentCode}");
             item.CurrentCode = TOTPGeneratorHelper.GenerateTOTP(item.SharedKey);

@@ -27,8 +27,7 @@ internal class Repository(DatabaseContext context) : IRepository
             Name = code.Name,
             ClientId = code.ClientId,
             SharedKey = code.SharedKey,
-            CreatedAt = DateTime.UtcNow,
-            CurrentCode = "algo"
+            CreatedAt = DateTime.UtcNow
         });
     }
 }

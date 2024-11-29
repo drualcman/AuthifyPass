@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frameworks", "Frameworks", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthifyPass.FluentValidator", "src\AuthifyPass.FluentValidator\AuthifyPass.FluentValidator.csproj", "{6A4991CA-9A59-442D-B807-9DC5D8F0BF95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthifyPass.Client.Core", "src\AuthifyPass.Client.Core\AuthifyPass.Client.Core.csproj", "{6458F2CA-DEB0-42E9-9F0D-F62F8A1E9349}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{6A4991CA-9A59-442D-B807-9DC5D8F0BF95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A4991CA-9A59-442D-B807-9DC5D8F0BF95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A4991CA-9A59-442D-B807-9DC5D8F0BF95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6458F2CA-DEB0-42E9-9F0D-F62F8A1E9349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6458F2CA-DEB0-42E9-9F0D-F62F8A1E9349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6458F2CA-DEB0-42E9-9F0D-F62F8A1E9349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6458F2CA-DEB0-42E9-9F0D-F62F8A1E9349}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +100,6 @@ Global
 		{8D32DAE9-31ED-4A02-95BA-7188DFE42EEB} = {C30DC508-F56D-4410-BC68-1E9FB3A3E833}
 		{5B45560F-F94A-4352-9BC2-6CB97F3B7E1E} = {F90F1F32-815E-4AA9-A2E1-5C96909485DB}
 		{6A4991CA-9A59-442D-B807-9DC5D8F0BF95} = {18A21B55-5C37-4C6F-B690-A73339D2D7C6}
+		{6458F2CA-DEB0-42E9-9F0D-F62F8A1E9349} = {C30DC508-F56D-4410-BC68-1E9FB3A3E833}
 	EndGlobalSection
 EndGlobal

@@ -13,3 +13,10 @@
     <button type="submit">Add</button>
 </EditForm>
 
+<video id="video" autoplay muted style="width: 300px;"></video>
+<canvas id="canvas" style="display:none;"></canvas>
+<button @onclick="StartCamera">Start Camera</button>
+<button @onclick="CaptureFrame">Capture QR</button>
+<button @onclick="StopCamera">Stop Camera</button>
+<p>@DecodedData</p>
+
