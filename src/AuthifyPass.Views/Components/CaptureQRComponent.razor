@@ -1,0 +1,25 @@
+﻿@typeparam TDataModel
+<div class="capture-wrapper">
+    @if (IsShowContent)
+    {
+        @ChildContent
+        <button type="button" class="button" @onclick="HideContent">Read Barcode</button>
+    }
+    else
+    {
+        <video id="video" autoplay muted style="width: 100vw; height: 100vh"></video>
+        <canvas id="canvas" style="display:none;"></canvas>
+        <div class="buttons-wrapper">
+            <div class="buttons">
+                <button type="button" class="button" @onclick="StartCamera">Start Camera</button>
+                <button type="button" class="button" @onclick="CaptureFrame">Capture QR</button>
+                <button type="button" class="button" @onclick="StopCamera">Stop Camera</button>
+                <InputFileComponent OnChange=CaptureImage Parameters=InputFileParameters />
+                <button type="button" class="button" @onclick="ShowContent">Manual Entry</button>
+            </div>
+        </div>
+
+    }
+</div>
+
+

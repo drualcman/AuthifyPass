@@ -9,6 +9,4 @@ public static partial class DependencyContainer
         services.AddScoped<ICameraService, CameraService>();
         return services;
     }
-
-
 }

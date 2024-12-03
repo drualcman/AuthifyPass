@@ -26,8 +26,18 @@ internal class CameraService : ICameraService
 
     public async Task<string> CaptureFrame(string videoElementId, string canvasElementId)
     {
-        IJSObjectReference jsReference = await ModuleTask.Value;
-        return await jsReference.InvokeAsync<string>("captureFrame", videoElementId, canvasElementId);
+        try
+        {
+            IJSObjectReference jsReference = await ModuleTask.Value;
+            string result = await jsReference.InvokeAsync<string>("captureFrame", videoElementId, canvasElementId);
+            Console.WriteLine("Captured Frame (Base64): " + result);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error in CaptureFrame: " + ex.Message);
+            throw;
+        }
     }
 
     public async ValueTask DisposeAsync()

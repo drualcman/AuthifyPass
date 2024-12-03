@@ -1,4 +1,6 @@
-﻿namespace AuthifyPass.Client.Core.Helper;
+﻿using static ZXing.RGBLuminanceSource;
+
+namespace AuthifyPass.Client.Core.Helper;
 public class QRDecoder(string base64Image)
 {
     public static string Decode(string input)
@@ -10,7 +12,9 @@ public class QRDecoder(string base64Image)
     internal string DecodeQRCode()
     {
         using var bitmap = Base64ToSKBitmap(base64Image);
+        Console.WriteLine("------ DecodeQRCode 1 --------");
         var binaryMap = ConvertToBinaryMap(bitmap);
+        Console.WriteLine("------ DecodeQRCode 3 --------");
         return DecodeWithZXing(binaryMap);
     }
 
@@ -25,26 +29,26 @@ public class QRDecoder(string base64Image)
     {
         int width = bitmap.Width;
         int height = bitmap.Height;
-        byte[] luminanceArray = new byte[width * height];
-
-        for (int y = 0; y < height; y++)
+        if (width <= 0 || height <= 0)
         {
-            for (int x = 0; x < width; x++)
-            {
-                SKColor pixel = bitmap.GetPixel(x, y);
-                int gray = (int)(pixel.Red * 0.299 + pixel.Green * 0.587 + pixel.Blue * 0.114);
-                luminanceArray[y * width + x] = (byte)gray;
-            }
+            throw new InvalidOperationException("The bitmap dimensions are invalid.");
         }
-
-        return new RGBLuminanceSource(luminanceArray, width, height);
+        byte[] rgbRawBytes = bitmap.Bytes;
+        if (rgbRawBytes.Length != width * height * 4)
+        {
+            throw new InvalidOperationException("The raw data length does not match the expected size.");
+        }
+        Console.WriteLine("------ DecodeQRCode 2 --------");
+        return new RGBLuminanceSource(rgbRawBytes, width, height, BitmapFormat.RGB32);
     }
+
 
     private string DecodeWithZXing(LuminanceSource luminanceSource)
     {
         var reader = new BarcodeReaderGeneric { Options = { TryHarder = true } };
+        Console.WriteLine("------ DecodeQRCode 4 --------");
         var result = reader.Decode(luminanceSource);
-
+        Console.WriteLine("------ DecodeQRCode 5 --------");
         return result?.Text ?? "No QR code detected.";
     }
 }

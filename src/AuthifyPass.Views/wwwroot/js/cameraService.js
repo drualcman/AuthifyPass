@@ -17,15 +17,30 @@ export async function stopCamera() {
 }
 
 export async function captureFrame(videoElementId, canvasElementId) {
-    const videoElement = document.getElementById(videoElementId);
-    const canvasElement = document.getElementById(canvasElementId);
-    if (!videoElement || !canvasElement) throw new Error("Elements not found");
+    return new Promise((resolve, reject) => {
+        try {
+            const videoElement = document.getElementById(videoElementId);
+            const canvasElement = document.getElementById(canvasElementId);
 
-    const context = canvasElement.getContext("2d");
-    canvasElement.width = videoElement.videoWidth;
-    canvasElement.height = videoElement.videoHeight;
-    context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+            if (!videoElement || !canvasElement) {
+                reject("Video or canvas element not found");
+            }
+            else {
+                const context = canvasElement.getContext("2d");
+                canvasElement.width = videoElement.videoWidth;
+                canvasElement.height = videoElement.videoHeight;
+                context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
 
-    // Return image data as base64
-    return canvasElement.toDataURL("image/png");
+                const image = canvasElement.toDataURL("image/png");
+                console.log('---- JS IMAGE ----');
+                console.log(image);
+                console.log('------------------');
+
+                resolve(image); // Resolución exitosa de la promesa
+            }
+        } catch (error) {
+            console.error("Error capturing frame:", error);
+            reject(error); // Rechaza la promesa si ocurre un error
+        }
+    });
 }
