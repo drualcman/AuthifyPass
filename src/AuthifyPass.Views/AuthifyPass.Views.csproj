@@ -12,9 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BlazorBasics.InputFileExtended" Version="3.7.30" />
     <PackageReference Include="DrUalcman-BlazorIndexedDb" Version="1.8.47" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
+    <PackageReference Include="ZXingBlazor" Version="1.1.5" />
   </ItemGroup>
 
   <ItemGroup>

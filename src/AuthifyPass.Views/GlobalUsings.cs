@@ -2,6 +2,7 @@ global using AuthifyPass.Client.Core.Interfaces;
 global using AuthifyPass.Client.Core.Models;
 global using AuthifyPass.Entities.Helpers;
 global using AuthifyPass.Entities.ValueObjects;
+global using AuthifyPass.Views.Components;
 global using AuthifyPass.Views.Contexts;
 global using AuthifyPass.Views.Entities;
 global using AuthifyPass.Views.HttpDelegatingHandlers;

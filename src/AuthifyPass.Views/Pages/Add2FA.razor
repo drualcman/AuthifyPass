@@ -1,17 +1,17 @@
 ﻿@page "/add"
-@rendermode InteractiveAuto
+@rendermode InteractiveWebAssembly
 
 <h3>Add New Code</h3>
 
 <EditForm Model="newCode" OnValidSubmit="AddCode">
     <DataAnnotationsValidator />
     <ValidationSummary />
+    <InputText @bind-Value="newCode.Title" placeholder="Title" />
     <div class="buttons">
         <button type="submit" class="button">Add</button>
     </div>
 
-    <CaptureQRComponent TDataModel="TwoFactorCode" OnReadBarcode=SetData>
-        <InputText @bind-Value="newCode.Title" placeholder="Title" />
+    <CaptureQRComponent TDataModel="TwoFactorCode">
         <InputText @bind-Value="newCode.Name" placeholder="Company Name" />
         <InputText @bind-Value="newCode.ClientId" placeholder="Client ID" />
         <InputText @bind-Value="newCode.SharedKey" placeholder="Shared Key" />

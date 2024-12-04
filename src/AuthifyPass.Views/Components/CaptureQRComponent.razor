@@ -1,25 +1,56 @@
 ﻿@typeparam TDataModel
+
+<b>DecodeContinuously:</b>
+<br />
+<pre>@BarCode</pre>
+
 <div class="capture-wrapper">
     @if (IsShowContent)
     {
         @ChildContent
+        <button class="button is-info"
+                type="button" @onclick="DecodeFromImage">
+            Decode from image
+        </button>
         <button type="button" class="button" @onclick="HideContent">Read Barcode</button>
     }
     else
     {
-        <video id="video" autoplay muted style="width: 100vw; height: 100vh"></video>
-        <canvas id="canvas" style="display:none;"></canvas>
+        <BarcodeReader ScanResult="TryDecodeData"
+                       OnError=OnError
+                       Options=options
+                       UseBuiltinDiv="false"
+                       @ref="barcodeReaderCustom" />
+        <div @ref="barcodeReaderCustom.Element">
+            <div>
+                <video id="video" playsinline autoplay style="width:70vw;max-width:250px;height:200px;border: 1px solid red"></video>
+            </div>
+            <div data-action="sourceSelectPanel" style="display:none" class="field">
+                <label class="label" for="sourceSelect">Select Device:</label>
+                <div class="control">
+                    <div class="select is-small">
+                        <select data-action="sourceSelect"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="buttons-wrapper">
             <div class="buttons">
-                <button type="button" class="button" @onclick="StartCamera">Start Camera</button>
-                <button type="button" class="button" @onclick="CaptureFrame">Capture QR</button>
-                <button type="button" class="button" @onclick="StopCamera">Stop Camera</button>
-                <InputFileComponent OnChange=CaptureImage Parameters=InputFileParameters />
+                <button class="button is-info"
+                        type="button" @onclick="DecodeFromImage">
+                    Decode from image
+                </button>
                 <button type="button" class="button" @onclick="ShowContent">Manual Entry</button>
             </div>
         </div>
 
+
     }
 </div>
+<div style="display: none">
+    <BarCodes @ref="barCodes" OnQRCodeGen="TryDecodeData" OnDecodeFromImage="TryDecodeData" OnError="OnError"
+                Options="options" />
+</div>
+
 
 

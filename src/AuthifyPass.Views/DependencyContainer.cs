@@ -6,7 +6,7 @@ public static partial class DependencyContainer
         services.TryAddTransient<ExceptionDelegatingHandler>();
         services.AddBlazorIndexedDbContext<DatabaseContext>();
         services.AddScoped<IRepository, Repository>();
-        services.AddScoped<ICameraService, CameraService>();
+        services.AddSingleton<ICameraService<TwoFactorCode>, CameraService<TwoFactorCode>>();
         return services;
     }
 }

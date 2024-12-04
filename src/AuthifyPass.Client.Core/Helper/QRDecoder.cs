@@ -20,7 +20,9 @@ public class QRDecoder(string base64Image)
 
     private SKBitmap Base64ToSKBitmap(string base64Image)
     {
-        byte[] imageBytes = Convert.FromBase64String(base64Image.Split(',')[1]);
+        string[] sections = base64Image.Split(',');
+        string base64 = sections.Length > 1 ? sections[1] : sections[0];
+        byte[] imageBytes = Convert.FromBase64String(base64);
         using var stream = new MemoryStream(imageBytes);
         return SKBitmap.Decode(stream) ?? throw new InvalidOperationException("Failed to decode image.");
     }
