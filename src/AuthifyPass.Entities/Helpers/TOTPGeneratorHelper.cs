@@ -12,11 +12,12 @@ public class TOTPGeneratorHelper
             throw new ArgumentException("Shared secret cannot be null or empty.");
         }
 
-        // Convert the shared secret to a byte array
-        byte[] key = Base32Decode(sharedSecret);
+        // Convert the shared secret (hexadecimal string) to a byte array
+        byte[] key = HexStringToByteArray(sharedSecret);
 
-        // Get the current Unix time
-        long timeStep = DateTimeOffset.UtcNow.ToUnixTimeSeconds() / TimeStep;
+        // Get the current Unix time and force it into a consistent 30-second interval
+        long currentUnixTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        long timeStep = (currentUnixTime / TimeStep) * TimeStep;
 
         // Convert time step to byte array (big-endian)
         byte[] timeBytes = BitConverter.GetBytes(timeStep);
@@ -40,42 +41,18 @@ public class TOTPGeneratorHelper
     // Generate OTP (modulo 10^6 to ensure it's 6 digits)
     private static string BinaryCodeToOTP(int binaryCode) => (binaryCode % (int)Math.Pow(10, Digits)).ToString($"D{Digits}");
 
-    private static byte[] Base32Decode(string base32)
+    private static byte[] HexStringToByteArray(string hex)
     {
-        const string base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
-        if (string.IsNullOrEmpty(base32))
+        if (hex.Length % 2 != 0)
         {
-            throw new ArgumentException("Invalid base32 input: input cannot be null or empty.");
+            throw new ArgumentException("Hexadecimal string must have an even length.");
         }
 
-        // Normalize the input
-        base32 = base32.TrimEnd('=').ToUpperInvariant();
-
-        int byteCount = base32.Length * 5 / 8; // Base32 encodes 5 bits per character
-        byte[] result = new byte[byteCount];
-
-        int bitBuffer = 0;
-        int bitsLeft = 0;
-        int resultIndex = 0;
-
-        foreach (char c in base32)
+        byte[] bytes = new byte[hex.Length / 2];
+        for (int i = 0; i < hex.Length; i += 2)
         {
-            int charIndex = base32Alphabet.IndexOf(c);
-            if (charIndex < 0)
-            {
-                throw new ArgumentException($"Invalid base32 character: {c}");
-            }
-
-            bitBuffer = (bitBuffer << 5) | charIndex;
-            bitsLeft += 5;
-
-            if (bitsLeft >= 8)
-            {
-                result[resultIndex++] = (byte)(bitBuffer >> (bitsLeft - 8));
-                bitsLeft -= 8;
-            }
+            bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
         }
-
-        return result;
+        return bytes;
     }
 }
