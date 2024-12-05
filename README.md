@@ -12,6 +12,7 @@ The solution is organized into multiple projects to ensure separation of concern
 Contains use cases and business logic. It is divided into:
 - **AuthifyPass.API.Core**: Includes interfaces, DTOs, and exception handlers to streamline component integration.
 - **AuthifyPass.API.UseCases**: Implements the use cases defined in the core interfaces, encapsulating the primary workflow logic.
+- **AuthifyPass.Client.Core**: Implements interfaces and QRDecor and TwoFactorCode handlers.
 
 ### **2. Domain**
 Defines the core models and entities of the system.
@@ -25,11 +26,13 @@ Contains framework-specific dependencies interacting with external systems.
 ### **4. Infrastructure**
 Provides access to repositories and views necessary for data persistence.
 - **AuthifyPass.API.Repositories**: Implements repository patterns to handle data storage interactions.
+- **AuthifyPass.Views**: Implements all the components to render Razor pages and Razor componets.
 
 ### **5. Presentation**
 Encapsulates endpoints and configurations related to API presentation and access.
 - **AuthifyPass.API**: The main project containing endpoints and ASP.NET Core pipeline configuration.
 - **AuthifyPass.API.IoC**: Dependency injection configuration.
+- **AuthifyPass.Client**: Blazor Web Assembly Client.
 
 ---
 
@@ -102,3 +105,14 @@ Encapsulates endpoints and configurations related to API presentation and access
     "sharedKey": "string"
 }
 ```
+
+
+## **Presentation Client**
+### **1. Home page**
+Shows the list of the registered page codes.
+
+### **2. Add code**
+Read the QR or add manually information to add new page code.
+
+### **3. Storage data**
+Using right now indexedDb but depends of the implementation about ```IRepository```.
