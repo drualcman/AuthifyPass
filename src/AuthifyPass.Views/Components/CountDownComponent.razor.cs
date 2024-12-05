@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Components;
-
 namespace AuthifyPass.Views.Components;
 public partial class CountDownComponent : IDisposable
 {
@@ -8,9 +6,10 @@ public partial class CountDownComponent : IDisposable
 
     private Timer? Timer;
     private int TimeLeft = 0;
-    private int TimeCountDown = 0;
+    private int TimeCountDown = 30;
     protected override void OnInitialized()
     {
+        SyncWithCurrentSecond();
         Timer = new Timer(UpdateTimer, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 
@@ -23,12 +22,20 @@ public partial class CountDownComponent : IDisposable
         }
     }
 
+    private void SyncWithCurrentSecond()
+    {
+        int currentSecond = DateTime.UtcNow.Second;
+        int modCycle = currentSecond % TimeCountDown; // Determina en qué parte del ciclo estamos.
+        TimeLeft = TimeCountDown - modCycle; // Calcula los segundos restantes en el ciclo actual.
+    }
+
+
     private void UpdateTimer(object? state)
     {
-        TimeLeft = (TimeLeft - 1) % 30;
-        if (TimeLeft == 0)
+        TimeLeft--;
+        if (TimeLeft <= 0)
         {
-            TimeLeft = TimeCountDown;
+            SyncWithCurrentSecond();
             if (OnReset.HasDelegate)
                 InvokeAsync(async () => await OnReset.InvokeAsync());
         }
