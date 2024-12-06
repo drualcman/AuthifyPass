@@ -8,6 +8,10 @@ public static partial class DependencyContainer
         services.AddScoped<IRegisterClientOutputPort, RegisterClientPresenter>();
         services.AddScoped<IRegisterUserInputPort, RegisterUserInteractor>();
         services.AddScoped<IValidateUserCodeInputPort, ValidateUserCodeInteractor>();
+        services.AddScoped<IDeleteClientController, DeleteClientController>();
+        services.AddScoped<IDeleteClientInputPort, DeleteClientInteractor>();
+        services.AddScoped<IDeleteUserController, DeleteUserController>();
+        services.AddScoped<IDeleteUserInputPort, DeleteUserInteractor>();
         return services;
     }
 

@@ -25,6 +25,12 @@ internal class WritableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
         return Task.CompletedTask;
     }
 
+    public Task DeleteUserSecretAsync(UserSecretEntity userSecret)
+    {
+        Users?.Remove(userSecret);
+        return Task.CompletedTask;
+    }
+
     public async Task SaveChangesAsync() => await base.SaveChangesAsync();
 
     public async Task MigrateAsync()

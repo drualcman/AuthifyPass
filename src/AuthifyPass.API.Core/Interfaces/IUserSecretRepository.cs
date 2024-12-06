@@ -5,6 +5,8 @@
 public interface IUserSecretRepository
 {
     Task<UserSecret?> GetByClientIdAndUserIdAsync(string clientId, string userId);
+    Task<UserSecret?> GetByClientIdAndSharedSecretAsync(string clientId, string sharedSecret);
     Task AddAsync(UserSecret userSecret);
     Task UpdateAsync(UserSecret userSecret);
+    Task DeleteAsync(DeleteDto data);
 }

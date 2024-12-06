@@ -11,7 +11,7 @@ internal class AddHeaderOperationFilter : IOperationFilter
         {
             Name = "x-authify-key",
             In = ParameterLocation.Header,
-            Description = "Cliente shared secret for authentication",
+            Description = "Shared secret for authentication",
             Required = false,
             Schema = new OpenApiSchema { Type = "string" }
         });

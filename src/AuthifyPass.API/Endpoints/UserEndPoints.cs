@@ -14,6 +14,8 @@ public static class UserEndPoints
         mainGroup.MapPost("/validate-code", async (ValidateUserCodeDto data, HttpContext context,
                         IValidateUserCodeInputPort input) => Results.Ok(await input.ValidateUserCode(data, HeaderHelper.GetSharedKeyHeader(context))))
             .Produces<bool>(StatusCodes.Status200OK);
+        mainGroup.MapDelete("{id}", async (string id, HttpContext context, IDeleteUserController controller) =>
+        await controller.DeleteUser(id, HeaderHelper.GetSharedKeyHeader(context)));
         return app;
     }
 }
