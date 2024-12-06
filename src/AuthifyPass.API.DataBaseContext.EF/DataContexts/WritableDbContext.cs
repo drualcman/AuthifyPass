@@ -26,4 +26,9 @@ internal class WritableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
     }
 
     public async Task SaveChangesAsync() => await base.SaveChangesAsync();
+
+    public async Task MigrateAsync()
+    {
+        await Database.MigrateAsync();
+    }
 }

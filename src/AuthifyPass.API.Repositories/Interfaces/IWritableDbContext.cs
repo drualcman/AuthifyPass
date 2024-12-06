@@ -6,4 +6,5 @@ public interface IWritableDbContext
     Task AddUserSecretAsync(UserSecretEntity userSecret);
     Task UpdateUserSecretAsync(UserSecretEntity userSecret);
     Task SaveChangesAsync();
+    Task MigrateAsync();
 }

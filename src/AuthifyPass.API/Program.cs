@@ -52,6 +52,20 @@ app.MapRazorComponents<App>()
 
 app.UseClientEndPoints();
 app.UseUserEndPoints();
+//app.MapGet("/migrate-database", async (IWritableDbContext dbContext) =>
+//{
+//    try
+//    {
+//        // Execute the migration using the IWritableDbContext
+//        await dbContext.MigrateAsync();
+//        return Results.Ok("Database migration applied successfully.");
+//    }
+//    catch (Exception ex)
+//    {
+//        // Log or handle the error
+//        return Results.Problem($"Database migration failed: {ex.Message}");
+//    }
+//});
 app.UseCors();
 
 app.UseExceptionHandler(builder => { });
