@@ -2,7 +2,8 @@
 public static class DependencyContainer
 {
     public static IServiceCollection AddBackendServices(this IServiceCollection services,
-        Action<DataBaseOptions> databaseOptions)
+        Action<DataBaseOptions> databaseOptions,
+        Action<HttpClient> configureHttpClient = null)
     {
         services.AddEntityServices();
         services.AddValidationService();
@@ -10,9 +11,7 @@ public static class DependencyContainer
         services.AddDbContextServices(databaseOptions);
         services.AddRepositoriesServices();
         services.AddUseCasesServices();
-        services.AddViewsServices();
+        services.AddViewsServices(configureHttpClient);
         return services;
     }
-
-
 }

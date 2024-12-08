@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting.Server.Features;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.              
@@ -9,8 +12,29 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+builder.Services.AddSingleton(sp =>
+{
+    // Get the address that the app is currently running at
+    var server = sp.GetRequiredService<IServer>();
+    var addressFeature = server.Features.Get<IServerAddressesFeature>();
+    string baseAddress = addressFeature.Addresses.First();
+    return new HttpClient { BaseAddress = new Uri(baseAddress) };
+});
 builder.Services.AddBackendServices(
-    dbOptions => builder.Configuration.GetSection(DataBaseOptions.SectionKey).Bind(dbOptions));
+    dbOptions => builder.Configuration.GetSection(DataBaseOptions.SectionKey).Bind(dbOptions),
+    client =>
+    {
+        var baseAddress = builder.Configuration["ASPNETCORE_URLS"];
+        if (!string.IsNullOrEmpty(baseAddress))
+        {
+            string[] addresses = baseAddress.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            client.BaseAddress = new Uri(addresses[0]);
+        }
+        else
+        {
+            client.BaseAddress = new Uri("https://localhost/");
+        }
+    });
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(config =>

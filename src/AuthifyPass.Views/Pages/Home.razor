@@ -1,5 +1,5 @@
 ﻿@page "/"
-@rendermode InteractiveAuto
+@rendermode InteractiveWebAssembly
 
 <h3>Your 2FA Codes</h3>
 
@@ -30,14 +30,14 @@
 </div>
 
 <ModalComponent Title="Confirm Delete"
-                @bind-IsVisible="isDeleteModalVisible"
+                @bind-IsVisible="IsDeleteModalVisible"
                 OnClose="ClearSelectedCode">
     <BodyContent>
         <p>Are you sure you want to delete the 2FA for <strong>@SelectedItem?.Title</strong>?</p>
         <p class="has-text-danger">This action cannot be undone.</p>
     </BodyContent>
     <FooterContent>
-        <button class="button is-danger" @onclick="DeleteSelectedCode">Delete</button>
+        <button class="button is-danger @(IsDeleteDeleting ? "is-loading":"")" @onclick="DeleteSelectedCode">Delete</button>
         <button class="button" @onclick="CloseModal">Cancel</button>
     </FooterContent>
 </ModalComponent>

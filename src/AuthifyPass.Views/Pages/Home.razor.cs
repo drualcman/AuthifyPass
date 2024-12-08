@@ -1,6 +1,3 @@
-using AuthifyPass.Client.Core.Interfaces;
-using AuthifyPass.Client.Core.Models;
-
 namespace AuthifyPass.Views.Pages;
 public partial class Home
 {
@@ -23,17 +20,18 @@ public partial class Home
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", code);
     }
 
-    private bool isDeleteModalVisible;
+    private bool IsDeleteModalVisible;
+    private bool IsDeleteDeleting;
 
     private void OpenDeleteModal(TwoFactorCode code)
     {
         SelectedItem = code;
-        isDeleteModalVisible = true;
+        IsDeleteModalVisible = true;
     }
 
     private void CloseModal()
     {
-        isDeleteModalVisible = false;
+        IsDeleteModalVisible = false;
     }
 
     private void ClearSelectedCode()
@@ -45,11 +43,13 @@ public partial class Home
     {
         if (SelectedItem is not null)
         {
+            IsDeleteDeleting = true;
             await Repository.Delete(SelectedItem.Id);
             await SetCodes();
         }
         CloseModal();
         ClearSelectedCode();
+        IsDeleteDeleting = false;
     }
 
     async Task SetCodes()
@@ -63,9 +63,7 @@ public partial class Home
     {
         foreach (var item in TwoFactorCodes)
         {
-            Console.WriteLine($"antes {item.CurrentCode}");
             item.CurrentCode = TOTPGeneratorHelper.GenerateTOTP(item.SharedKey);
-            Console.WriteLine($"despues {item.CurrentCode}");
         }
         await InvokeAsync(StateHasChanged);
     }
