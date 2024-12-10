@@ -3,18 +3,21 @@
 
 <h3>Add New Code</h3>
 
-<EditForm Model="newCode" OnValidSubmit="AddCode">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <InputText @bind-Value="newCode.Title" placeholder="Title" />
+<EditForm Model="ViewModel" OnValidSubmit="AddCode">
+    <ModelValidator Validator="ViewModel.Validator" />
+    <InputText @bind-Value="ViewModel.Title" placeholder="Title" />
+    <ValidationMessage For="() => ViewModel.Title" />
     <div class="buttons">
         <button type="submit" class="button">Add</button>
     </div>
 
     <CaptureQRComponent TDataModel="TwoFactorCode">
-        <InputText @bind-Value="newCode.Name" placeholder="Company Name" />
-        <InputText @bind-Value="newCode.ClientId" placeholder="Client ID" />
-        <InputText @bind-Value="newCode.SharedKey" placeholder="Shared Key" />
+        <InputText @bind-Value="ViewModel.Name" placeholder="Company Name" />
+        <ValidationMessage For="() => ViewModel.Name" />
+        <InputText @bind-Value="ViewModel.ClientId" placeholder="Client ID" />
+        <ValidationMessage For="() => ViewModel.ClientId" />
+        <InputText @bind-Value="ViewModel.SharedKey" placeholder="Shared Key" />
+        <ValidationMessage For="() => ViewModel.SharedKey" />
     </CaptureQRComponent>
 </EditForm>
 

@@ -5,8 +5,6 @@ public static class DependencyContainer
         Action<DataBaseOptions> databaseOptions,
         Action<HttpClient> configureHttpClient = null)
     {
-        services.AddEntityServices();
-        services.AddValidationService();
         services.AddValidationExceptionsHandlers();
         services.AddDbContextServices(databaseOptions);
         services.AddRepositoriesServices();

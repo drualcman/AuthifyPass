@@ -1,7 +1,9 @@
+using AuthifyPass.Views.ViewModel;
+
 namespace AuthifyPass.Views.Pages;
 public partial class Add2FA
 {
-    [Inject] IRepository Repository { get; set; }
+    [Inject] Add2FAViewModel ViewModel { get; set; }
     [Inject] ICameraService<TwoFactorCode> CameraService { get; set; }
     [Inject] NavigationManager NavigationManager { get; set; }
 
@@ -12,18 +14,12 @@ public partial class Add2FA
 
     private async Task CameraService_OnCapture(TwoFactorCode data)
     {
-        string title = newCode.Title;
-        newCode = data;
-        newCode.Title = title;
         await AddCode();
     }
 
-    private TwoFactorCode newCode = new();
-
-    private async Task AddCode()
+    private Task AddCode()
     {
-        newCode.CreatedAt = DateTime.UtcNow;
-        await Repository.AddTwoFactorCode(newCode);
         NavigationManager.NavigateTo("");
+        return Task.CompletedTask;
     }
 }

@@ -1,8 +1,8 @@
 global using AuthifyPass.Client.Core.Interfaces;
 global using AuthifyPass.Client.Core.Models;
 global using AuthifyPass.Entities.Helpers;
+global using AuthifyPass.Entities.Interfaces;
 global using AuthifyPass.Entities.ValueObjects;
-global using AuthifyPass.Views.Components;
 global using AuthifyPass.Views.Contexts;
 global using AuthifyPass.Views.Entities;
 global using AuthifyPass.Views.HttpDelegatingHandlers;
@@ -10,6 +10,8 @@ global using AuthifyPass.Views.Services;
 global using BlazorIndexedDb;
 global using BlazorIndexedDb.Store;
 global using Microsoft.AspNetCore.Components;
+global using Microsoft.AspNetCore.Components.Forms;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using Microsoft.JSInterop;
+global using System.Reflection;
 global using System.Text.Json;

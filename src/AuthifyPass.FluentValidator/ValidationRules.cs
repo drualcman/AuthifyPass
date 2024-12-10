@@ -63,7 +63,7 @@ internal class ValidationRules<T, TProperty>(IRuleBuilderInitial<T, TProperty> R
 
     public IValidationRules<T, TProperty> NotEmpty(string errorMessage)
     {
-        RuleBuilderInitial.NotEmpty().WithMessage(errorMessage);
+        RuleBuilderInitial.Must(v => !string.IsNullOrWhiteSpace(v?.ToString() ?? "")).WithMessage(errorMessage);
         return this;
     }
 

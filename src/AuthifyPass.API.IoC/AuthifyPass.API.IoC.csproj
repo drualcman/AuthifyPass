@@ -10,7 +10,6 @@
     <ProjectReference Include="..\AuthifyPass.API.DataBaseContext.EF\AuthifyPass.API.DataBaseContext.EF.csproj" />
     <ProjectReference Include="..\AuthifyPass.API.UseCases\AuthifyPass.API.UseCases.csproj" />
     <ProjectReference Include="..\AuthifyPass.Client\AuthifyPass.Client.csproj" />
-    <ProjectReference Include="..\AuthifyPass.FluentValidator\AuthifyPass.FluentValidator.csproj" />
   </ItemGroup>
 
 </Project>

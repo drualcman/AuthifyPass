@@ -20,6 +20,22 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AuthifyPass.Client.Core\AuthifyPass.Client.Core.csproj" />
+    <ProjectReference Include="..\AuthifyPass.FluentValidator\AuthifyPass.FluentValidator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\ValidateTwoFactorCodeModelContent.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidateTwoFactorCodeModelContent.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ValidateTwoFactorCodeModelContent.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidateTwoFactorCodeModelContent.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
