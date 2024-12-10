@@ -1,9 +1,7 @@
-using AuthifyPass.Views.ViewModel;
-
 namespace AuthifyPass.Views.Pages;
 public partial class Add2FA
 {
-    [Inject] Add2FAViewModel ViewModel { get; set; }
+    [Inject] IAdd2FAViewModel<TwoFactorCode> ViewModel { get; set; }
     [Inject] ICameraService<TwoFactorCode> CameraService { get; set; }
     [Inject] NavigationManager NavigationManager { get; set; }
 

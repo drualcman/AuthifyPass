@@ -1,11 +1,11 @@
 ﻿namespace AuthifyPass.Views.ViewModel;
-internal class Add2FAViewModel
+internal class Add2FAViewModel : IAdd2FAViewModel<TwoFactorCode>
 {
     readonly IRepository Repository;
-    public readonly IModelValidatorHub<Add2FAViewModel> Validator;
+    public IModelValidatorHub<IAdd2FAViewModel<TwoFactorCode>> Validator { get; private set; }
 
     public Add2FAViewModel(IRepository repository, ICameraService<TwoFactorCode> cameraService,
-        IModelValidatorHub<Add2FAViewModel> validator)
+        IModelValidatorHub<IAdd2FAViewModel<TwoFactorCode>> validator)
     {
         Repository = repository;
         Validator = validator;
@@ -20,25 +20,24 @@ internal class Add2FAViewModel
         SharedKey = data.SharedKey;
         CreatedAt = DateTime.Now;
         if (await Validator.Validate(this))
-            await Repository.AddTwoFactorCode((TwoFactorCode)this);
+            await Repository.AddTwoFactorCode(ToDto());
     }
 
-    public int Id { get; set; }
     public string Title { get; set; }
     public string Name { get; set; }
     public string ClientId { get; set; }
     public string SharedKey { get; set; }
     public DateTime CreatedAt { get; set; }
 
-    public static explicit operator TwoFactorCode(Add2FAViewModel model) =>
+    public TwoFactorCode ToDto() =>
         new TwoFactorCode
         {
-            Id = model.Id,
-            Title = model.Title,
-            Name = model.Name,
-            ClientId = model.ClientId,
-            SharedKey = model.SharedKey,
-            CreatedAt = model.CreatedAt,
+            Title = this.Title,
+            Name = this.Name,
+            ClientId = this.ClientId,
+            SharedKey = this.SharedKey,
+            CreatedAt = this.CreatedAt,
             CurrentCode = string.Empty
         };
+
 }

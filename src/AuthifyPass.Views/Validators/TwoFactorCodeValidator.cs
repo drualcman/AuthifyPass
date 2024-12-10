@@ -1,8 +1,4 @@
-﻿using AuthifyPass.Entities.Abstractions;
-using AuthifyPass.Views.Resources;
-using Microsoft.Extensions.Localization;
-
-namespace AuthifyPass.Views.Validators;
+﻿namespace AuthifyPass.Views.Validators;
 internal class TwoFactorCodeValidator : AbstractModelValidator<TwoFactorCode>
 {
     public TwoFactorCodeValidator(IValidationService<TwoFactorCode> validationService,
