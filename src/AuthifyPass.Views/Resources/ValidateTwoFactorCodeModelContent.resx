@@ -126,7 +126,7 @@
   <data name="ShareKeyError" xml:space="preserve">
     <value>Secret code can't be empty!</value>
   </data>
-  <data name="TitleError" xml:space="preserve">
-    <value>Title can't be empty!</value>
+  <data name="DescriptionError" xml:space="preserve">
+    <value>Description can't be empty!</value>
   </data>
 </root>

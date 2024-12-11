@@ -70,6 +70,15 @@ namespace AuthifyPass.Views.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description can&apos;t be empty!.
+        /// </summary>
+        internal static string DescriptionError {
+            get {
+                return ResourceManager.GetString("DescriptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name can&apos;t be empty!.
         /// </summary>
         internal static string NameError {
@@ -84,15 +93,6 @@ namespace AuthifyPass.Views.Resources {
         internal static string ShareKeyError {
             get {
                 return ResourceManager.GetString("ShareKeyError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Title can&apos;t be empty!.
-        /// </summary>
-        internal static string TitleError {
-            get {
-                return ResourceManager.GetString("TitleError", resourceCulture);
             }
         }
     }

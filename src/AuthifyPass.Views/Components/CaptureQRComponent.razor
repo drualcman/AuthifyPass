@@ -1,55 +1,93 @@
 ﻿@typeparam TDataModel
 
-<b>DecodeContinuously:</b>
-<br />
-<pre>@BarCode</pre>
-
 <div class="capture-wrapper">
     @if (IsShowContent)
     {
-        @ChildContent
-        <button class="button is-info"
-                type="button" @onclick="DecodeFromImage">
-            Decode from image
-        </button>
-        <button type="button" class="button" @onclick="HideContent">Read Barcode</button>
+        <div class="columns">
+            <div class="column">
+                @HeaderContent
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                @ChildContent
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <div class="buttons">
+                    @Buttons
+                </div>
+            </div>
+            <div class="column">
+                <div class="buttons is-right">
+                    <button class="button is-info"
+                            type="button" @onclick="DecodeFromImage">
+                        Decode from image
+                    </button>
+                    <button type="button" class="button" @onclick="HideContent">Read Barcode</button>
+                </div>
+            </div>
+        </div>
     }
     else
     {
         <BarcodeReader ScanResult="TryDecodeData"
                        OnError=OnError
-                       Options=options
+                       Options=BarcodeOptions
                        UseBuiltinDiv="false"
-                       @ref="barcodeReaderCustom" />
-        <div @ref="barcodeReaderCustom.Element">
-            <div>
-                <video id="video" playsinline autoplay style="width:70vw;max-width:250px;height:200px;border: 1px solid red"></video>
+                       @ref="BarcodeReaderCustom" />
+        <div @ref="BarcodeReaderCustom.Element">
+            <div class="columns">
+                <div class="column">
+                    @HeaderContent
+                </div>
             </div>
-            <div data-action="sourceSelectPanel" style="display:none" class="field">
-                <label class="label" for="sourceSelect">Select Device:</label>
-                <div class="control">
-                    <div class="select is-small">
-                        <select data-action="sourceSelect"></select>
+            <div class="columns">
+                <div class="column">
+                    <video id="video" playsinline autoplay></video>
+                </div>
+            </div>
+            <div class="buttons-wrapper" data-action="sourceSelectPanel">
+                <div class="columns">
+                    <div class="column">
+                        <div class="buttons">
+                            @Buttons
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field is-horizontal">
+                            <div class="field-label">
+                                <label class="help" style="color: white" for="sourceSelect">Select Device:</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <div class="control">
+                                        <div class="select">
+                                            <select data-action="sourceSelect"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="buttons is-right">
+                            <button class="button is-info"
+                                    type="button" @onclick="DecodeFromImage">
+                                Decode from image
+                            </button>
+                            <button type="button" class="button" @onclick="ShowContent">Manual Entry</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="buttons-wrapper">
-            <div class="buttons">
-                <button class="button is-info"
-                        type="button" @onclick="DecodeFromImage">
-                    Decode from image
-                </button>
-                <button type="button" class="button" @onclick="ShowContent">Manual Entry</button>
-            </div>
-        </div>
-
-
     }
 </div>
 <div style="display: none">
-    <BarCodes @ref="barCodes" OnQRCodeGen="TryDecodeData" OnDecodeFromImage="TryDecodeData" OnError="OnError"
-                Options="options" />
+    <BarCodes @ref="BarCodes" OnQRCodeGen="TryDecodeData" OnDecodeFromImage="TryDecodeData" OnError="OnError"
+              Options="BarcodeOptions" />
 </div>
 
 

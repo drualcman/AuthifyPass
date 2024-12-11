@@ -6,7 +6,7 @@ internal class Repository(DatabaseContext context, HttpClient client) : IReposit
         TwoFactorCodeModel model = new TwoFactorCodeModel
         {
             Id = twoFactorCode.Id,
-            Title = twoFactorCode.Title,
+            Title = twoFactorCode.Description,
             Name = twoFactorCode.Name,
             ClientId = twoFactorCode.ClientId,
             SharedKey = twoFactorCode.SharedKey,
@@ -45,7 +45,7 @@ internal class Repository(DatabaseContext context, HttpClient client) : IReposit
         return codes.Select(code => new TwoFactorCode
         {
             Id = code.Id,
-            Title = code.Title,
+            Description = code.Title,
             Name = code.Name,
             ClientId = code.ClientId,
             SharedKey = code.SharedKey,

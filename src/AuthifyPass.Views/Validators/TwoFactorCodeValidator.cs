@@ -5,8 +5,8 @@ internal class TwoFactorCodeValidator : AbstractModelValidator<TwoFactorCode>
         IStringLocalizer<ValidateTwoFactorCodeModelContent> localizer)
         : base(validationService)
     {
-        AddRuleFor(r => r.Title)
-            .NotEmpty(localizer[nameof(ValidateTwoFactorCodeModelContent.TitleError)]);
+        AddRuleFor(r => r.Description)
+            .NotEmpty(localizer[nameof(ValidateTwoFactorCodeModelContent.DescriptionError)]);
         AddRuleFor(r => r.ClientId)
             .NotEmpty(localizer[nameof(ValidateTwoFactorCodeModelContent.ClientIdError)]);
         AddRuleFor(r => r.SharedKey)

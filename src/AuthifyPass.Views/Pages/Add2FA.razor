@@ -5,19 +5,37 @@
 
 <EditForm Model="ViewModel" OnValidSubmit="AddCode">
     <ModelValidator Validator="ViewModel.Validator" />
-    <InputText @bind-Value="ViewModel.Title" placeholder="Title" />
-    <ValidationMessage For="() => ViewModel.Title" />
-    <div class="buttons">
-        <button type="submit" class="button">Add</button>
-    </div>
 
-    <CaptureQRComponent TDataModel="TwoFactorCode">
-        <InputText @bind-Value="ViewModel.Name" placeholder="Company Name" />
-        <ValidationMessage For="() => ViewModel.Name" />
-        <InputText @bind-Value="ViewModel.ClientId" placeholder="Client ID" />
-        <ValidationMessage For="() => ViewModel.ClientId" />
-        <InputText @bind-Value="ViewModel.SharedKey" placeholder="Shared Key" />
-        <ValidationMessage For="() => ViewModel.SharedKey" />
+    <CaptureQRComponent TDataModel="TwoFactorCode" @ref=Reader>
+        <HeaderContent>
+            <div class="field">
+                <div class="control">
+                    <InputText @bind-Value="ViewModel.Description" placeholder="Description" class="input" />
+                    <ValidationMessage For="() => ViewModel.Description" />
+                </div>
+            </div>
+        </HeaderContent>
+        <ChildContent>
+            <div class="field">
+                <div class="control">
+                    <InputText @bind-Value="ViewModel.Name" placeholder="Company Name" class="input" />
+                    <ValidationMessage For="() => ViewModel.Name" />
+                </div>
+            </div>
+            <div class="field is-grouped">
+                <div class="control is-expanded">
+                    <InputText @bind-Value="ViewModel.ClientId" placeholder="Client ID" class="input" />
+                    <ValidationMessage For="() => ViewModel.ClientId" />
+                </div>
+                <div class="control is-expanded">
+                    <InputText @bind-Value="ViewModel.SharedKey" placeholder="Shared Key" class="input" />
+                    <ValidationMessage For="() => ViewModel.SharedKey" />
+                </div>
+            </div>
+        </ChildContent>
+        <Buttons>
+            <button type="submit" class="button is-primary">Add</button>
+        </Buttons>
     </CaptureQRComponent>
 </EditForm>
 

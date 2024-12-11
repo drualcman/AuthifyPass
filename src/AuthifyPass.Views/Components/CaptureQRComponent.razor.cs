@@ -4,13 +4,14 @@ namespace AuthifyPass.Views.Components;
 public partial class CaptureQRComponent<TDataModel>
 {
     [Inject] ICameraService<TDataModel> CameraService { get; set; }
+    [Parameter] public RenderFragment HeaderContent { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public RenderFragment Buttons { get; set; }
 
-    bool IsShowContent = false;
+    public bool IsShowContent { get; set; } = false;
 
     public async Task TryDecodeData(string decodedData)
     {
-        BarCode = decodedData;
         TDataModel dataModel = default;
         try
         {
@@ -21,6 +22,7 @@ public partial class CaptureQRComponent<TDataModel>
             await Console.Out.WriteLineAsync(ex.Message);
         }
         await CameraService.Capture(dataModel);
+        await InvokeAsync(StateHasChanged);
     }
 
     void ShowContent()
@@ -39,14 +41,12 @@ public partial class CaptureQRComponent<TDataModel>
         await InvokeAsync(StateHasChanged);
     }
 
-
-    public string? BarCode { get; set; }
-    BarcodeReader barcodeReaderCustom;
-    BarCodes barCodes;
-    private ZXingOptions options = new ZXingOptions()
+    BarcodeReader BarcodeReaderCustom;
+    BarCodes BarCodes;
+    private ZXingOptions BarcodeOptions = new ZXingOptions()
     {
         TimeBetweenDecodingAttempts = 5,
-        Debug = true,
+        Debug = false,
         DecodeAllFormats = true,
         Decodeonce = true,
         ShowSelectFile = true
@@ -54,8 +54,7 @@ public partial class CaptureQRComponent<TDataModel>
 
     private async Task DecodeFromImage()
     {
-        BarCode = "";
-        await barCodes!.DecodeFromImage();
+        await BarCodes!.DecodeFromImage();
         IsShowContent = true;
     }
 }
