@@ -1,4 +1,4 @@
-﻿namespace AuthifyPass.Views.ViewModel;
+﻿namespace AuthifyPass.Views.ViewModels;
 internal class Add2FAViewModel : IAdd2FAViewModel<TwoFactorCode>, IDisposable
 {
     readonly IRepository Repository;
@@ -14,12 +14,13 @@ internal class Add2FAViewModel : IAdd2FAViewModel<TwoFactorCode>, IDisposable
         CameraService.OnCapture += CameraService_OnCapture;
     }
 
-    private async Task CameraService_OnCapture(TwoFactorCode data)
+    private Task CameraService_OnCapture(TwoFactorCode data)
     {
         ClientId = data.ClientId;
         Name = data.Name;
         SharedKey = data.SharedKey;
         CreatedAt = DateTime.Now;
+        return Task.CompletedTask;
     }
 
     public async Task<bool> AddCode()

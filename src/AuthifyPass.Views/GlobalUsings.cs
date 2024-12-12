@@ -11,7 +11,7 @@ global using AuthifyPass.Views.HttpDelegatingHandlers;
 global using AuthifyPass.Views.Resources;
 global using AuthifyPass.Views.Services;
 global using AuthifyPass.Views.Validators;
-global using AuthifyPass.Views.ViewModel;
+global using AuthifyPass.Views.ViewModels;
 global using BlazorIndexedDb;
 global using BlazorIndexedDb.Store;
 global using Microsoft.AspNetCore.Components;

@@ -29,7 +29,6 @@ public partial class CountDownComponent : IDisposable
         TimeLeft = TimeCountDown - modCycle; // Calcula los segundos restantes en el ciclo actual.
     }
 
-
     private void UpdateTimer(object? state)
     {
         TimeLeft--;
@@ -41,6 +40,7 @@ public partial class CountDownComponent : IDisposable
         }
         InvokeAsync(StateHasChanged);
     }
+
     public void Dispose()
     {
         Timer?.Dispose();

@@ -24,6 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\HomePageContent.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HomePageContent.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ValidateTwoFactorCodeModelContent.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -32,6 +37,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\HomePageContent.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HomePageContent.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ValidateTwoFactorCodeModelContent.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidateTwoFactorCodeModelContent.Designer.cs</LastGenOutput>

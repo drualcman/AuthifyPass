@@ -6,6 +6,7 @@ public static partial class DependencyContainer
         services.AddValidationService();
         services.AddEntityServices();
         services.AddTransient<IAdd2FAViewModel<TwoFactorCode>, Add2FAViewModel>();
+        services.AddScoped<IHomeViewModel, HomeViewModel>();
         services.AddModelValidator<TwoFactorCode, TwoFactorCodeValidator>();
         services.AddModelValidator<IAdd2FAViewModel<TwoFactorCode>, TwoFactorCodeModelValidator>();
         services.TryAddTransient<ExceptionDelegatingHandler>();

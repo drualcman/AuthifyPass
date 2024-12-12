@@ -1,47 +1,62 @@
 ﻿@page "/"
 @rendermode InteractiveWebAssembly
 
-<h3>Your 2FA Codes</h3>
+<div class="field has-addons">
+    <div class="control is-expanded">
+        <input placeholder="@ViewModel.SearchPlaceholderText" class="input is-rounded"
+               @bind-Value=ViewModel.SearchText  @bind-Value:event="oninput"  />
+    </div>
+    <div class="control">
+        <a href="add" class="button is-link">
+            <span class="icon"><i class="fa-solid fa-file-circle-plus"></i></span>
+        </a>
+    </div>
+</div>
 
 <div>
-    <a href="add" class="button is-link">Add New 2FA</a>
 </div>
 
 <div class="codes-list">
-    @if (TwoFactorCodes is not null && TwoFactorCodes.Any())
+    @if (ViewModel.HasCodes)
     {
-        foreach (var item in TwoFactorCodes)
+        foreach (var item in ViewModel.TwoFactorCodes)
         {
             <div class="code-card">
                 <h4>@item.Description</h4>
                 <p>@item.Name</p>
                 <h2>@item.CurrentCode</h2>
                 <div class="actions">
-                    <button @onclick="() => CopyToClipboard(item.CurrentCode)">Copy</button>
-                    <button @onclick="() => OpenDeleteModal(item)">Delete</button>
+                    <button @onclick="() => ViewModel.CopyToClipboard(item.CurrentCode)">
+                        <span class="icon"><i class="fa-solid fa-clipboard"></i></span>
+                    </button>
+                    <button @onclick="() => ViewModel.OpenDeleteModal(item)">
+                        <span class="icon"><i class="fa-solid fa-trash-can"></i></span>
+                    </button>
                 </div>
             </div>
         }
     }
     else
     {
-        <p>No 2FA codes stored.</p>
+        <p>@(new MarkupString(ViewModel.NoCodesContent))</p>
     }
 </div>
 
-<ModalComponent Title="Confirm Delete"
-                @bind-IsVisible="IsDeleteModalVisible"
-                OnClose="ClearSelectedCode">
+<ModalComponent 
+                @bind-IsVisible="ViewModel.IsModalVisible"
+                OnClose="ViewModel.CloseModal">
+    <Title>
+        @(new MarkupString(ViewModel.ModalTitleContent))
+    </Title>
     <BodyContent>
-        <p>Are you sure you want to delete the 2FA for <strong>@SelectedItem?.Description</strong>?</p>
-        <p class="has-text-danger">This action cannot be undone.</p>
+        @(new MarkupString(ViewModel.ModalBodyContent))
     </BodyContent>
     <FooterContent>
-        <button class="button is-danger @(IsDeleteDeleting ? "is-loading":"")" @onclick="DeleteSelectedCode">Delete</button>
-        <button class="button" @onclick="CloseModal">Cancel</button>
+        <button class="button is-danger @(ViewModel.IsDeleting ? "is-loading":"")" @onclick="ViewModel.DeleteSelectedCode">De@(new MarkupString(ViewModel.DeleteButtonContent))lete</button>
+        <button class="button" @onclick="ViewModel.CloseModal">@(new MarkupString(ViewModel.CancelButtonContent))</button>
     </FooterContent>
 </ModalComponent>
 
-<CountDownComponent TimeToCount=30 OnReset=RefreshCodes />
+<CountDownComponent TimeToCount=30 OnReset=ViewModel.RefreshCodes />
 
 
