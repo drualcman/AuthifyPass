@@ -10,6 +10,7 @@
         <HeaderContent>
             <div class="field">
                 <div class="control">
+                <label class="label">Description</label>
                     <InputText @bind-Value="ViewModel.Description" placeholder="Description" class="input" />
                     <ValidationMessage For="() => ViewModel.Description" />
                 </div>
@@ -18,22 +19,27 @@
         <ChildContent>
             <div class="field">
                 <div class="control">
+                <label class="label">Company Name</label>
                     <InputText @bind-Value="ViewModel.Name" placeholder="Company Name" class="input" />
                     <ValidationMessage For="() => ViewModel.Name" />
                 </div>
             </div>
             <div class="field is-grouped">
                 <div class="control is-expanded">
-                    <InputText @bind-Value="ViewModel.ClientId" placeholder="Client ID" class="input" />
+                <label class="label">Code</label>
+                    <InputText @bind-Value="ViewModel.ClientId" placeholder="Code" class="input" />
                     <ValidationMessage For="() => ViewModel.ClientId" />
                 </div>
                 <div class="control is-expanded">
-                    <InputText @bind-Value="ViewModel.SharedKey" placeholder="Shared Key" class="input" />
+
+                    <label class="label">Secret</label>
+                    <InputText @bind-Value="ViewModel.SharedKey" placeholder="Secret" class="input" />
                     <ValidationMessage For="() => ViewModel.SharedKey" />
                 </div>
             </div>
         </ChildContent>
         <Buttons>
+            <a href="" class="button is-link">Cancel</a>
             <button type="submit" class="button is-primary">Add</button>
         </Buttons>
     </CaptureQRComponent>

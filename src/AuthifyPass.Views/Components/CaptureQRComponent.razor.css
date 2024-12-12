@@ -27,3 +27,16 @@
         background-color: rgba(18, 12, 12, 0.35); 
         z-index: 2;
     }
+
+    .capture-wrapper .qr-frame {
+        position: absolute;
+        top: 5%;
+        left: 5%;
+        width: 90%;
+        height: calc(85% - 2rem);
+        border: 2px dashed whitesmoke;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        pointer-events: none;
+        z-index: 1;
+    }
