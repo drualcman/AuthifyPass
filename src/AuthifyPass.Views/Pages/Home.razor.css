@@ -1,0 +1,92 @@
+﻿.codes-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.code-card {
+    display: flex; /* Flexbox para gestionar las tres secciones */
+    align-items: stretch;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0;
+    margin: 0
+}
+
+.action-button {
+    flex-shrink: 0;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: #3273dc;
+    color: white;
+    border-radius: 0;
+}
+
+    .action-button.is-danger {
+        background-color: #f14668;
+    }
+
+.code-display {
+    display: flex;
+    justify-content: space-between; /* Deja espacio entre los tres elementos */
+    align-items: center;
+    padding: 0 1rem;
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    overflow: hidden;
+}
+
+.description-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-grow: 1; /* Deja que el contenido crezca */
+    max-width: 50%; /* Limita su tamaño al 50% del espacio */
+    overflow: hidden; /* Previne el desbordamiento */
+    text-overflow: ellipsis; /* Puntos suspensivos */
+}
+
+    .description-container .description,
+    .description-container .name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; /* Muestra los tres puntos cuando hay desbordamiento */
+        width: 100%;
+    }
+
+    .description-container .description {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #363636;
+        margin-bottom: 0;
+    }
+
+    .description-container .name {
+        font-size: 1rem;
+        color: #7a7a7a;
+        margin-top: 0;
+    }
+
+.code-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%; /* El contenedor de código debe ocupar hasta el 50% del espacio restante */
+    overflow: visible;
+}
+
+    .code-container .code {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #363636;
+        white-space: nowrap; /* Evita salto de línea */
+        overflow: visible; /* No truncamos el código */
+        text-align: center;
+    }

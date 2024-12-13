@@ -1,10 +1,11 @@
 ﻿@page "/"
 @rendermode InteractiveWebAssembly
 
+
 <div class="field has-addons">
     <div class="control is-expanded">
         <input placeholder="@ViewModel.SearchPlaceholderText" class="input is-rounded"
-               @bind-Value=ViewModel.SearchText  @bind-Value:event="oninput"  />
+               @bind-Value=ViewModel.SearchText @bind-Value:event="oninput" />
     </div>
     <div class="control">
         <a href="add" class="button is-link">
@@ -21,19 +22,23 @@
     {
         foreach (var item in ViewModel.TwoFactorCodes)
         {
-            <div class="code-card">
-                <h4>@item.Description</h4>
-                <p>@item.Name</p>
-                <h2>@item.CurrentCode</h2>
-                <div class="actions">
-                    <button @onclick="() => ViewModel.CopyToClipboard(item.CurrentCode)">
-                        <span class="icon"><i class="fa-solid fa-clipboard"></i></span>
-                    </button>
-                    <button @onclick="() => ViewModel.OpenDeleteModal(item)">
-                        <span class="icon"><i class="fa-solid fa-trash-can"></i></span>
-                    </button>
+            <div class="code-card box">
+                <button class="button is-danger action-button" @onclick="() => ViewModel.OpenDeleteModal(item)">
+                    <span class="icon"><i class="fa-solid fa-trash-can"></i></span>
+                </button>
+                <div class="code-display" @onclick="() => ViewModel.CopyToClipboard(item.CurrentCode)">
+                    <div class="description-container">
+                        <p class="description is-size-6">@item.Description @item.Description @item.Description @item.Description @item.Description @item.Description</p>
+                        <p class="name is-size-7">@item.Name @item.Name@item.Name@item.Name@item.Name@item.Name@item.Name@item.Name@item.Name</p>
+                    </div>
+                    <div class="code-container">
+                        <p class="code is-size-2 has-text-weight-bold">@item.CurrentCode</p>
+                    </div>
                 </div>
             </div>
+
+
+
         }
     }
     else
@@ -42,8 +47,11 @@
     }
 </div>
 
-<ModalComponent 
-                @bind-IsVisible="ViewModel.IsModalVisible"
+<CountDownComponent TimeToCount=30 OnReset=ViewModel.RefreshCodes />
+
+
+
+<ModalComponent @bind-IsVisible="ViewModel.IsModalVisible"
                 OnClose="ViewModel.CloseModal">
     <Title>
         @(new MarkupString(ViewModel.ModalTitleContent))
@@ -57,6 +65,4 @@
     </FooterContent>
 </ModalComponent>
 
-<CountDownComponent TimeToCount=30 OnReset=ViewModel.RefreshCodes />
-
-
+<ToastMessageComponent />

@@ -1,0 +1,23 @@
+﻿<div class="popup-response-wp">
+    @if (Messages is not null && Messages.Any())
+    {
+        <div class="items">
+            @foreach (var item in Messages)
+            {
+                <div class="item @GetCssClassFromLevel(item.Value.Level)">
+                    <div class="close-btn" @onclick="() => RemoveItem(item.Key)">
+                        <i class="fas fa-times"></i>
+                    </div>
+                    <div class="content">
+                        <span class="icon">
+                            <i class="fas @GetIconClassFromLevel(item.Value.Level)"></i>
+                        </span>
+                        <span>
+                            @(new MarkupString(item.Value.Message))
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -107,7 +107,7 @@ namespace AuthifyPass.Views.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search.
+        ///   Looks up a localized string similar to Search ....
         /// </summary>
         internal static string SearchPlaceholderText {
             get {

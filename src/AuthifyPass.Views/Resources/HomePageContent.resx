@@ -134,6 +134,6 @@
     <value>No 2FA codes stored.</value>
   </data>
   <data name="SearchPlaceholderText" xml:space="preserve">
-    <value>Search</value>
+    <value>Search ...</value>
   </data>
 </root>
