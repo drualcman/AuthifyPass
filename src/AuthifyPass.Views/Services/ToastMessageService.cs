@@ -6,7 +6,7 @@ internal class ToastMessageService : IToastMessage
     public event Func<string, int, Task> OnWarning;
     public event Func<string, int, Task> OnError;
 
-    public async Task Information(string message, int timer = 3)
+    public async Task Information(string message, int timer = 1)
     {
         if (OnInformation != null)
             await OnInformation(message, timer);
