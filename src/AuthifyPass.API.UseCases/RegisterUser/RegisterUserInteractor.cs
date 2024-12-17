@@ -12,7 +12,7 @@ internal class RegisterUserInteractor(
         await GuardModel.AgainstNotValid(validator, data);
         RegisterUserClientResponseDto response = default;
         var client = await clientRepository.GetByClientIdAsync(data.ClientId);
-        if (client is not null && !string.IsNullOrEmpty(client.SharedSecret) && client.SharedSecret.Equals(sharedSecret))
+        if (client is not null && client.SharedSecret.Equals(sharedSecret))
         {
             string sharedkey = identifierGenerator.GenerateSharedSecret();
             string userId = identifierGenerator.ComputeSha256Hash(data.UserId);
