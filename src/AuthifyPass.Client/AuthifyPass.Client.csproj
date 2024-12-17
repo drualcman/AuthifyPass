@@ -15,5 +15,9 @@
   <ItemGroup>
     <ProjectReference Include="..\AuthifyPass.Views\AuthifyPass.Views.csproj" />
   </ItemGroup>
+	
+	<PropertyGroup>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+	</PropertyGroup>
 
 </Project>

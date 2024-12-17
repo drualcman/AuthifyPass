@@ -1,4 +1,7 @@
-﻿namespace Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using System.Globalization;
+
+namespace Microsoft.Extensions.DependencyInjection;
 public static partial class DependencyContainer
 {
     public static IServiceCollection AddViewsServices(this IServiceCollection services, Action<HttpClient> configureHttpClient = null)
@@ -18,5 +21,22 @@ public static partial class DependencyContainer
         services.AddModelValidator<IAdd2FAViewModel<TwoFactorCode>, TwoFactorCodeModelValidator>();
         services.TryAddTransient<ExceptionDelegatingHandler>();
         return services;
+    }
+
+    public async static Task SetDefaultCulture(this WebAssemblyHost host)
+    {
+        const string defaultCulture = "es-ES";
+
+        IJSRuntime js = host.Services.GetRequiredService<IJSRuntime>();
+        string result = await js.InvokeAsync<string>("blazorCulture.get");
+        CultureInfo culture = CultureInfo.GetCultureInfo(defaultCulture);
+
+        if (result == null)
+            await js.InvokeVoidAsync("blazorCulture.set", defaultCulture);
+        else
+            culture = new CultureInfo(result);
+
+        CultureInfo.DefaultThreadCurrentCulture = culture;
+        CultureInfo.DefaultThreadCurrentUICulture = culture;
     }
 }

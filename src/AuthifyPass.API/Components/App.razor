@@ -5,13 +5,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
+    <link href="_content/AuthifyPass.Views/manifest.json" rel="manifest" />
+    <link rel="icon" href="_content/AuthifyPass.Views/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="_content/AuthifyPass.Views/img/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="_content/AuthifyPass.Views/img/Logo512.png" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" type='text/css'>
     <link rel="stylesheet" href="@Assets["_content/AuthifyPass.Views/css/app.css"]" />
     <link rel="stylesheet" href="@Assets["AuthifyPass.API.styles.css"]" />
     <ImportMap />
-    <link rel="icon" type="image/png" href="favicon.png" />
     <HeadOutlet />
+    <script>
+        window.blazorCulture = {
+            get: () => window.localStorage['BlazorCulture'],
+            set: (value) => window.localStorage['BlazorCulture'] = value
+        };
+        if (!window.blazorCulture.get()) {
+            const userCulture = navigator.language || navigator.userLanguage;
+            window.blazorCulture.set(userCulture);
+        }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('service-worker.js', { scope: '/' })
+                    .then(function (registration) {
+                        console.log('AuthifyPass Service worker registered successfully');
+                    }).catch(function (e) {
+                        console.error('Error during movies service worker registration:', e);
+                    });
+            });
+        }
+    </script>
 </head>
 
 <body>
