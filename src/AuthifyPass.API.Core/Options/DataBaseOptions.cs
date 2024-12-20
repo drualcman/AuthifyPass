@@ -5,5 +5,4 @@ public class DataBaseOptions
 
     public string Writable { get; set; }
     public string Readable { get; set; }
-    public string Totp { get; set; }
 }

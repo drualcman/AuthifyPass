@@ -16,12 +16,8 @@ internal class RegisterUserInteractor(
         {
             string sharedkey = identifierGenerator.GenerateSharedSecret();
             string userId = identifierGenerator.ComputeSha256Hash(data.UserId);
-            var user = await userRepository.GetByClientIdAndUserIdAsync(client.ClientId, userId);
             UserSecret userSecret = new(data.ClientId, userId, sharedkey);
-            if (user is null)
-                await userRepository.AddAsync(userSecret);
-            else
-                await userRepository.UpdateAsync(userSecret);
+            await userRepository.AddAsync(userSecret);
             response = new(sharedkey, qrGenerator.GenerateQRCode(new(client.Name, data.ClientId, sharedkey)));
         }
         else

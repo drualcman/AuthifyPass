@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthifyPass.API.DataBaseContext.EF.Migrations
 {
     [DbContext(typeof(WritableDbContext))]
-    [Migration("20241127075722_InitialCreate")]
+    [Migration("20241220003755_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -35,7 +35,7 @@ namespace AuthifyPass.API.DataBaseContext.EF.Migrations
 
                     b.Property<string>("ClientId")
                         .IsRequired()
-                        .HasColumnType("CHAR(32)");
+                        .HasColumnType("VARCHAR(32)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -53,11 +53,11 @@ namespace AuthifyPass.API.DataBaseContext.EF.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Password")
-                        .HasColumnType("CHAR(64)");
+                        .HasColumnType("VARCHAR(64)");
 
                     b.Property<string>("SharedSecret")
                         .IsRequired()
-                        .HasColumnType("CHAR(64)");
+                        .HasColumnType("VARCHAR(64)");
 
                     b.HasKey("Id");
 
@@ -70,27 +70,18 @@ namespace AuthifyPass.API.DataBaseContext.EF.Migrations
             modelBuilder.Entity("AuthifyPass.API.Repositories.Entities.UserSecretEntity", b =>
                 {
                     b.Property<string>("ClientId")
-                        .HasColumnType("CHAR(32)");
+                        .HasColumnType("VARCHAR(32)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("CHAR(64)");
+                        .HasColumnType("VARCHAR(64)");
 
                     b.Property<string>("ActiveSharedSecret")
-                        .HasColumnType("CHAR(64)");
+                        .HasColumnType("VARCHAR(64)");
 
                     b.Property<DateTime>("CreatetAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("LastRotatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("PreviousSecretExpiryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PreviousSharedSecret")
-                        .HasColumnType("CHAR(64)");
-
-                    b.HasKey("ClientId", "UserId");
+                    b.HasKey("ClientId", "UserId", "ActiveSharedSecret");
 
                     b.ToTable("Users");
                 });

@@ -120,4 +120,7 @@
   <data name="ClientUnauthorized" xml:space="preserve">
     <value>Unauthorized!</value>
   </data>
+  <data name="InvalidUser" xml:space="preserve">
+    <value>Invalid User!</value>
+  </data>
 </root>

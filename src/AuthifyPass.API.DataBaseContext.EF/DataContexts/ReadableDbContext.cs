@@ -8,8 +8,8 @@ internal class ReadableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
         base.OnConfiguring(optionsBuilder);
     }
 
-    public async Task<UserSecretEntity?> GetByClientIdAndUserIdAsync(string clientId, string userId) =>
-        await Users.FirstOrDefaultAsync(c => c.ClientId.Equals(clientId) && c.UserId.Equals(userId));
+    public async Task<IEnumerable<UserSecretEntity>?> GetByClientIdAndUserIdAsync(string clientId, string userId) =>
+        await Users.Where(c => c.ClientId.Equals(clientId) && c.UserId.Equals(userId)).ToListAsync();
 
     public async Task<UserSecretEntity?> GetByClientIdAndSaredSecretAsync(string clientId, string sharedSecret) =>
         await Users.FirstOrDefaultAsync(c => c.ClientId.Equals(clientId) && c.ActiveSharedSecret.Equals(sharedSecret));

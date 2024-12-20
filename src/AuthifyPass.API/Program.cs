@@ -1,3 +1,4 @@
+using AuthifyPass.API.Core.Interfaces;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 
@@ -46,13 +47,27 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Migrate the database at application startup
+var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetRequiredService<IWritableDbContext>();
+try
+{
+    await dbContext.MigrateAsync();
+    Console.WriteLine("Database migration applied successfully.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Error applying database migration: {ex.Message}");
+}
+scope.Dispose();
+
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthifyPass API V1");
     options.RoutePrefix = "swagger"; // URL base para Swagger: /swagger
 });
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
@@ -61,7 +76,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -73,23 +87,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(AuthifyPass.Views._Imports).Assembly);
 
-
 app.UseClientEndPoints();
 app.UseUserEndPoints();
-//app.MapGet("/migrate-database", async (IWritableDbContext dbContext) =>
-//{
-//    try
-//    {
-//        // Execute the migration using the IWritableDbContext
-//        await dbContext.MigrateAsync();
-//        return Results.Ok("Database migration applied successfully.");
-//    }
-//    catch (Exception ex)
-//    {
-//        // Log or handle the error
-//        return Results.Problem($"Database migration failed: {ex.Message}");
-//    }
-//});
 app.UseCors();
 
 app.UseExceptionHandler(builder => { });

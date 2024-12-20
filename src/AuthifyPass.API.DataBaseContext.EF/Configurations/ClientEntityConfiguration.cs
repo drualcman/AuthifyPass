@@ -13,11 +13,11 @@ internal class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity
         builder
             .Property(x => x.ClientId)
             .IsRequired()
-            .HasColumnType("CHAR(32)");
+            .HasColumnType("VARCHAR(32)");
         builder
             .Property(x => x.SharedSecret)
             .IsRequired()
-            .HasColumnType("CHAR(64)");
+            .HasColumnType("VARCHAR(64)");
         builder
             .Property(x => x.Email)
             .IsRequired()
@@ -27,6 +27,6 @@ internal class ClientEntityConfiguration : IEntityTypeConfiguration<ClientEntity
             .HasMaxLength(256);
         builder
             .Property(x => x.Password)
-            .HasColumnType("CHAR(64)");
+            .HasColumnType("VARCHAR(64)");
     }
 }

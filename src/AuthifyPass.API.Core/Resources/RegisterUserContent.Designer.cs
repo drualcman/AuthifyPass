@@ -59,13 +59,22 @@ namespace AuthifyPass.API.Core.Resources {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Unauthorized!.
         /// </summary>
         public static string ClientUnauthorized {
             get {
                 return ResourceManager.GetString("ClientUnauthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid User!.
+        /// </summary>
+        public static string InvalidUser {
+            get {
+                return ResourceManager.GetString("InvalidUser", resourceCulture);
             }
         }
     }

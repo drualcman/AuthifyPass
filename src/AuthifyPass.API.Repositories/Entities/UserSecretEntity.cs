@@ -13,10 +13,7 @@ public class UserSecretEntity
     /// </summary>
     public string? UserId { get; set; }
     public string? ActiveSharedSecret { get; set; }
-    public string? PreviousSharedSecret { get; set; }
     public DateTime CreatetAt { get; set; } = DateTime.UtcNow;
-    public DateTime? PreviousSecretExpiryDate { get; set; }
-    public DateTime LastRotatedAt { get; set; } = DateTime.UtcNow;
     public ClientEntity? Client { get; set; }
 }
 

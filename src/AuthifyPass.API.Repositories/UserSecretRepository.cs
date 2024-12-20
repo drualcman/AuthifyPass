@@ -8,7 +8,8 @@ internal class UserSecretRepository(IWritableDbContext dbWriter, IReadbleDbConte
         {
             ClientId = userSecret.ClientId,
             UserId = userSecret.UserId,
-            ActiveSharedSecret = userSecret.ActiveSharedSecret
+            ActiveSharedSecret = userSecret.ActiveSharedSecret,
+            CreatetAt = DateTime.UtcNow
         };
         await dbWriter.AddUserSecretAsync(entity);
         await dbWriter.SaveChangesAsync();
@@ -30,10 +31,10 @@ internal class UserSecretRepository(IWritableDbContext dbWriter, IReadbleDbConte
         return CreateUserSecret(user);
     }
 
-    public async Task<UserSecret?> GetByClientIdAndUserIdAsync(string clientId, string userId)
+    public async Task<IQueryable<UserSecret>?> GetByClientIdAndUserIdAsync(string clientId, string userId)
     {
-        var user = await dbReader.GetByClientIdAndUserIdAsync(clientId, userId);
-        return CreateUserSecret(user);
+        var users = await dbReader.GetByClientIdAndUserIdAsync(clientId, userId);
+        return users.Select(CreateUserSecret).AsQueryable();
     }
     private UserSecret? CreateUserSecret(UserSecretEntity? user)
     {
@@ -41,18 +42,5 @@ internal class UserSecretRepository(IWritableDbContext dbWriter, IReadbleDbConte
         if (user != null)
             result = new UserSecret(user.ClientId, user.ClientId, user.ActiveSharedSecret);
         return result;
-    }
-
-    public async Task UpdateAsync(UserSecret userSecret)
-    {
-        var user = await dbReader.GetByClientIdAndUserIdAsync(userSecret.ClientId, userSecret.UserId);
-        if (user != null)
-        {
-            user.ActiveSharedSecret = userSecret.ActiveSharedSecret;
-            user.PreviousSharedSecret = user.ActiveSharedSecret;
-            user.LastRotatedAt = DateTime.UtcNow;
-            await dbWriter.UpdateUserSecretAsync(user);
-            await dbWriter.SaveChangesAsync();
-        }
     }
 }

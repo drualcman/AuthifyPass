@@ -6,21 +6,19 @@ internal class UserSecretEntityConfiguration : IEntityTypeConfiguration<UserSecr
     public void Configure(EntityTypeBuilder<UserSecretEntity> builder)
     {
         builder
-            .HasKey(x => new { x.ClientId, x.UserId });
+            .HasKey(x => new { x.ClientId, x.UserId, x.ActiveSharedSecret });
         builder
             .Property(x => x.ClientId)
             .IsRequired()
-            .HasColumnType("CHAR(32)");
+            .HasColumnType("VARCHAR(32)");
         builder
             .Property(x => x.UserId)
             .IsRequired()
-            .HasColumnType("CHAR(64)");
+            .HasColumnType("VARCHAR(64)");
         builder
             .Property(x => x.ActiveSharedSecret)
-            .HasColumnType("CHAR(64)");
-        builder
-            .Property(x => x.PreviousSharedSecret)
-            .HasColumnType("CHAR(64)");
+            .IsRequired()
+            .HasColumnType("VARCHAR(64)");
 
         builder
             .HasOne(x => x.Client)
