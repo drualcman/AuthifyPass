@@ -4,8 +4,16 @@ public class TOTPGeneratorHelper
     private const int TimeStep = 30;    // TOTP uses a time step of 30 seconds by default
     private const int Digits = 6;       // The length of the OTP (6 digits)
 
+
+    // Get the current Unix time and force it into a consistent TimeStep-second interval
+    public static long CalculateTimeStep()
+    {
+        long currentUnixTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+        return (currentUnixTime / TimeStep) * TimeStep;
+    }
+
     // Method to generate the TOTP code
-    public static string GenerateTOTP(string sharedSecret)
+    public static string GenerateTOTP(string sharedSecret, long timeStep)
     {
         if (string.IsNullOrEmpty(sharedSecret))
         {
@@ -14,10 +22,6 @@ public class TOTPGeneratorHelper
 
         // Convert the shared secret (hexadecimal string) to a byte array
         byte[] key = HexStringToByteArray(sharedSecret);
-
-        // Get the current Unix time and force it into a consistent 30-second interval
-        long currentUnixTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        long timeStep = (currentUnixTime / TimeStep) * TimeStep;
 
         // Convert time step to byte array (big-endian)
         byte[] timeBytes = BitConverter.GetBytes(timeStep);
@@ -49,10 +53,12 @@ public class TOTPGeneratorHelper
         }
 
         byte[] bytes = new byte[hex.Length / 2];
-        for (int i = 0; i < hex.Length; i += 2)
+        for (int i = 0; i < bytes.Length; i++)
         {
-            bytes[i / 2] = Convert.ToByte(hex.Substring(i, 2), 16);
+            bytes[i] = (byte)((GetHexValue(hex[i * 2]) << 4) + GetHexValue(hex[i * 2 + 1]));
         }
         return bytes;
     }
+
+    private static int GetHexValue(char c) => (c >= '0' && c <= '9') ? c - '0' : (c >= 'A' && c <= 'F') ? c - 'A' + 10 : c - 'a' + 10;
 }

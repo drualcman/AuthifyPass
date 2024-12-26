@@ -14,7 +14,7 @@ public interface IHomeViewModel
     IEnumerable<TwoFactorCode> TwoFactorCodes { get; }
     TwoFactorCode? SelectedItem { get; }
     Task GetCodes();
-    void RefreshCodes();
+    Task RefreshCodes();
     Task CopyToClipboard(string code);
     void OpenDeleteModal(TwoFactorCode code);
     void CloseModal();

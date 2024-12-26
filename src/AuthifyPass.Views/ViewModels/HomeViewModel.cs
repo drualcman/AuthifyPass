@@ -79,16 +79,19 @@ internal class HomeViewModel(
     public async Task GetCodes()
     {
         TwoFactorCodesBK = new(await Repository.GetTwoFactorCodes());
-        RefreshCodes();
+        await RefreshCodes();
 
     }
 
-    public void RefreshCodes()
+    public async Task RefreshCodes()
     {
+        long timeStep = TOTPGeneratorHelper.CalculateTimeStep();
+        List<Task> tasks = [];
         foreach (var item in TwoFactorCodesBK)
         {
-            item.CurrentCode = TOTPGeneratorHelper.GenerateTOTP(item.SharedKey);
+            tasks.Add(Task.Run(() => item.CurrentCode = TOTPGeneratorHelper.GenerateTOTP(item.SharedKey, timeStep)));
         }
+        await Task.WhenAll(tasks);
         ExecuteSearch();
     }
 }

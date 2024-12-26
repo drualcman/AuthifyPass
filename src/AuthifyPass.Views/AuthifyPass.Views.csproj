@@ -24,6 +24,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Add2FAPageContent.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Add2FAPageContent.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\CountDownContent.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CountDownContent.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\HomePageContent.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -37,6 +47,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Add2FAPageContent.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Add2FAPageContent.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CountDownContent.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CountDownContent.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\HomePageContent.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HomePageContent.Designer.cs</LastGenOutput>
