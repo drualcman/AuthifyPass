@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
     <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+	  <WasmEnableSimd>false</WasmEnableSimd>
   </PropertyGroup>
 
   <ItemGroup>

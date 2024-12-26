@@ -2,7 +2,7 @@
 
 public static class UserEndPoints
 {
-    public static WebApplication UseUserEndPoints(this WebApplication app)
+    public static WebApplication MapUserEndPoints(this WebApplication app)
     {
         RouteGroupBuilder mainGroup = app.MapGroup("user").WithTags("User");
 

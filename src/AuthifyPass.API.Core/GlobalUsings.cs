@@ -1,7 +1,6 @@
 global using AuthifyPass.API.Core.DTOs;
 global using AuthifyPass.API.Core.ExceptionHandlers;
 global using AuthifyPass.API.Core.Extensions;
-global using AuthifyPass.API.Core.Interfaces;
 global using AuthifyPass.API.Core.Resources;
 global using AuthifyPass.API.Core.Services;
 global using AuthifyPass.API.Core.Validators;

@@ -2,7 +2,7 @@
 
 public static class ClientEndPoints
 {
-    public static WebApplication UseClientEndPoints(this WebApplication app)
+    public static WebApplication MapClientEndPoints(this WebApplication app)
     {
         RouteGroupBuilder mainGroup = app.MapGroup("client").WithTags("Client");
 

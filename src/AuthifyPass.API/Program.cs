@@ -87,8 +87,8 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(AuthifyPass.Views._Imports).Assembly);
 
-app.UseClientEndPoints();
-app.UseUserEndPoints();
+app.MapClientEndPoints();
+app.MapUserEndPoints();
 app.UseCors();
 
 app.UseExceptionHandler(builder => { });
