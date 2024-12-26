@@ -79,7 +79,7 @@ namespace AuthifyPass.Entities.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Must have less than 150characters.
+        ///   Looks up a localized string similar to Must have less than 150 characters.
         /// </summary>
         internal static string MaxLenght150 {
             get {

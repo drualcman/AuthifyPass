@@ -117,34 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmailEmpty" xml:space="preserve">
-    <value>Email can't be empty</value>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>Cancelar</value>
   </data>
-  <data name="EmailValidation" xml:space="preserve">
-    <value>Is not a valid email</value>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Borrar</value>
   </data>
-  <data name="PasswordDigit" xml:space="preserve">
-    <value>Must have some number</value>
+  <data name="ModalBodyTemplate" xml:space="preserve">
+    <value>&lt;p&gt;¿Está seguro de que desea eliminar la autenticación de dos factores para &lt;strong&gt;{0}&lt;/strong&gt;?&lt;/p&gt;
+&lt;p class="has-text-danger"&gt;Esta acción no se puede deshacer.&lt;/p&gt;</value>
   </data>
-  <data name="PasswordMinLenght" xml:space="preserve">
-    <value>Minimum 13 characters</value>
+  <data name="ModalTitleTemplate" xml:space="preserve">
+    <value>¿Está seguro de que desea eliminar el código de {0}?</value>
   </data>
-  <data name="PasswordLowercase" xml:space="preserve">
-    <value>Must have 1 lowercase</value>
+  <data name="NoCodesText" xml:space="preserve">
+    <value>No hay almacenados códigos 2FA.</value>
   </data>
-  <data name="PasswordSpecial" xml:space="preserve">
-    <value>Must have a special character</value>
-  </data>
-  <data name="PasswordUppercase" xml:space="preserve">
-    <value>Must have 1 uppercase</value>
-  </data>
-  <data name="Required" xml:space="preserve">
-    <value>Required field</value>
-  </data>
-  <data name="MaxLenght150" xml:space="preserve">
-    <value>Must have less than 150 characters</value>
-  </data>
-  <data name="MaxLenght256" xml:space="preserve">
-    <value>Must have less than 256 characters</value>
+  <data name="SearchPlaceholderText" xml:space="preserve">
+    <value>Buscar ...</value>
   </data>
 </root>

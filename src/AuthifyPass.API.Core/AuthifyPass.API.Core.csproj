@@ -15,6 +15,11 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <Compile Update="Resources\DatabaseErrors.Designer.cs">
+      <DependentUpon>DatabaseErrors.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\ExceptionMessages.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -38,6 +43,10 @@
   </ItemGroup>
 	
   <ItemGroup>
+    <EmbeddedResource Update="Resources\DatabaseErrors.resx">
+      <LastGenOutput>DatabaseErrors.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ExceptionMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExceptionMessages.Designer.cs</LastGenOutput>

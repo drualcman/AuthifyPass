@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AuthifyPass.Entities.Resources {
+namespace AuthifyPass.API.Core.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace AuthifyPass.Entities.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AuthifyPass.Entities.Resources.DatabaseErrors", typeof(DatabaseErrors).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AuthifyPass.API.Core.Resources.DatabaseErrors", typeof(DatabaseErrors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -98,7 +98,7 @@ namespace AuthifyPass.Views.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No 2FA codes stored..
+        ///   Looks up a localized string similar to There are no 2FA codes stored..
         /// </summary>
         internal static string NoCodesText {
             get {

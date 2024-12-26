@@ -131,7 +131,7 @@
     <value>Are you sure you want to delete code of {0}?</value>
   </data>
   <data name="NoCodesText" xml:space="preserve">
-    <value>No 2FA codes stored.</value>
+    <value>There are no 2FA codes stored.</value>
   </data>
   <data name="SearchPlaceholderText" xml:space="preserve">
     <value>Search ...</value>

@@ -117,34 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmailEmpty" xml:space="preserve">
-    <value>Email can't be empty</value>
+  <data name="ClientIdError" xml:space="preserve">
+    <value>¡El código de cliente no puede estar vacío!</value>
   </data>
-  <data name="EmailValidation" xml:space="preserve">
-    <value>Is not a valid email</value>
+  <data name="NameError" xml:space="preserve">
+    <value>Nombre no puede estar vacío!</value>
   </data>
-  <data name="PasswordDigit" xml:space="preserve">
-    <value>Must have some number</value>
+  <data name="ShareKeyError" xml:space="preserve">
+    <value>¡El código secreto no puede estar vacío!</value>
   </data>
-  <data name="PasswordMinLenght" xml:space="preserve">
-    <value>Minimum 13 characters</value>
-  </data>
-  <data name="PasswordLowercase" xml:space="preserve">
-    <value>Must have 1 lowercase</value>
-  </data>
-  <data name="PasswordSpecial" xml:space="preserve">
-    <value>Must have a special character</value>
-  </data>
-  <data name="PasswordUppercase" xml:space="preserve">
-    <value>Must have 1 uppercase</value>
-  </data>
-  <data name="Required" xml:space="preserve">
-    <value>Required field</value>
-  </data>
-  <data name="MaxLenght150" xml:space="preserve">
-    <value>Must have less than 150 characters</value>
-  </data>
-  <data name="MaxLenght256" xml:space="preserve">
-    <value>Must have less than 256 characters</value>
+  <data name="DescriptionError" xml:space="preserve">
+    <value>Descripción no puede estar vacío!</value>
   </data>
 </root>

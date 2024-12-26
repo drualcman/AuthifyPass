@@ -1,8 +1,10 @@
 global using AuthifyPass.API.Components;
 global using AuthifyPass.API.Core.DTOs;
 global using AuthifyPass.API.Core.Interfaces.UseCases.DeleteClient;
+global using AuthifyPass.API.Core.Interfaces.UseCases.DeleteUser;
 global using AuthifyPass.API.Core.Interfaces.UseCases.RegisterClient;
 global using AuthifyPass.API.Core.Interfaces.UseCases.RegisterUser;
+global using AuthifyPass.API.Core.Interfaces.UseCases.ValidateUserCode;
 global using AuthifyPass.API.Core.Options;
 global using AuthifyPass.API.Endpoints;
 global using AuthifyPass.API.Helpers;

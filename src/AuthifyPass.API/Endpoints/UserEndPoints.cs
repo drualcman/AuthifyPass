@@ -1,6 +1,4 @@
-﻿using AuthifyPass.API.Core.Interfaces.UseCases.ValidateUserCode;
-
-namespace AuthifyPass.API.Endpoints;
+﻿namespace AuthifyPass.API.Endpoints;
 
 public static class UserEndPoints
 {
