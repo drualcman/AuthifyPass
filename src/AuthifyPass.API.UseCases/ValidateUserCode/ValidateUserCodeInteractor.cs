@@ -3,14 +3,14 @@ internal class ValidateUserCodeInteractor(
     IIdentifierGenerator identifierGenerator,
     IUserSecretRepository userRepository,
     IClientRepository clientRepository,
-    IStringLocalizer<RegisterUserContent> localizer,
+    IStringCulture<RegisterUserContent> localizer,
     IModelValidatorHub<ValidateUserCodeDto> validator) : IValidateUserCodeInputPort
 {
     public async Task<bool> ValidateUserCode(ValidateUserCodeDto data, string secretShared)
     {
         await GuardModel.AgainstNotValid(validator, data);
         bool result = false;
-        var client = await clientRepository.GetByClientIdAsync(data.ClientId);
+        var client = await clientRepository.GetClientByIdAsync(data.ClientId);
         ThrowIfNullOrNotValid(secretShared, client);
         var users = await userRepository.GetByClientIdAndUserIdAsync(data.ClientId, identifierGenerator.ComputeSha256Hash(data.UserId));
 

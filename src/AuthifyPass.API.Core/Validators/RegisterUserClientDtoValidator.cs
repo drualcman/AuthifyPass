@@ -2,7 +2,7 @@
 internal class RegisterUserClientDtoValidator : AbstractModelValidator<RegisterUserClientDto>
 {
     public RegisterUserClientDtoValidator(IValidationService<RegisterUserClientDto> validationService,
-        IStringLocalizer<ValidateUserCodeContent> localizer) :
+        IStringCulture<ValidateUserCodeContent> localizer) :
         base(validationService, ValidationConstraint.ValidateIfThereAreNoPreviousErrors)
     {
         AddRuleFor(r => r.UserId)

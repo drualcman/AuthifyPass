@@ -1,6 +1,6 @@
 ﻿namespace AuthifyPass.API.Core.ExceptionHandlers;
 internal class UnhandledExceptionHandler(ILogger<UnhandledExceptionHandler> Logger,
-    IStringLocalizer<ExceptionMessages> localizer) : Microsoft.AspNetCore.Diagnostics.IExceptionHandler
+    IStringCulture<ExceptionMessages> localizer) : Microsoft.AspNetCore.Diagnostics.IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {

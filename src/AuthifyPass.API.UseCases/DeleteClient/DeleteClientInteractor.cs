@@ -4,7 +4,7 @@ internal class DeleteClientInteractor(IClientRepository repository) : IDeleteCli
     public async Task<bool> Handle(DeleteDto data)
     {
         bool result = false;
-        Client client = await repository.GetByClientIdAsync(data.ClientId);
+        Client client = await repository.GetClientByIdAsync(data.ClientId);
         if (client is not null)
         {
             if (client.SharedSecret.Equals(data.SharedSecret))

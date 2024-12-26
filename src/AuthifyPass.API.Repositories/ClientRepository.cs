@@ -23,9 +23,20 @@ internal class ClientRepository(IWritableDbContext dbWriter, IReadbleDbContext d
         return Task.CompletedTask;
     }
 
-    public async Task<Client?> GetByClientIdAsync(string clientId)
+    public async Task<Client?> GetClientByIdAsync(string clientId)
     {
-        var client = await dbReader.GetByClientIdAsync(clientId);
+        var client = await dbReader.GetClientByIdAsync(clientId);
+        return CreateClient(client);
+    }
+
+    public async Task<Client?> GetClientByEmailAsync(string email)
+    {
+        var client = await dbReader.GetClientByIdAsync(email);
+        return CreateClient(client);
+    }
+
+    private Client CreateClient(ClientEntity? client)
+    {
         Client result = default;
         if (client != null)
             result = new Client(client?.ClientId, client?.SharedSecret,

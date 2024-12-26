@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\DatabaseErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DatabaseErrors.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\RegisterClientValidatorErrors.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -27,6 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\DatabaseErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DatabaseErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\RegisterClientValidatorErrors.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RegisterClientValidatorErrors.Designer.cs</LastGenOutput>
