@@ -1,7 +1,6 @@
 ﻿@page "/"
 @rendermode InteractiveWebAssembly
 
-
 <div class="field has-addons">
     <div class="control is-expanded">
         <input placeholder="@ViewModel.SearchPlaceholderText" class="input is-rounded"
@@ -36,20 +35,14 @@
                     </div>
                 </div>
             </div>
-
-
-
         }
+        <CountDownComponent TimeToCount=30 OnReset=ViewModel.RefreshCodes />
     }
     else
     {
         <p>@(new MarkupString(ViewModel.NoCodesContent))</p>
     }
 </div>
-
-<CountDownComponent TimeToCount=30 OnReset=ViewModel.RefreshCodes />
-
-
 
 <ModalComponent @bind-IsVisible="ViewModel.IsModalVisible"
                 OnClose="ViewModel.CloseModal">
