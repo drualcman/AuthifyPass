@@ -59,6 +59,10 @@ Encapsulates endpoints and configurations related to API presentation and access
         "message": "string"
       }
       ```
+  - **DELETE `/client/{id}`**: Delete all data relative to the Client Id
+    - **Headers**:
+      - `x-authify-key`: Shared Secret authentication key
+    - **Response**: No content 
 
 ### **2. User Endpoints**
 - **Base Route**: `/user`
@@ -97,7 +101,14 @@ Encapsulates endpoints and configurations related to API presentation and access
       ```json
       true | false
       ```
+  - **DELETE `/client/{id}`**: Delete all data relative to the Client Id
+    - **Headers**:
+      - `x-authify-key`: Shared Secret authentication key.
+    - **Response**: No content 
+      ```
+---    
 #### QRDataDto
+This is the object with the data inside the QR
 ```json
 {
     "name": "string",
@@ -105,7 +116,7 @@ Encapsulates endpoints and configurations related to API presentation and access
     "sharedKey": "string"
 }
 ```
-
+---
 
 ## **Presentation Client**
 ### **1. Home page**
