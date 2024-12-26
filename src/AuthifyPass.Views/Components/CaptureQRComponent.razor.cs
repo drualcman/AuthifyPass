@@ -4,6 +4,7 @@ namespace AuthifyPass.Views.Components;
 public partial class CaptureQRComponent<TDataModel>
 {
     [Inject] ICameraService<TDataModel> CameraService { get; set; }
+    [Inject] IStringLocalizer<Add2FAPageContent> Content { get; set; }
     [Parameter] public RenderFragment HeaderContent { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public RenderFragment Buttons { get; set; }

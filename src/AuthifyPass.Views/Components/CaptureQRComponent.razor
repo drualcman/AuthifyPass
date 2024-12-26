@@ -23,9 +23,9 @@
                 <div class="buttons is-right">
                     <button class="button is-info"
                             type="button" @onclick="DecodeFromImage">
-                        Decode from image
+                        @Content[nameof(Add2FAPageContent.FromImageButtonText)]
                     </button>
-                    <button type="button" class="button" @onclick="HideContent">Read Barcode</button>
+                    <button type="button" class="button" @onclick="HideContent">@Content[nameof(Add2FAPageContent.ReadBarcode)]</button>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                     <div class="column">
                         <div class="field is-horizontal">
                             <div class="field-label">
-                                <label class="help" style="color: white" for="sourceSelect">Select Device:</label>
+                                <label class="help" style="color: white" for="sourceSelect">@Content[nameof(Add2FAPageContent.SelectDeviceText)]</label>
                             </div>
                             <div class="field-body">
                                 <div class="field">
@@ -76,9 +76,9 @@
                         <div class="buttons is-right">
                             <button class="button is-info"
                                     type="button" @onclick="DecodeFromImage">
-                                Decode from image
+                                @Content[nameof(Add2FAPageContent.FromImageButtonText)]
                             </button>
-                            <button type="button" class="button" @onclick="ShowContent">Manual Entry</button>
+                            <button type="button" class="button" @onclick="ShowContent">@Content[nameof(Add2FAPageContent.ManualButtonText)]</button>
                         </div>
                     </div>
                 </div>

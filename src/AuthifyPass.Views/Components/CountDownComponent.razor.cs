@@ -1,6 +1,7 @@
 namespace AuthifyPass.Views.Components;
 public partial class CountDownComponent : IDisposable
 {
+    [Inject] IStringLocalizer<CountDownContent> Content { get; set; }
     [Parameter, EditorRequired] public int TimeToCount { get; set; }
     [Parameter] public EventCallback OnReset { get; set; }
 
@@ -25,8 +26,8 @@ public partial class CountDownComponent : IDisposable
     private void SyncWithCurrentSecond()
     {
         int currentSecond = DateTime.UtcNow.Second;
-        int modCycle = currentSecond % TimeCountDown; // Determina en qué parte del ciclo estamos.
-        TimeLeft = TimeCountDown - modCycle; // Calcula los segundos restantes en el ciclo actual.
+        int modCycle = currentSecond % TimeCountDown;
+        TimeLeft = TimeCountDown - modCycle;
     }
 
     private void UpdateTimer(object? state)
@@ -40,6 +41,8 @@ public partial class CountDownComponent : IDisposable
         }
         InvokeAsync(StateHasChanged);
     }
+
+    string GetTimeLeft() => string.Format(Content[nameof(CountDownContent.TimeLeftTemplate)], TimeLeft);
 
     public void Dispose()
     {

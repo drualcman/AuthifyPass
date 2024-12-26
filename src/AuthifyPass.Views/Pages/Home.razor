@@ -60,7 +60,7 @@
         @(new MarkupString(ViewModel.ModalBodyContent))
     </BodyContent>
     <FooterContent>
-        <button class="button is-danger @(ViewModel.IsDeleting ? "is-loading":"")" @onclick="ViewModel.DeleteSelectedCode">De@(new MarkupString(ViewModel.DeleteButtonContent))lete</button>
+        <button class="button is-danger @(ViewModel.IsDeleting ? "is-loading":"")" @onclick="ViewModel.DeleteSelectedCode">@(new MarkupString(ViewModel.DeleteButtonContent))lete</button>
         <button class="button" @onclick="ViewModel.CloseModal">@(new MarkupString(ViewModel.CancelButtonContent))</button>
     </FooterContent>
 </ModalComponent>
