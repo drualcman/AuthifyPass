@@ -120,4 +120,7 @@
   <data name="DuplicateEmailErrorTemplate" xml:space="preserve">
     <value>El correo electrónico {0} ya existe.</value>
   </data>
+  <data name="ValidationCodeError" xml:space="preserve">
+    <value>Código inválido.</value>
+  </data>
 </root>

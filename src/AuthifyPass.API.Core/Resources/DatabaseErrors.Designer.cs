@@ -68,5 +68,14 @@ namespace AuthifyPass.API.Core.Resources {
                 return ResourceManager.GetString("DuplicateEmailErrorTemplate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid code..
+        /// </summary>
+        public static string ValidationCodeError {
+            get {
+                return ResourceManager.GetString("ValidationCodeError", resourceCulture);
+            }
+        }
     }
 }

@@ -117,10 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DuplicateEmailErrorTemplate" xml:space="preserve">
-    <value>Email {0} already exists.</value>
+  <data name="CancelButtonText" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ConfirmLabelText" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="ConfirmPlaceholderText" xml:space="preserve">
+    <value>Repeat password</value>
+  </data>
+  <data name="EmailLabelText" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailPlaceholderText" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
+  <data name="NameLabelText" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NamePlaceholderText" xml:space="preserve">
+    <value>Enter your name</value>
+  </data>
+  <data name="PasswordLabelText" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordPlaceholderText" xml:space="preserve">
+    <value>Enter a strong password</value>
+  </data>
+  <data name="RebisterButtonText" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="TitleText" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="ValidationButtonText" xml:space="preserve">
+    <value>Validate!</value>
   </data>
   <data name="ValidationCodeError" xml:space="preserve">
     <value>Invalid code.</value>
+  </data>
+  <data name="ValidationMessage" xml:space="preserve">
+    <value>Enter the validation code</value>
+  </data>
+  <data name="ValidationText" xml:space="preserve">
+    <value>Validation code</value>
   </data>
 </root>

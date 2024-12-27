@@ -12,7 +12,7 @@
                 <div class="control">
                 <label class="label">@ViewModel.DescriptionText</label>
                     <InputText @bind-Value="ViewModel.Description" placeholder="@ViewModel.DescriptionText" class="input" />
-                    <ValidationMessage For="() => ViewModel.Description" />
+                    <ValidationMessage For="() => ViewModel.Description" class="help is-danger" />
                 </div>
             </div>
         </HeaderContent>
@@ -21,20 +21,20 @@
                 <div class="control">
                     <label class="label">@ViewModel.CompanyText</label>
                     <InputText @bind-Value="ViewModel.Name" placeholder="@ViewModel.CompanyText" class="input" />
-                    <ValidationMessage For="() => ViewModel.Name" />
+                    <ValidationMessage For="() => ViewModel.Name" class="help is-danger" />
                 </div>
             </div>
             <div class="field is-grouped">
                 <div class="control is-expanded">
                     <label class="label">@ViewModel.CodeText</label>
                     <InputText @bind-Value="ViewModel.ClientId" placeholder="@ViewModel.CodeText" class="input" />
-                    <ValidationMessage For="() => ViewModel.ClientId" />
+                    <ValidationMessage For="() => ViewModel.ClientId" class="help is-danger" />
                 </div>
                 <div class="control is-expanded">
 
                     <label class="label">@ViewModel.SecretText</label>
                     <InputText @bind-Value="ViewModel.SharedKey" placeholder="@ViewModel.SecretText" class="input" />
-                    <ValidationMessage For="() => ViewModel.SharedKey" />
+                    <ValidationMessage For="() => ViewModel.SharedKey" class="help is-danger" />
                 </div>
             </div>
         </ChildContent>

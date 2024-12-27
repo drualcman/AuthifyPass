@@ -1,0 +1,3 @@
+﻿.captcha ::deep .field.has-addons .control:first-child {
+    flex-grow: 1;
+}
