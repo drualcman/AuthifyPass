@@ -2,6 +2,7 @@
 @rendermode InteractiveServer
 
 <h1 class="title is-3 has-text-centered">@Localizer[nameof(RegisterPageContent.TitleText)]</h1>
+
 @if (IsRegistered)
 {
     <div class="notification is-success">
@@ -10,99 +11,122 @@
     <div class="notification">
         <p><strong>Client ID:</strong> @Response.ClientId</p>
         <p><strong>Secret:</strong> @Response.SharedSecret</p>
+        <hr>
+        @HelpString
+        <div class="buttons">
+            <a href="/swagger" class="button is-link" target="_blank">API</a>
+            <a href="/register" class="button is-success" target="_blank">
+                <span class="icon"><i class="fa-solid fa-rotate-left"></i></span>
+            </a>
+        </div>
     </div>
 }
 else
 {
-    <div class="box">
-        <EditForm Model="Client" OnValidSubmit="SendRegister">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
+    <div class="columns">
+        <div class="column is-four-fifths">
+            <div class="box">
+                <EditForm Model="Client" OnValidSubmit="SendRegister">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
 
-            <div class="field">
-                <label class="label">@Localizer[nameof(RegisterPageContent.NameLabelText)]</label>
-                <div class="control">
-                    <input type="text" class="input" @bind-value="Client.Name" placeholder="@Localizer[nameof(RegisterPageContent.NamePlaceholderText)]" />
-                </div>
-                <ValidationMessage For="() => Client.Name" class="help is-danger" />
-            </div>
+                    <div class="field">
+                        <label class="label">@Localizer[nameof(RegisterPageContent.NameLabelText)]</label>
+                        <div class="control">
+                            <input type="text" class="input" @bind-value="Client.Name" placeholder="@Localizer[nameof(RegisterPageContent.NamePlaceholderText)]" />
+                        </div>
+                        <ValidationMessage For="() => Client.Name" class="help is-danger" />
+                    </div>
 
-            <div class="field">
-                <label class="label">@Localizer[nameof(RegisterPageContent.EmailLabelText)]</label>
-                <div class="control has-icons-left">
-                    <input type="email" class="input" @bind-value="Client.Email" placeholder="@Localizer[nameof(RegisterPageContent.EmailPlaceholderText)]" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                </div>
-                <ValidationMessage For="() => Client.Email" class="help is-danger" />
-            </div>
+                    <div class="field">
+                        <label class="label">@Localizer[nameof(RegisterPageContent.EmailLabelText)]</label>
+                        <div class="control has-icons-left">
+                            <input type="email" class="input" @bind-value="Client.Email" placeholder="@Localizer[nameof(RegisterPageContent.EmailPlaceholderText)]" />
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                            </span>
+                        </div>
+                        <ValidationMessage For="() => Client.Email" class="help is-danger" />
+                    </div>
 
-            <div class="field">
-                <label class="label">@Localizer[nameof(RegisterPageContent.PasswordLabelText)]</label>
-                <div class="control has-icons-left">
-                    <input type="password" class="input" @bind-value="Client.Password" placeholder="@Localizer[nameof(RegisterPageContent.PasswordPlaceholderText)]" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </div>
-                <ValidationMessage For="() => Client.Password" class="help is-danger" />
-            </div>
+                    <div class="field">
+                        <label class="label">@Localizer[nameof(RegisterPageContent.PasswordLabelText)]</label>
+                        <div class="control has-icons-left">
+                            <input type="password" class="input" @bind-value="Client.Password" placeholder="@Localizer[nameof(RegisterPageContent.PasswordPlaceholderText)]" />
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                        <ValidationMessage For="() => Client.Password" class="help is-danger" />
+                    </div>
 
-            <div class="field">
-                <label class="label">@Localizer[nameof(RegisterPageContent.ConfirmLabelText)]</label>
-                <div class="control has-icons-left">
-                    <input type="password" class="input" @bind-value="Client.ConfirmPassword" placeholder="@Localizer[nameof(RegisterPageContent.ConfirmPlaceholderText)]" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
-                </div>
-                <ValidationMessage For="() => Client.ConfirmPassword" class="help is-danger" />
-            </div>
+                    <div class="field">
+                        <label class="label">@Localizer[nameof(RegisterPageContent.ConfirmLabelText)]</label>
+                        <div class="control has-icons-left">
+                            <input type="password" class="input" @bind-value="Client.ConfirmPassword" placeholder="@Localizer[nameof(RegisterPageContent.ConfirmPlaceholderText)]" />
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </div>
+                        <ValidationMessage For="() => Client.ConfirmPassword" class="help is-danger" />
+                    </div>
 
-            <div class="columns">
-                @if (!IsValid)
-                {
-                    <div class="column">
-                        <div class="field ">
-                            <label class="label">@Localizer[nameof(RegisterPageContent.ValidationText)]</label>
-                            <div class="control">
-                                <span class="input">@GeneratedCode</span>
+                    <div class="columns">
+                        @if (!IsValid)
+                        {
+                            <div class="column">
+                                <div class="field ">
+                                    <label class="label">@Localizer[nameof(RegisterPageContent.ValidationText)]</label>
+                                    <div class="control">
+                                        <span class="input">@GeneratedCode</span>
+                                    </div>
+                                </div>
                             </div>
+                        }
+                        <div class="column captcha">
+                            <CaptchaComponent DataSource=CaptchaSource Properties=CaptchaOptions @ref=Captcha OnValidate="(v) => IsValid = v">
+                                <BeforeValidate>
+                                    <span class="button is-success">@Localizer[nameof(RegisterPageContent.ValidationButtonText)]</span>
+                                </BeforeValidate>
+                                <AfterValidate>
+                                    <div class="field is-grouped">
+                                        <div class="control">
+                                            <button type="submit" class="button is-primary @(IsWorking ? "is-loading":"")">@Localizer[nameof(RegisterPageContent.RegisterButtonText)]</button>
+                                        </div>
+                                        @if (!IsWorking)
+                                        {
+                                            <div class="control">
+                                                <button type="reset" class="button is-light">@Localizer[nameof(RegisterPageContent.CancelButtonText)]</button>
+                                            </div>
+                                        }
+                                    </div>
+                                </AfterValidate>
+                            </CaptchaComponent>
                         </div>
                     </div>
-                }
-                <div class="column captcha">
-                    <CaptchaComponent DataSource=CaptchaSource Properties=CaptchaOptions @ref=Captcha OnValidate="(v) => IsValid = v">
-                        <BeforeValidate>
-                            <span class="button is-success">@Localizer[nameof(RegisterPageContent.ValidationButtonText)]</span>
-                        </BeforeValidate>
-                        <AfterValidate>
-                            <div class="field is-grouped">
-                                <div class="control">
-                                    <button type="submit" class="button is-primary @(IsWorking ? "is-loading":"")">@Localizer[nameof(RegisterPageContent.RebisterButtonText)]</button>
-                                </div>
-                                @if (!IsWorking)
-                                {
-                                    <div class="control">
-                                        <button type="reset" class="button is-light">@Localizer[nameof(RegisterPageContent.CancelButtonText)]</button>
-                                    </div>
-                                }
-                            </div>
-                        </AfterValidate>
-                    </CaptchaComponent>
-                </div>
+                </EditForm>
             </div>
-        </EditForm>
-    </div>
 
-    <CountDownComponent TimeToCount=30 OnReset=RefreshCode />
+            <CountDownComponent TimeToCount=30 OnReset=RefreshCode />
 
-    @if (!string.IsNullOrWhiteSpace(ErrorMessage))
-    {
-        <div class="notification is-danger">
-            <button class="delete" @onclick="ClearError"></button>
-            @ErrorMessage
+            @if (!string.IsNullOrWhiteSpace(ErrorMessage))
+            {
+                <div class="notification is-danger">
+                    <button class="delete" @onclick="ClearError"></button>
+                    @ErrorMessage
+                </div>
+            }
         </div>
-    }
-}   
+        <div class="column" style="padding-bottom: 5rem;">
+            <article class="message is-info">
+                <div class="message-header">
+                    <p>@Localizer[nameof(RegisterPageContent.HelpHeaderText)]</p>
+                </div>
+                <div class="message-body">
+                    @(new MarkupString(@Localizer[nameof(RegisterPageContent.HelpBodyHtml)]))
+                    <p><a href="/swagger" class="button is-link" target="_blank">API</a></p>
+                </div>
+            </article>
+        </div>
+    </div>
+}

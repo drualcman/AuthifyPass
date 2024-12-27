@@ -14,6 +14,7 @@ public partial class Register
     long TimeStep = 0;
     string SharedSecret;
     string GeneratedCode;
+    MarkupString HelpString;
     bool IsValid = false;
 
     CaptchaComponent Captcha;
@@ -44,6 +45,8 @@ public partial class Register
         try
         {
             Response = await RegisterClient.CreateClientAsync(new(Client.Name, Client.Email, Client.Password, GeneratedCode));
+            string help = Localizer[nameof(RegisterPageContent.NotificationBodyHtmlTemplate)];
+            HelpString = new(help.Replace("{0}", Response.SharedSecret).Replace("{1}", Response.ClientId));
             IsRegistered = true;
         }
         catch (Entities.Exceptions.ValidationException ex)

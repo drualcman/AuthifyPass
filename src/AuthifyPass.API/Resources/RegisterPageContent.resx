@@ -132,11 +132,40 @@
   <data name="EmailPlaceholderText" xml:space="preserve">
     <value>Enter your email</value>
   </data>
+  <data name="HelpBodyHtml" xml:space="preserve">
+    <value>&lt;p&gt;Once registered:&lt;/p&gt;
+&lt;ul&gt;
+    &lt;li&gt;Use the &lt;strong&gt;Client ID&lt;/strong&gt; and &lt;strong&gt;Shared Secret&lt;/strong&gt; for all requests.&lt;/li&gt;
+    &lt;li&gt;Create user codes using the `/user` endpoint.&lt;/li&gt;
+    &lt;li&gt;Validate codes with `/user/validate-code` for TOTP authentication.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For more details, see the API documentation.&lt;/p&gt;</value>
+  </data>
+  <data name="HelpHeaderText" xml:space="preserve">
+    <value>How to Use the API</value>
+  </data>
   <data name="NameLabelText" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="NamePlaceholderText" xml:space="preserve">
     <value>Enter your name</value>
+  </data>
+  <data name="NotificationBodyHtmlTemplate" xml:space="preserve">
+    <value>&lt;h2 class="subtitle"&gt;Next Steps:&lt;/h2&gt;
+&lt;p&gt;Use your &lt;strong&gt;Client ID&lt;/strong&gt; and &lt;strong&gt;Secret&lt;/strong&gt; to authenticate API requests.&lt;/p&gt;
+&lt;p class="has-text-weight-bold"&gt;Example:&lt;/p&gt;
+&lt;pre&gt;
+POST /user
+Headers:
+x-authify-key: {0}
+
+Body:
+{
+    "clientId": "{1}",
+    "userId": ""
+}
+&lt;/pre&gt;
+&lt;p&gt;Generate a QR code for your user, which will be used for TOTP authentication.&lt;/p&gt;</value>
   </data>
   <data name="PasswordLabelText" xml:space="preserve">
     <value>Password</value>
@@ -144,7 +173,7 @@
   <data name="PasswordPlaceholderText" xml:space="preserve">
     <value>Enter a strong password</value>
   </data>
-  <data name="RebisterButtonText" xml:space="preserve">
+  <data name="RegisterButtonText" xml:space="preserve">
     <value>Register</value>
   </data>
   <data name="TitleText" xml:space="preserve">

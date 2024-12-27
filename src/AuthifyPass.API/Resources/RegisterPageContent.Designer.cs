@@ -64,6 +64,18 @@ namespace AuthifyPass.API.Resources
             }
         }
 
+        public static string HelpBodyHtml {
+            get {
+                return ResourceManager.GetString("HelpBodyHtml", resourceCulture);
+            }
+        }
+
+        public static string HelpHeaderText {
+            get {
+                return ResourceManager.GetString("HelpHeaderText", resourceCulture);
+            }
+        }
+
         public static string NameLabelText {
             get {
                 return ResourceManager.GetString("NameLabelText", resourceCulture);
@@ -73,6 +85,12 @@ namespace AuthifyPass.API.Resources
         public static string NamePlaceholderText {
             get {
                 return ResourceManager.GetString("NamePlaceholderText", resourceCulture);
+            }
+        }
+
+        public static string NotificationBodyHtmlTemplate {
+            get {
+                return ResourceManager.GetString("NotificationBodyHtmlTemplate", resourceCulture);
             }
         }
 
@@ -88,9 +106,9 @@ namespace AuthifyPass.API.Resources
             }
         }
 
-        public static string RebisterButtonText {
+        public static string RegisterButtonText {
             get {
-                return ResourceManager.GetString("RebisterButtonText", resourceCulture);
+                return ResourceManager.GetString("RegisterButtonText", resourceCulture);
             }
         }
 
