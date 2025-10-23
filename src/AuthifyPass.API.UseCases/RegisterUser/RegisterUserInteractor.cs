@@ -11,14 +11,13 @@ internal class RegisterUserInteractor(
     {
         await GuardModel.AgainstNotValid(validator, data);
         RegisterUserClientResponseDto response = default;
-        var client = await clientRepository.GetClientByIdAsync(data.ClientId);
+        var client = await clientRepository.GetClientByIdAsync(data.ClientId, sharedSecret);
         if (client is not null && client.SharedSecret.Equals(sharedSecret))
         {
             string sharedkey = identifierGenerator.GenerateSharedSecret();
-            string userId = identifierGenerator.ComputeSha256Hash(data.UserId);
-            UserSecret userSecret = new(data.ClientId, userId, sharedkey);
+            UserSecret userSecret = new(data.ClientId, data.UserId, sharedkey);
             await userRepository.AddAsync(userSecret);
-            response = new(sharedkey, qrGenerator.GenerateQRCode(new(client.Name, data.ClientId, sharedkey)));
+            response = new(sharedkey, qrGenerator.GenerateQRCode(new(client.Name, data.UserName, data.UserId, sharedkey)));
         }
         else
             throw new UnauthorizedAccessException(localizer[nameof(RegisterUserContent.ClientUnauthorized)]);

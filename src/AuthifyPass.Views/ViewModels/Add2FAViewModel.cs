@@ -2,11 +2,11 @@
 internal class Add2FAViewModel : IAdd2FAViewModel<TwoFactorCode>, IDisposable
 {
     readonly IRepository Repository;
-    readonly ICameraService<TwoFactorCode> CameraService;
+    readonly ICameraService CameraService;
     readonly IStringLocalizer<Add2FAPageContent> Content;
     public IModelValidatorHub<IAdd2FAViewModel<TwoFactorCode>> Validator { get; private set; }
 
-    public Add2FAViewModel(IRepository repository, ICameraService<TwoFactorCode> cameraService,
+    public Add2FAViewModel(IRepository repository, ICameraService cameraService,
         IModelValidatorHub<IAdd2FAViewModel<TwoFactorCode>> validator,
         IStringLocalizer<Add2FAPageContent> content)
     {
@@ -27,13 +27,24 @@ internal class Add2FAViewModel : IAdd2FAViewModel<TwoFactorCode>, IDisposable
     public string CodeText => Content[nameof(Add2FAPageContent.CodeText)];
     public string SecretText => Content[nameof(Add2FAPageContent.SecretText)];
 
-
-    private Task CameraService_OnCapture(TwoFactorCode data)
+    private Task CameraService_OnCapture(string otpauthUrl)
     {
-        ClientId = data.ClientId;
-        Name = data.Name;
-        SharedKey = data.SharedKey;
+        var uri = new Uri(otpauthUrl);
+        if (uri.Scheme != "otpauth")
+            throw new FormatException("Invalid OTP Auth scheme.");
+
+        string[] pathSegments = uri.AbsolutePath.Split(':');
+        string userId = pathSegments.Length > 1 ? pathSegments[1] : string.Empty;
+        string name = System.Web.HttpUtility.UrlDecode(pathSegments[0].Trim('/'));
+        var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
+
+        Description = userId.Contains('@') ? $"{uri.Scheme}://{name}" : name;
+        Name = queryParams["issuer"] ?? name;
+        UserId = userId;
+        SharedKey = queryParams["secret"] ?? string.Empty;
         CreatedAt = DateTime.Now;
+        Period = int.TryParse(queryParams["period"], out int period) ? period : 30;
+        Digits = int.TryParse(queryParams["digits"], out int digits) ? digits : 6;
         return Task.CompletedTask;
     }
 
@@ -47,19 +58,23 @@ internal class Add2FAViewModel : IAdd2FAViewModel<TwoFactorCode>, IDisposable
 
     public string Description { get; set; }
     public string Name { get; set; }
-    public string ClientId { get; set; }
+    public string UserId { get; set; }
     public string SharedKey { get; set; }
-    public DateTime CreatedAt { get; set; }
+    DateTime CreatedAt;
+    int Period;
+    int Digits;
 
     public TwoFactorCode ToDto() =>
         new TwoFactorCode
         {
             Description = this.Description,
             Name = this.Name,
-            ClientId = this.ClientId,
+            UserID = this.UserId,
             SharedKey = this.SharedKey,
             CreatedAt = this.CreatedAt,
-            CurrentCode = string.Empty
+            CurrentCode = string.Empty,
+            Period = this.Period,
+            Digits = this.Digits
         };
 
     public void Dispose()

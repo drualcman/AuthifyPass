@@ -45,9 +45,15 @@ builder.Services.AddCors(options =>
         config.AllowAnyOrigin();
     });
 });
+builder.Services.AddWebApiDocumentator(options =>
+{
+    options.ApiName = "AuthifyPass";
+    options.Version = "v1";
+    options.Description = "Create two factor authentication flow.";
+    options.DocsBaseUrl = "swagger";
+});
 
 var app = builder.Build();
-
 // Migrate the database at application startup
 var scope = app.Services.CreateScope();
 var dbContext = scope.ServiceProvider.GetRequiredService<IWritableDbContext>();
@@ -62,12 +68,14 @@ catch (Exception ex)
 }
 scope.Dispose();
 
-app.UseSwagger();
-app.UseSwaggerUI(options =>
-{
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthifyPass API V1");
-    options.RoutePrefix = "swagger"; // URL base para Swagger: /swagger
-});
+//app.UseSwagger();
+//app.UseSwaggerUI(options =>
+//{
+//    options.SwaggerEndpoint("/swagger/v1/swagger.json", "AuthifyPass API V1");
+//    options.RoutePrefix = "swagger"; // URL base para Swagger: /swagger
+//});                       
+app.UseWebApiDocumentatorSessions();
+app.UseWebApiDocumentator();
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();

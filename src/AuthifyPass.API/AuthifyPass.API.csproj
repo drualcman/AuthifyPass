@@ -8,9 +8,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AuthifyPass.API.IoC\AuthifyPass.API.IoC.csproj" />
-    <PackageReference Include="BlazorBasics.Captcha" Version="1.2.6" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+    <ProjectReference Include="d:\WebApiDocumentator\WebApiDocumentator\WebApiDocumentator.csproj" />
+    <PackageReference Include="BlazorBasics.Captcha" Version="1.2.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
 
 	<PropertyGroup>

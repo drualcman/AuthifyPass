@@ -1,8 +1,8 @@
 ﻿namespace AuthifyPass.API.Repositories.Interfaces;
 public interface IReadbleDbContext
 {
-    Task<ClientEntity?> GetClientByIdAsync(string clientId);
-    Task<ClientEntity?> GetClientByEmailAsync(string clientId);
-    Task<IEnumerable<UserSecretEntity>?> GetByClientIdAndUserIdAsync(string clientId, string userId);
-    Task<UserSecretEntity?> GetByClientIdAndSaredSecretAsync(string clientId, string sharedSecret);
+    Task<ClientEntity?> GetClientByIdAsync(string clientId, string sharedSecret);
+    Task<ClientEntity?> GetClientByEmailAsync(string clientId, string sharedSecret);
+    Task<UserSecretEntity?> GetByUserIdAndSharedSecretAsync(string userId, string sharedSecret);
+    Task<IEnumerable<UserSecretEntity>?> GetByClientIdAndSaredSecretAsync(string clientId, string sharedSecret);
 }

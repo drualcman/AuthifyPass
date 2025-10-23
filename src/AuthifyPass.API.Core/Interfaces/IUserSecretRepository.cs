@@ -4,8 +4,8 @@
 /// </summary>
 public interface IUserSecretRepository
 {
-    Task<IQueryable<UserSecret>?> GetByClientIdAndUserIdAsync(string clientId, string userId);
-    Task<UserSecret?> GetByClientIdAndSharedSecretAsync(string clientId, string sharedSecret);
+    Task<UserSecret?> GetByUserIdAndSharedSecretAsync(string userId, string sharedSecret);
+    Task<IQueryable<UserSecret>?> GetByClientIdAndSharedSecretAsync(string clientId, string sharedSecret);
     Task AddAsync(UserSecret userSecret);
     Task DeleteAsync(DeleteDto data);
 }

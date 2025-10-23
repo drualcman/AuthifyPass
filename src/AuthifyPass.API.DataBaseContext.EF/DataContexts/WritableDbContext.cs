@@ -12,9 +12,9 @@ internal class WritableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
 
     public async Task AddUserSecretAsync(UserSecretEntity userSecret) => await Users.AddAsync(userSecret);
 
-    public async Task DeleteClientAsync(string clientId)
+    public async Task DeleteClientAsync(string clientId, string shared)
     {
-        var client = await Clients.FirstAsync(x => x.ClientId.Equals(clientId));
+        var client = await Clients.FirstAsync(x => x.ClientId == clientId && x.SharedSecret == shared);
         if (client != null)
             Clients.Remove(client);
     }

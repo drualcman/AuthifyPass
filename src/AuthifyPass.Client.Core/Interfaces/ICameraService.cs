@@ -1,6 +1,6 @@
 ﻿namespace AuthifyPass.Client.Core.Interfaces;
-public interface ICameraService<TModel>
+public interface ICameraService
 {
-    event Func<TModel, Task> OnCapture;
-    Task Capture(TModel data);
+    event Func<string, Task> OnCapture;
+    Task Capture(string data);
 }

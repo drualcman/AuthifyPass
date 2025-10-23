@@ -1,6 +1,4 @@
-﻿using AuthifyPass.API.Core.Helpers;
-
-namespace AuthifyPass.API.Core.Services;
+﻿namespace AuthifyPass.API.Core.Services;
 internal class StringCulture<TModel>(IHttpContextAccessor contextAccessor, IStringLocalizer<TModel> localizer) : IStringCulture<TModel>
 {
     public string this[string key]

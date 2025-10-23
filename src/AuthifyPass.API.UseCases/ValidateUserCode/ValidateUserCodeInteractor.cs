@@ -1,6 +1,5 @@
 ﻿namespace AuthifyPass.API.UseCases.ValidateUserCode;
 internal class ValidateUserCodeInteractor(
-    IIdentifierGenerator identifierGenerator,
     IUserSecretRepository userRepository,
     IClientRepository clientRepository,
     IStringCulture<RegisterUserContent> localizer,
@@ -10,15 +9,15 @@ internal class ValidateUserCodeInteractor(
     {
         await GuardModel.AgainstNotValid(validator, data);
         bool result = false;
-        var client = await clientRepository.GetClientByIdAsync(data.ClientId);
+        var client = await clientRepository.GetClientByIdAsync(data.ClientId, secretShared);
         ThrowIfNullOrNotValid(secretShared, client);
-        var users = await userRepository.GetByClientIdAndUserIdAsync(data.ClientId, identifierGenerator.ComputeSha256Hash(data.UserId));
+        var users = await userRepository.GetByClientIdAndSharedSecretAsync(data.ClientId, secretShared);
 
-        if (users is null)
+        if (users is null || !users.Any())
             throw new KeyNotFoundException(localizer[nameof(RegisterUserContent.InvalidUser)]);
 
         var user = users?
-            .Where(user => TOTPHelper.ValidateTOTP(data.UserCode, user.ActiveSharedSecret))
+            .Where(user => TOTPGeneratorHelper.ValidateTOTP(data.UserCode, user.ActiveSharedSecret, 30, 6))
             .FirstOrDefault() ?? null;
 
         result = user is not null;

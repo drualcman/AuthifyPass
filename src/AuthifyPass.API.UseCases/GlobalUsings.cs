@@ -1,6 +1,5 @@
 global using AuthifyPass.API.Core.DTOs;
 global using AuthifyPass.API.Core.Guards;
-global using AuthifyPass.API.Core.Helpers;
 global using AuthifyPass.API.Core.Interfaces;
 global using AuthifyPass.API.Core.Interfaces.UseCases.DeleteClient;
 global using AuthifyPass.API.Core.Interfaces.UseCases.DeleteUser;
@@ -16,6 +15,7 @@ global using AuthifyPass.API.UseCases.ValidateUserCode;
 global using AuthifyPass.Entities.DTOs;
 global using AuthifyPass.Entities.Entities;
 global using AuthifyPass.Entities.Exceptions;
+global using AuthifyPass.Entities.Helpers;
 global using AuthifyPass.Entities.Interfaces;
 global using AuthifyPass.Entities.ValueObjects;
 global using Microsoft.AspNetCore.Http;

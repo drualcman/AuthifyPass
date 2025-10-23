@@ -1,9 +1,9 @@
 using ZXingBlazor.Components;
 
 namespace AuthifyPass.Views.Components;
-public partial class CaptureQRComponent<TDataModel>
+public partial class CaptureQRComponent
 {
-    [Inject] ICameraService<TDataModel> CameraService { get; set; }
+    [Inject] ICameraService CameraService { get; set; }
     [Inject] IStringLocalizer<Add2FAPageContent> Content { get; set; }
     [Parameter] public RenderFragment HeaderContent { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
@@ -13,16 +13,7 @@ public partial class CaptureQRComponent<TDataModel>
 
     public async Task TryDecodeData(string decodedData)
     {
-        TDataModel dataModel = default;
-        try
-        {
-            dataModel = JsonSerializer.Deserialize<TDataModel>(decodedData);
-        }
-        catch (Exception ex)
-        {
-            await Console.Out.WriteLineAsync(ex.Message);
-        }
-        await CameraService.Capture(dataModel);
+        await CameraService.Capture(decodedData);
         await InvokeAsync(StateHasChanged);
     }
 

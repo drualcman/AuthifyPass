@@ -4,18 +4,19 @@ namespace AuthifyPass.Views.Pages;
 public partial class Add2FA : IDisposable
 {
     [Inject] IAdd2FAViewModel<TwoFactorCode> ViewModel { get; set; }
-    [Inject] ICameraService<TwoFactorCode> CameraService { get; set; }
+    [Inject] ICameraService CameraService { get; set; }
     [Inject] NavigationManager NavigationManager { get; set; }
 
-    CaptureQRComponent<TwoFactorCode> Reader;
+    CaptureQRComponent Reader;
 
     protected override void OnInitialized()
     {
         CameraService.OnCapture += CameraService_OnCapture;
     }
 
-    private async Task CameraService_OnCapture(TwoFactorCode data)
+    private async Task CameraService_OnCapture(string data)
     {
+        await Task.Delay(10);
         await AddCode();
     }
 

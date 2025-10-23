@@ -9,7 +9,7 @@ public static partial class DependencyContainer
         services.AddValidationService();
         services.AddEntityServices();
         services.AddSingleton<IToastMessage, ToastMessageService>();
-        services.AddSingleton<ICameraService<TwoFactorCode>, CameraService<TwoFactorCode>>();
+        services.AddSingleton<ICameraService, CameraService>();
         services.AddBlazorIndexedDbContext<DatabaseContext>();
         services.AddHttpClient<IRepository, Repository>(client =>
         {

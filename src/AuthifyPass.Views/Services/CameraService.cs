@@ -1,10 +1,10 @@
 ﻿
 namespace AuthifyPass.Views.Services;
-internal class CameraService<TDataModel> : ICameraService<TDataModel> where TDataModel : class
+internal class CameraService : ICameraService
 {
-    public event Func<TDataModel, Task> OnCapture;
+    public event Func<string, Task> OnCapture;
 
-    public async Task Capture(TDataModel data)
+    public async Task Capture(string data)
     {
         if (OnCapture is not null)
             await OnCapture(data);

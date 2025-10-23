@@ -7,7 +7,7 @@ internal class TwoFactorCodeValidator : AbstractModelValidator<TwoFactorCode>
     {
         AddRuleFor(r => r.Description)
             .NotEmpty(localizer[nameof(ValidateTwoFactorCodeModelContent.DescriptionError)]);
-        AddRuleFor(r => r.ClientId)
+        AddRuleFor(r => r.UserID)
             .NotEmpty(localizer[nameof(ValidateTwoFactorCodeModelContent.ClientIdError)]);
         AddRuleFor(r => r.SharedKey)
             .NotEmpty(localizer[nameof(ValidateTwoFactorCodeModelContent.ShareKeyError)]);

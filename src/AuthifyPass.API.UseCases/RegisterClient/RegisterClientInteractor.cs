@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AuthifyPass.Entities.Helpers;
+using Microsoft.Extensions.Configuration;
 
 namespace AuthifyPass.API.UseCases.RegisterClient;
 internal class RegisterClientInteractor(IClientRepository repository,
@@ -11,8 +12,8 @@ internal class RegisterClientInteractor(IClientRepository repository,
     public async Task Handle(RegisterClientDto register)
     {
         await GuardModel.AgainstNotValid(validator, register);
-        ThrowIfNotValidCode(register.Code);
-        await ThrowIfEmailExists(register.Email);
+        ThrowIfNotValidSecret(register.Code);
+        await ThrowIfEmailExists(register.Email, register.Code);
         string clientId = identifierGenerator.GenerateClientId();
         string sharedSecret = identifierGenerator.GenerateSharedSecret();
         AddClientDto client = CreateClient(register, clientId, sharedSecret);
@@ -20,19 +21,19 @@ internal class RegisterClientInteractor(IClientRepository repository,
         await output.Handle(register.Name, clientId, sharedSecret);
     }
 
-    void ThrowIfNotValidCode(string code)
+    void ThrowIfNotValidSecret(string sharedSecred)
     {
         string secret = configuration.GetValue<string>("Secret");
-        if (!TOTPHelper.ValidateTOTP(code, secret))
+        if (!TOTPGeneratorHelper.ValidateTOTP(sharedSecred, secret))
             throw new ValidationException(new List<ValidationError>()
             {
                 new ValidationError(nameof(RegisterClientDto.Code), localizer[nameof(DatabaseErrors.ValidationCodeError)])
             });
     }
 
-    private async Task ThrowIfEmailExists(string email)
+    private async Task ThrowIfEmailExists(string email, string secret)
     {
-        Client existingClient = await repository.GetClientByEmailAsync(email);
+        Client existingClient = await repository.GetClientByEmailAsync(email, secret);
         if (existingClient is not null)
             throw new ValidationException(new List<ValidationError>()
             {

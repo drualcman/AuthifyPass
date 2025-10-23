@@ -85,11 +85,13 @@ internal class HomeViewModel(
 
     public async Task RefreshCodes()
     {
-        long timeStep = TOTPGeneratorHelper.CalculateTimeStep();
         List<Task> tasks = [];
         foreach (var item in TwoFactorCodesBK)
         {
-            tasks.Add(Task.Run(() => item.CurrentCode = TOTPGeneratorHelper.GenerateTOTP(item.SharedKey, timeStep)));
+            tasks.Add(Task.Run(() =>
+            {
+                item.CurrentCode = TOTPGeneratorHelper.GenerateTOTP(item.SharedKey, item.Period, item.Digits);
+            }));
         }
         await Task.WhenAll(tasks);
         ExecuteSearch();

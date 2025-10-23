@@ -3,7 +3,7 @@ internal class QRGeneratorRepository : IQRGeneratorRepository
 {
     public string GenerateQRCode(QRDataDto qrData)
     {
-        string data = JsonSerializer.Serialize(qrData);
+        string otpauthUrl = GenerateOtpAuthUrl(qrData);
         BarcodeWriterSvg writer = new BarcodeWriterSvg
         {
             Format = BarcodeFormat.QR_CODE,
@@ -14,7 +14,17 @@ internal class QRGeneratorRepository : IQRGeneratorRepository
                 Margin = 0
             }
         };
-        var svgImage = writer.Write(data);
+        var svgImage = writer.Write(otpauthUrl);
         return svgImage.Content;
+    }
+
+    private string GenerateOtpAuthUrl(QRDataDto qrData)
+    {
+        return $"otpauth://totp/{Uri.EscapeDataString(qrData.Name)}:{qrData.ClientId}" +
+               $"?secret={qrData.SharedKey}" +
+               $"&issuer={Uri.EscapeDataString(qrData.AppName)}" +
+               $"&algorithm=SHA1" +
+               $"&digits=6" +
+               $"&period=30";
     }
 }

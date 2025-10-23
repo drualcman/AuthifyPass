@@ -8,7 +8,7 @@ internal class Repository(DatabaseContext context, HttpClient client) : IReposit
             Id = twoFactorCode.Id,
             Title = twoFactorCode.Description,
             Name = twoFactorCode.Name,
-            ClientId = twoFactorCode.ClientId,
+            UserId = twoFactorCode.UserID,
             SharedKey = twoFactorCode.SharedKey,
             CreatedAt = DateTime.UtcNow
         };
@@ -21,11 +21,11 @@ internal class Repository(DatabaseContext context, HttpClient client) : IReposit
         var code = codes.FirstOrDefault();
         try
         {
-            if (code is not null)
+            if (code is not null && !code.UserId.Contains('@'))
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Add("x-authify-key", code.SharedKey);
-                using HttpResponseMessage response = await client.DeleteAsync($"user/{code.ClientId}");
+                using HttpResponseMessage response = await client.DeleteAsync($"user/{code.UserId}");
                 response.EnsureSuccessStatusCode();
             }
         }
@@ -47,7 +47,7 @@ internal class Repository(DatabaseContext context, HttpClient client) : IReposit
             Id = code.Id,
             Description = code.Title,
             Name = code.Name,
-            ClientId = code.ClientId,
+            UserID = code.UserId,
             SharedKey = code.SharedKey,
             CreatedAt = DateTime.UtcNow
         });

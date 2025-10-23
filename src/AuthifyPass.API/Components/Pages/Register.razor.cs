@@ -1,7 +1,7 @@
 namespace AuthifyPass.API.Components.Pages;
 public partial class Register
 {
-    [Inject] IConfiguration configuration { get; set; }
+    [Inject] IConfiguration Configuration { get; set; }
     [Inject] IStringCulture<RegisterPageContent> Localizer { get; set; }
     [Inject] IRegisterClientController RegisterClient { get; set; }
     [Inject] IModelValidatorHub<RegisterClientDto> Validator { get; set; }
@@ -11,7 +11,7 @@ public partial class Register
     bool IsWorking;
     bool IsRegistered = false;
     string ErrorMessage = string.Empty;
-    long TimeStep = 0;
+    int TimeStep = 30;
     string SharedSecret;
     string GeneratedCode;
     MarkupString HelpString;
@@ -23,9 +23,8 @@ public partial class Register
 
     protected override void OnInitialized()
     {
-        SharedSecret = configuration.GetValue<string>("Secret");
-        TimeStep = TOTPGeneratorHelper.CalculateTimeStep();
-        GeneratedCode = TOTPGeneratorHelper.GenerateTOTP(SharedSecret, TimeStep);
+        SharedSecret = Configuration.GetValue<string>("Secret");
+        GeneratedCode = TOTPGeneratorHelper.GenerateTOTP(SharedSecret, TimeStep, 6);
         CaptchaOptions = new CaptchaProperties(
             Type: CaptchaType.Custom,
             Placeholder: Localizer[nameof(RegisterPageContent.ValidationMessage)],
@@ -69,8 +68,7 @@ public partial class Register
 
     async Task RefreshCode()
     {
-        TimeStep = TOTPGeneratorHelper.CalculateTimeStep();
-        GeneratedCode = TOTPGeneratorHelper.GenerateTOTP(SharedSecret, TimeStep);
+        GeneratedCode = TOTPGeneratorHelper.GenerateTOTP(SharedSecret, TimeStep, 6);
         IsValid = false;
         await Captcha.Refresh();
     }

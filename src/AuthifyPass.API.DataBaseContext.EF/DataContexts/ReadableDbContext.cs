@@ -8,14 +8,14 @@ internal class ReadableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
         base.OnConfiguring(optionsBuilder);
     }
 
-    public async Task<IEnumerable<UserSecretEntity>?> GetByClientIdAndUserIdAsync(string clientId, string userId) =>
-        await Users.Where(c => c.ClientId.Equals(clientId) && c.UserId.Equals(userId)).ToListAsync();
+    public async Task<UserSecretEntity?> GetByUserIdAndSharedSecretAsync(string userId, string sharedSecret) =>
+        await Users.FirstOrDefaultAsync(c => c.UserId == userId && c.ActiveSharedSecret == sharedSecret);
 
-    public async Task<UserSecretEntity?> GetByClientIdAndSaredSecretAsync(string clientId, string sharedSecret) =>
-        await Users.FirstOrDefaultAsync(c => c.ClientId.Equals(clientId) && c.ActiveSharedSecret.Equals(sharedSecret));
+    public async Task<IEnumerable<UserSecretEntity>?> GetByClientIdAndSaredSecretAsync(string clientId, string sharedSecret) =>
+        await Users.Where(c => c.ClientId == clientId && c.Client.SharedSecret == sharedSecret).ToListAsync();
 
-    public async Task<ClientEntity?> GetClientByIdAsync(string clientId) =>
-        await Clients.FirstOrDefaultAsync(c => c.ClientId.Equals(clientId));
-    public async Task<ClientEntity?> GetClientByEmailAsync(string email) =>
-        await Clients.FirstOrDefaultAsync(c => c.Email.Equals(email));
+    public async Task<ClientEntity?> GetClientByIdAsync(string clientId, string sharedSecret) =>
+        await Clients.FirstOrDefaultAsync(c => c.ClientId == clientId && c.SharedSecret == sharedSecret);
+    public async Task<ClientEntity?> GetClientByEmailAsync(string email, string sharedSecret) =>
+        await Clients.FirstOrDefaultAsync(c => c.Email == email && c.SharedSecret == sharedSecret);
 }
