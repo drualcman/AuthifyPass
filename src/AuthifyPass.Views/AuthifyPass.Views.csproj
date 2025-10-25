@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\AboutUsResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AboutUsResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\Add2FAPageContent.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -38,6 +43,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>HomePageContent.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\MainLayoutResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MainLayoutResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ValidateTwoFactorCodeModelContent.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -46,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\AboutUsResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AboutUsResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Add2FAPageContent.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Add2FAPageContent.Designer.cs</LastGenOutput>
@@ -57,6 +71,10 @@
     <EmbeddedResource Update="Resources\HomePageContent.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HomePageContent.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\MainLayoutResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainLayoutResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ValidateTwoFactorCodeModelContent.resx">
       <Generator>ResXFileCodeGenerator</Generator>

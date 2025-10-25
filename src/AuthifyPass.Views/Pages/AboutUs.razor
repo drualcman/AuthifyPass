@@ -1,0 +1,78 @@
+﻿@page "/about-us"
+@inject IStringLocalizer<AboutUsResource> L
+
+<section class="section">
+    <div class="container">
+        <div class="content has-text-centered">
+            <h1 class="title">
+                <i class="fas fa-shield-alt"></i> @L["Title"]
+            </h1>
+            <p class="subtitle">@L["Subtitle"]</p>
+        </div>
+
+        <div class="box">
+            <h2 class="title is-4"><i class="fas fa-lock"></i> @L["PrivacyFirstTitle"]</h2>
+            <p>@L["PrivacyFirstText"]</p>
+        </div>
+
+        <div class="box">
+            <h2 class="title is-4"><i class="fas fa-balance-scale"></i> @L["ComparisonTitle"]</h2>
+            <table class="table is-fullwidth is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>@L["Feature"]</th>
+                        <th>@L["TraditionalAuthenticator"]</th>
+                        <th>AuthifyPass</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@L["OpenSource"]</td>
+                        <td><i class="fas fa-times has-text-danger"></i></td>
+                        <td><i class="fas fa-check has-text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>@L["UserPrivacy"]</td>
+                        <td><i class="fas fa-times has-text-danger"></i></td>
+                        <td><i class="fas fa-check has-text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>@L["DeveloperRegistration"]</td>
+                        <td><i class="fas fa-times has-text-danger"></i></td>
+                        <td><i class="fas fa-check has-text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>@L["PublicAPI"]</td>
+                        <td><i class="fas fa-times has-text-danger"></i></td>
+                        <td><i class="fas fa-check has-text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>@L["ClientRevocation"]</td>
+                        <td><i class="fas fa-times has-text-danger"></i></td>
+                        <td><i class="fas fa-check has-text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>@L["MultiDeviceSync"]</td>
+                        <td><i class="fas fa-check has-text-success"></i></td>
+                        <td><i class="fas fa-times has-text-danger"></i></td>
+                    </tr>
+                    <tr>
+                        <td>@L["TotpSupport"]</td>
+                        <td><i class="fas fa-check has-text-success"></i></td>
+                        <td><i class="fas fa-check has-text-success"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box">
+            <h2 class="title is-4"><i class="fas fa-code"></i> @L["OpenSourceTitle"]</h2>
+            <p>@L["OpenSourceText"]</p>
+        </div>
+
+        <div class="box">
+            <h2 class="title is-4"><i class="fas fa-users"></i> @L["DeveloperFriendlyTitle"]</h2>
+            <p>@L["DeveloperFriendlyText"]</p>
+        </div>
+    </div>
+</section>

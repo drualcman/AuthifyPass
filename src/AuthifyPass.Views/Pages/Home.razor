@@ -1,5 +1,6 @@
 ﻿@page "/"
 @rendermode InteractiveWebAssembly
+@inject IStringLocalizer<AboutUsResource> L
 
 <div class="field has-addons">
     <div class="control is-expanded">
@@ -57,5 +58,6 @@
         <button class="button" @onclick="ViewModel.CloseModal">@(new MarkupString(ViewModel.CancelButtonContent))</button>
     </FooterContent>
 </ModalComponent>
+
 
 <ToastMessageComponent />
