@@ -34,8 +34,8 @@ internal class Add2FAViewModel : IAdd2FAViewModel<TwoFactorCode>, IDisposable
             throw new FormatException("Invalid OTP Auth scheme.");
 
         string[] pathSegments = uri.AbsolutePath.Split(':');
-        string userId = pathSegments.Length > 1 ? pathSegments[1] : string.Empty;
-        string name = System.Web.HttpUtility.UrlDecode(pathSegments[0].Trim('/'));
+        string userId = pathSegments.Length > 1 ? pathSegments[0].Trim('/') : string.Empty;
+        string name = System.Web.HttpUtility.UrlDecode(pathSegments[1].Trim('/'));
         var queryParams = System.Web.HttpUtility.ParseQueryString(uri.Query);
 
         Description = userId.Contains('@') ? $"{uri.Scheme}://{name}" : name;

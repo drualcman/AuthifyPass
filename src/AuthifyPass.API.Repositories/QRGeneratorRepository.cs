@@ -20,7 +20,7 @@ internal class QRGeneratorRepository : IQRGeneratorRepository
 
     private string GenerateOtpAuthUrl(QRDataDto qrData)
     {
-        return $"otpauth://totp/{Uri.EscapeDataString(qrData.Name)}:{qrData.ClientId}" +
+        return $"otpauth://totp/{Uri.EscapeDataString(qrData.ClientId)}:{qrData.Name}" +
                $"?secret={qrData.SharedKey}" +
                $"&issuer={Uri.EscapeDataString(qrData.AppName)}" +
                $"&algorithm=SHA1" +
