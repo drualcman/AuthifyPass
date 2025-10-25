@@ -11,6 +11,9 @@ internal class ReadableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
     public async Task<UserSecretEntity?> GetByUserIdAndSharedSecretAsync(string userId, string sharedSecret) =>
         await Users.FirstOrDefaultAsync(c => c.UserId == userId && c.ActiveSharedSecret == sharedSecret);
 
+    public async Task<IEnumerable<UserSecretEntity>?> GetAllUsersByIdAndSharedAsync(string userId) =>
+             await Users.Where(c => c.UserId == userId).ToListAsync();
+
     public async Task<IEnumerable<UserSecretEntity>?> GetByClientIdAndSaredSecretAsync(string clientId, string sharedSecret) =>
         await Users.Where(c => c.ClientId == clientId && c.Client.SharedSecret == sharedSecret).ToListAsync();
 

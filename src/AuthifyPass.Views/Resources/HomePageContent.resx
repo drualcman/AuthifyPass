@@ -124,8 +124,9 @@
     <value>Delete</value>
   </data>
   <data name="ModalBodyTemplate" xml:space="preserve">
-    <value>&lt;p&gt;Are you sure you want to delete the 2FA for &lt;strong&gt;{0}&lt;/strong&gt;?&lt;/p&gt;
-&lt;p class="has-text-danger"&gt;This action cannot be undone.&lt;/p&gt;</value>
+    <value>Are you sure you want to remove two-factor authentication for &lt;strong&gt;{0}&lt;/strong&gt;?
+&lt;p class="has-text-danger"&gt;This action cannot be undone.
+&lt;p class="help"&gt;If this is an AuthifyPass-generated code, this action will invalidate all codes if you use AuthifyPass on other devices.</value>
   </data>
   <data name="ModalTitleTemplate" xml:space="preserve">
     <value>Are you sure you want to delete code of {0}?</value>

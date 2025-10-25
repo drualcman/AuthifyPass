@@ -124,8 +124,9 @@
     <value>Borrar</value>
   </data>
   <data name="ModalBodyTemplate" xml:space="preserve">
-    <value>&lt;p&gt;¿Está seguro de que desea eliminar la autenticación de dos factores para &lt;strong&gt;{0}&lt;/strong&gt;?&lt;/p&gt;
-&lt;p class="has-text-danger"&gt;Esta acción no se puede deshacer.&lt;/p&gt;</value>
+    <value>¿Seguro que desea eliminar la autenticación de dos factores para &lt;strong&gt;{0}&lt;/strong&gt;?
+&lt;p class="has-text-danger"&gt;Esta acción no se puede deshacer.
+&lt;p class="help"&gt;Si se trata de un código generado por AuthifyPass, esta acción invalidará todos los códigos si usa AuthifyPass en otros dispositivos.</value>
   </data>
   <data name="ModalTitleTemplate" xml:space="preserve">
     <value>¿Está seguro de que desea eliminar el código de {0}?</value>

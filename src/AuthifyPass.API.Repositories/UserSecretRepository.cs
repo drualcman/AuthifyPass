@@ -18,10 +18,13 @@ internal class UserSecretRepository(
 
     public async Task DeleteAsync(DeleteDto data)
     {
-        var user = await dbReader.GetByUserIdAndSharedSecretAsync(identifierGenerator.ComputeSha256Hash(data.Id), data.SharedSecret);
-        if (user is not null)
+        var users = await dbReader.GetAllUsersByIdAndSharedAsync(identifierGenerator.ComputeSha256Hash(data.Id));
+        if (users is not null && users.Any())
         {
-            await dbWriter.DeleteUserSecretAsync(user);
+            foreach (var user in users)
+            {
+                await dbWriter.DeleteUserSecretAsync(user);
+            }
             await dbWriter.SaveChangesAsync();
         }
     }
@@ -37,6 +40,7 @@ internal class UserSecretRepository(
         var user = await dbReader.GetByUserIdAndSharedSecretAsync(identifierGenerator.ComputeSha256Hash(userId), sharedSecret);
         return CreateUserSecret(user);
     }
+
     private UserSecret? CreateUserSecret(UserSecretEntity? user)
     {
         UserSecret result = default;

@@ -5,14 +5,10 @@ internal class DeleteUserInteractor(IUserSecretRepository repository) : IDeleteU
     public async Task<bool> Handle(DeleteDto data)
     {
         bool result = false;
-        UserSecret client = await repository.GetByUserIdAndSharedSecretAsync(data.Id, data.SharedSecret);
+        var client = await repository.GetByUserIdAndSharedSecretAsync(data.Id, data.SharedSecret);
         if (client is not null)
         {
-            if (client.ActiveSharedSecret.Equals(data.SharedSecret))
-            {
-                await repository.DeleteAsync(data);
-                result = true;
-            }
+            await repository.DeleteAsync(data);
         }
         return result;
     }

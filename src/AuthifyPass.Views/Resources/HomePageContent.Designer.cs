@@ -79,8 +79,9 @@ namespace AuthifyPass.Views.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;p&gt;Are you sure you want to delete the 2FA for &lt;strong&gt;{0}&lt;/strong&gt;?&lt;/p&gt;
-        ///&lt;p class=&quot;has-text-danger&quot;&gt;This action cannot be undone.&lt;/p&gt;.
+        ///   Looks up a localized string similar to Are you sure you want to remove two-factor authentication for &lt;strong&gt;{0}&lt;/strong&gt;?
+        ///&lt;p class=&quot;has-text-danger&quot;&gt;This action cannot be undone.
+        ///&lt;p class=&quot;help&quot;&gt;If this is an AuthifyPass-generated code, this action will invalidate all codes if you use AuthifyPass on other devices..
         /// </summary>
         internal static string ModalBodyTemplate {
             get {
