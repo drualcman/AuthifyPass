@@ -70,15 +70,6 @@ namespace AuthifyPass.Views.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
-        /// </summary>
-        internal static string Home {
-            get {
-                return ResourceManager.GetString("Home", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Register as Developer.
         /// </summary>
         internal static string RegisterAsDeveloper {

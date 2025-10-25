@@ -120,9 +120,6 @@
   <data name="AboutUs" xml:space="preserve">
     <value>Sobre Nosotros</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Inicio</value>
-  </data>
   <data name="RegisterAsDeveloper" xml:space="preserve">
     <value>Registrarse como Desarrollador</value>
   </data>

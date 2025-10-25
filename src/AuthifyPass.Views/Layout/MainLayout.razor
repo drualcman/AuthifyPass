@@ -1,23 +1,22 @@
 ﻿@inherits LayoutComponentBase
 @inject IStringLocalizer<MainLayoutResource> L
 
-<header class="navbar is-light has-shadow" style="position: fixed; top: 0; width: 100%; z-index: 1000;">
+<header class="navbar is-light has-shadow" >
     <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-            <i class="fas fa-shield-alt mr-2"></i>
+        <a class="navbar-item" href="">
+            <img src="_content/AuthifyPass.Views/img/Logo512.png" alt="AuthifyPass" style="height: 32px; width: 32px; margin-right: 8px;" />
             <strong>AuthifyPass</strong>
         </a>
     </div>
-    <div class="navbar-menu is-active">
-        <div class="navbar-end">
-            <a href="/" class="navbar-item">
-                <span class="icon"><i class="fas fa-home"></i></span>
-                <span>@L["Home"]</span>
-            </a>
+
+    <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-start">
             <a href="about-us" class="navbar-item">
                 <span class="icon"><i class="fas fa-info-circle"></i></span>
                 <span>@L["AboutUs"]</span>
             </a>
+        </div>
+        <div class="navbar-end">
             <a href="register" class="navbar-item">
                 <span class="icon"><i class="fas fa-user-plus"></i></span>
                 <span>@L["RegisterAsDeveloper"]</span>
@@ -30,7 +29,7 @@
     </div>
 </header>
 
-<main class="container" style="padding-top: 4.5rem;">
+<main class="container">
     <article class="content">
         @Body
     </article>
