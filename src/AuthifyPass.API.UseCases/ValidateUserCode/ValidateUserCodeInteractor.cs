@@ -11,7 +11,7 @@ internal class ValidateUserCodeInteractor(
         bool result = false;
         var client = await clientRepository.GetClientByIdAsync(data.ClientId, secretShared);
         ThrowIfNullOrNotValid(secretShared, client);
-        var users = await userRepository.GetByClientIdAndSharedSecretAsync(data.ClientId, secretShared);
+        var users = await userRepository.GetByUserByIdAndClientSharedSecretAsync(data.UserId, secretShared);
 
         if (users is null || !users.Any())
             throw new KeyNotFoundException(localizer[nameof(RegisterUserContent.InvalidUser)]);

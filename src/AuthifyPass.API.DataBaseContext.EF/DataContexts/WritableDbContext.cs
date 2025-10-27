@@ -15,13 +15,15 @@ internal class WritableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
     public async Task DeleteClientAsync(string clientId, string shared)
     {
         var client = await Clients.FirstAsync(x => x.ClientId == clientId && x.SharedSecret == shared);
-        if (client != null)
+        if (client is not null)
             Clients.Remove(client);
     }
 
     public Task DeleteUserSecretAsync(UserSecretEntity userSecret)
     {
-        Users?.Remove(userSecret);
+        var user = Users.FirstOrDefault(x => x.UserId == userSecret.UserId && x.ClientId == userSecret.ClientId && x.ActiveSharedSecret == userSecret.ActiveSharedSecret);
+        if (user is not null)
+            Users.Remove(user);
         return Task.CompletedTask;
     }
 

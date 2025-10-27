@@ -16,35 +16,38 @@ internal class UserSecretRepository(
         await dbWriter.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(DeleteDto data)
+    public async Task DeleteUserByClientSecretAsync(string hashedUserId, string clientSharedSecret)
     {
-        var users = await dbReader.GetAllUsersByIdAndSharedAsync(identifierGenerator.ComputeSha256Hash(data.Id));
-        if (users is not null && users.Any())
+        IEnumerable<UserSecretEntity> users = await dbReader.GetUsersByIdAndClientSharedSecretAsync(hashedUserId, clientSharedSecret);
+        if (users == null || !users.Any())
         {
-            foreach (var user in users)
-            {
-                await dbWriter.DeleteUserSecretAsync(user);
-            }
-            await dbWriter.SaveChangesAsync();
+            return;
         }
+
+        foreach (UserSecretEntity user in users)
+        {
+            await dbWriter.DeleteUserSecretAsync(user);
+        }
+        await dbWriter.SaveChangesAsync();
     }
 
-    public async Task<IQueryable<UserSecret>?> GetByClientIdAndSharedSecretAsync(string clientId, string sharedSecret)
+
+    public async Task<IQueryable<UserSecret>?> GetByUserByIdAndClientSharedSecretAsync(string userId, string sharedSecret)
     {
-        var users = await dbReader.GetByClientIdAndSaredSecretAsync(clientId, sharedSecret);
+        var users = await dbReader.GetUsersByIdAndClientSharedSecretAsync(identifierGenerator.ComputeSha256Hash(userId), sharedSecret);
         return users.Select(CreateUserSecret).AsQueryable();
     }
 
-    public async Task<UserSecret?> GetByUserIdAndSharedSecretAsync(string userId, string sharedSecret)
+    public async Task<IQueryable<UserSecret>?> GetByUserByIdAndSharedSecretAsync(string userId, string sharedSecret)
     {
-        var user = await dbReader.GetByUserIdAndSharedSecretAsync(identifierGenerator.ComputeSha256Hash(userId), sharedSecret);
-        return CreateUserSecret(user);
+        var users = await dbReader.GetUsersByIdAndSharedSecretAsync(identifierGenerator.ComputeSha256Hash(userId), sharedSecret);
+        return users.Select(CreateUserSecret).AsQueryable();
     }
 
     private UserSecret? CreateUserSecret(UserSecretEntity? user)
     {
         UserSecret result = default;
-        if (user != null)
+        if (user is not null)
             result = new UserSecret(user.ClientId, user.UserId, user.ActiveSharedSecret);
         return result;
     }

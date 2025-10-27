@@ -8,14 +8,26 @@ internal class ReadableDbContext(IOptions<DataBaseOptions> dbOptions) : AuthifyP
         base.OnConfiguring(optionsBuilder);
     }
 
-    public async Task<UserSecretEntity?> GetByUserIdAndSharedSecretAsync(string userId, string sharedSecret) =>
-        await Users.FirstOrDefaultAsync(c => c.UserId == userId && c.ActiveSharedSecret == sharedSecret);
+    public async Task<IEnumerable<UserSecretEntity>?> GetUsersByIdAndClientSharedSecretAsync(string userId, string sharedSecret) =>
+        await Users
+        .Include(u => u.Client)
+        .Where(c => c.UserId == userId && c.Client.SharedSecret == sharedSecret).ToListAsync();
 
-    public async Task<IEnumerable<UserSecretEntity>?> GetAllUsersByIdAndSharedAsync(string userId) =>
-             await Users.Where(c => c.UserId == userId).ToListAsync();
+    public async Task<IEnumerable<UserSecretEntity>?> GetUsersByIdAndSharedSecretAsync(string userId, string sharedSecret) =>
+        await Users
+        .Where(c => c.UserId == userId && c.ActiveSharedSecret == sharedSecret).ToListAsync();
 
-    public async Task<IEnumerable<UserSecretEntity>?> GetByClientIdAndSaredSecretAsync(string clientId, string sharedSecret) =>
-        await Users.Where(c => c.ClientId == clientId && c.Client.SharedSecret == sharedSecret).ToListAsync();
+    public async Task<IEnumerable<UserSecretEntity>?> GetUsersByClientIdAndSaredSecretAsync(string clientId, string sharedSecret) =>
+        await Users
+        .Include(u => u.Client)
+        .Where(c => c.ClientId == clientId && c.Client.SharedSecret == sharedSecret).ToListAsync();
+
+    public async Task<ClientEntity?> GetClientByUserIdAsync(string userId, string sharedSecret) =>
+        await Users
+        .Include(u => u.Client)
+        .Where(c => c.UserId == userId && c.ActiveSharedSecret == sharedSecret)
+        .Select(c => c.Client)
+        .FirstOrDefaultAsync();
 
     public async Task<ClientEntity?> GetClientByIdAsync(string clientId, string sharedSecret) =>
         await Clients.FirstOrDefaultAsync(c => c.ClientId == clientId && c.SharedSecret == sharedSecret);
