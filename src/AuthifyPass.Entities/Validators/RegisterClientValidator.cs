@@ -2,7 +2,7 @@
 internal class RegisterClientValidator : AbstractModelValidator<RegisterClientDto>
 {
     public RegisterClientValidator(IValidationService<RegisterClientDto> validationService,
-        IStringCulture<RegisterClientValidatorErrors> localizer) :
+        IStringLocalizer<RegisterClientValidatorErrors> localizer) :
         base(validationService, ValidationConstraint.ValidateIfThereAreNoPreviousErrors)
     {
         AddRuleFor(r => r.Email)
