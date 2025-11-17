@@ -1,4 +1,4 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace AuthifyPass.API.Swagger;
@@ -13,7 +13,7 @@ internal class AddHeaderOperationFilter : IOperationFilter
             In = ParameterLocation.Header,
             Description = "Shared secret for authentication",
             Required = false,
-            Schema = new OpenApiSchema { Type = "string" }
+            Schema = new OpenApiSchema { Type = JsonSchemaType.String }
         });
     }
 }
