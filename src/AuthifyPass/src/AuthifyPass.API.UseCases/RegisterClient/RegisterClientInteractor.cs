@@ -1,7 +1,5 @@
-﻿using AuthifyPass.Entities.Helpers;
-using Microsoft.Extensions.Configuration;
+﻿namespace AuthifyPass.API.UseCases.RegisterClient;
 
-namespace AuthifyPass.API.UseCases.RegisterClient;
 internal class RegisterClientInteractor(IClientRepository repository,
     IModelValidatorHub<RegisterClientDto> validator,
     IRegisterClientOutputPort output,

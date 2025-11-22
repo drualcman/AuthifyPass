@@ -19,3 +19,4 @@ global using AuthifyPass.Entities.Helpers;
 global using AuthifyPass.Entities.Interfaces;
 global using AuthifyPass.Entities.ValueObjects;
 global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.Configuration;
