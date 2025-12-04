@@ -4,7 +4,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-	  <Version>1.0.1</Version>
+	  <Version>1.0.2</Version>
 	  <Authors>Sergi Ortiz Gomez</Authors>
 	  <Company>DrUalcman</Company>
 	  <Description>
@@ -16,7 +16,7 @@
 	  <RepositoryUrl>https://github.com/drualcman/BlazorBasics.Maps</RepositoryUrl>
 	  <PackageProjectUrl>https://github.com/drualcman/BlazorBasics.Maps</PackageProjectUrl>
 	  <PackageTags>authifypass;totp;2fa;mfa;otp</PackageTags>
-	  <PackageReleaseNotes>Minimize dependencies.</PackageReleaseNotes>
+	  <PackageReleaseNotes>Fixed return false if have exception when try to verify user code.</PackageReleaseNotes>
 	  <RepositoryType>Git</RepositoryType>
 	  <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>

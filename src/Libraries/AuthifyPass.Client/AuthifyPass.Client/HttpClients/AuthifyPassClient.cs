@@ -47,6 +47,13 @@ internal class AuthifyPassClient : ClientBase, IAuthifyPassClient
         };
         using HttpResponseMessage response = await Client.PostAsJsonAsync($"{Options.UserEndpoint}/validate-code", request);
         await ThrowIfNotSuccessCore(response);
-        return await response.Content.ReadFromJsonAsync<bool>(cancellationToken: cancellationToken);
+        try
+        {
+            return await response.Content.ReadFromJsonAsync<bool>(cancellationToken: cancellationToken);
+        }
+        catch
+        {
+            return false;
+        }
     }
 }
