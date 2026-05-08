@@ -17,24 +17,32 @@
     <ImportMap />
     <HeadOutlet />
     <script>
-        window.blazorCulture = {
-            get: () => window.localStorage['BlazorCulture'],
-            set: (value) => window.localStorage['BlazorCulture'] = value
-        };
-        if (!window.blazorCulture.get()) {
-            const userCulture = navigator.language || navigator.userLanguage;
-            window.blazorCulture.set(userCulture);
-        }
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('service-worker.js', { scope: '/' })
-                    .then(function (registration) {
-                        console.log('AuthifyPass Service worker registered successfully');
-                    }).catch(function (e) {
-                        console.error('Error during movies service worker registration:', e);
-                    });
-            });
-        }
+            window.blazorCulture = {
+                get: () => window.localStorage['BlazorCulture'],
+                set: (value) => window.localStorage['BlazorCulture'] = value
+            };
+            if (!window.blazorCulture.get()) {
+                const userCulture = navigator.language || navigator.userLanguage;
+                window.blazorCulture.set(userCulture);
+            }
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function () {
+                    navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+                        .then(function (registration) {
+                                console.log('AuthifyPass Service worker registered successfully');
+                            registration.addEventListener('updatefound', () => {
+                                const newWorker = registration.installing;
+                                newWorker.addEventListener('statechange', () => {
+                                    if (newWorker.state === 'activated') {
+                                        window.location.reload();
+                                    }
+                                });
+                            });
+                        }).catch(function (e) {
+                                console.error('Error during AuthifyPass service worker registration:', e);
+                        });
+                });
+            }
     </script>
 </head>
 
