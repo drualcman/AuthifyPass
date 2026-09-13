@@ -47,16 +47,10 @@
     <article class="content">
         @Body
     </article>
+    <footer class="content has-text-centered app-version">
+        AuthifyPass v@AppInfo.Version
+    </footer>
 </main>
-
-<aside id="blazor-error-ui" data-nosnippet class="blazor-error-boundary">
-    <div class="blazor-error-inner">
-        <span class="icon"><i class="fas fa-triangle-exclamation"></i></span>
-        <span class="message">Something didn&apos;t load. Check your connection and try again.</span>
-        <a href="" class="reload button is-small is-warning">Reload</a>
-        <span class="dismiss" title="Dismiss">🗙</span>
-    </div>
-</aside>
 
 @code {
     private DotNetObjectReference<MainLayout>? selfReference;

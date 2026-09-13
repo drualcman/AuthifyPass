@@ -45,11 +45,70 @@
             });
         };
     </script>
+    <script>
+        // Captures boot/runtime failures (module/resource load errors, unhandled rejections) and shows
+        // them inside the error banner, so the real reason is readable on-device without devtools.
+        (function () {
+            var box = null;
+            var detail = null;
+
+            function ensure() {
+                if (!box) {
+                    box = document.getElementById('blazor-error-ui');
+                    detail = document.getElementById('blazor-error-detail');
+                }
+                return box;
+            }
+
+            function show(text) {
+                if (!ensure()) { return; }
+                if (detail) {
+                    detail.textContent = (detail.textContent ? detail.textContent + '\n' : '') + text;
+                }
+                box.style.display = 'block';
+            }
+
+            function describeResource(e) {
+                var t = e && e.target;
+                if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) {
+                    return t.tagName + ' ' + (t.src || t.href || '(no url)');
+                }
+                return '';
+            }
+
+            window.__authifyLogError = show;
+
+            window.addEventListener('error', function (e) {
+                var res = describeResource(e);
+                var msg = res
+                    ? ('Failed to load ' + res)
+                    : (e && e.message ? ('Error: ' + e.message + (e.filename ? (' at ' + e.filename + ':' + e.lineno) : '')) : 'Unknown error');
+                show(msg);
+            }, true);
+
+            window.addEventListener('unhandledrejection', function (e) {
+                var r = e && e.reason;
+                var msg = 'Rejection: ' + ((r && (r.message || r.stack)) || (typeof r === 'string' ? r : '(see console)'));
+                show(msg);
+            });
+        })();
+    </script>
     <ImportMap />
     <HeadOutlet />
 </head>
 
 <body>
+    <div id="blazor-error-ui" data-nosnippet class="blazor-error-boundary">
+        <div class="blazor-error-inner">
+            <span class="icon"><i class="fas fa-triangle-exclamation"></i></span>
+            <div class="message">
+                Something didn't load. Check your connection and try again.
+                <pre id="blazor-error-detail" class="blazor-error-detail"></pre>
+            </div>
+            <a href="" class="reload button is-small is-warning">Reload</a>
+            <span class="dismiss" title="Dismiss">🗙</span>
+        </div>
+    </div>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
     <script>

@@ -83,6 +83,7 @@ async function onInstall() {
     await cacheShellResources(cache);
 
     // Activate immediately once cached: no need to wait for the tabs to close.
+      await Promise.allSettled([cache.add(new Request('_framework/blazor.boot.json', { cache: 'no-cache' }))]).catch(function(){});
     await self.skipWaiting();
 }
 
