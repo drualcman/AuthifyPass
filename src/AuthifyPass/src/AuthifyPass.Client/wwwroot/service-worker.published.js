@@ -77,14 +77,14 @@ async function onInstall() {
         cache.add(new Request('_framework/blazor.web.js', { cache: 'no-cache' }))
     ]);
 
-    // The shell's import map / preload tags point at fingerprinted _framework modules and css that the
-    // client assets manifest does not always list under the same URL. Cache exactly what the shell asks
-    // for, or the first offline cold start after an update fails to boot (the yellow Blazor error).
+    // Read the cached shell and precache exactly what it references (fingerprinted modules, css).
     await cacheShellResources(cache);
 
-    // Activate immediately once cached: no need to wait for the tabs to close.
+    // Manual update: do NOT skipWaiting here. While a new build is installing it stays in the
+    // "waiting" state so the PREVIOUS cache keeps serving (offline keeps working). The new build is
+    // fully precached during that waiting window; only when the user taps "Reiniciar" (which posts
+    // skipWaiting) does this worker activate and onActivate deletes the older cache.
       await Promise.allSettled([cache.add(new Request('_framework/blazor.boot.json', { cache: 'no-cache' }))]).catch(function(){});
-    await self.skipWaiting();
 }
 
 // Reads the cached shell HTML and precaches every same-origin resource it references.
