@@ -98,18 +98,19 @@
 </head>
 
 <body>
-    <div id="blazor-error-ui" data-nosnippet class="blazor-error-boundary">
+    <div id="blazor-error-ui" data-nosnippet class="blazor-error-boundary" style="display:none;background:#b71c1c;color:#ffffff">
         <div class="blazor-error-inner">
             <span class="icon"><i class="fas fa-triangle-exclamation"></i></span>
             <div class="message">
                 Something didn't load. Check your connection and try again.
-                <pre id="blazor-error-detail" class="blazor-error-detail"></pre>
+                <pre id="blazor-error-detail" class="blazor-error-detail" style="color:#ffffff;background:rgba(0,0,0,.35)"></pre>
             </div>
             <a href="" class="reload button is-small is-warning">Reload</a>
             <span class="dismiss" title="Dismiss">🗙</span>
         </div>
     </div>
     <Routes />
+    <script src="_content/AuthifyPass.Views/js/boot-diagnostics.js"></script>
     <script src="_framework/blazor.web.js"></script>
     <script>
         // Registered/called from MainLayout (interactive WASM) so the app can show an explicit

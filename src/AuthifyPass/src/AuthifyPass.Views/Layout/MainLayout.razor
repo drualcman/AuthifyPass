@@ -38,7 +38,14 @@
 {
     <div class="notification is-warning is-light"
          style="position:fixed;top:0;left:0;right:0;z-index:1000;margin:0;border-radius:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0.5rem 1rem;">
-        <span><i class="fas fa-download"></i> @L["UpdateAvailable"]</span>
+        <span>
+            <i class="fas fa-download"></i> @L["UpdateAvailable"]:
+            <strong>@AppInfo.Version</strong>
+            @if (!string.IsNullOrEmpty(NewVersionText))
+            {
+                <text> &rarr; <strong>@NewVersionText</strong></text>
+            }
+        </span>
         <button class="button is-small is-warning" @onclick="RestartAsync">@L["RestartNow"]</button>
     </div>
 }
@@ -57,6 +64,7 @@
 
     private DotNetObjectReference<MainLayout>? selfReference;
     private bool updateAvailable;
+    private string NewVersionText { get; set; } = string.Empty;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -70,10 +78,11 @@
     }
 
     [JSInvokable]
-    public void NotifyUpdateAvailable()
+    public async Task NotifyUpdateAvailable()
     {
         updateAvailable = true;
-        InvokeAsync(StateHasChanged);
+        NewVersionText = await JS.InvokeAsync<string>("getWaitingAppVersion");
+        await InvokeAsync(StateHasChanged);
     }
 
     private async Task RestartAsync()

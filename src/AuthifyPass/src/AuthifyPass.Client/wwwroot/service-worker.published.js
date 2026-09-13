@@ -53,7 +53,7 @@ self.addEventListener('message', event => {
         self.skipWaiting();
     }
     if (event.data && event.data.type === 'getVersion') {
-        event.source && event.source.postMessage({ type: 'version', version: cacheName });
+        event.source && event.source.postMessage({ type: 'version', version: cacheName, build: APP_BUILD });
     }
 });
 
