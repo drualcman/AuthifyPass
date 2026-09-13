@@ -1,0 +1,38 @@
+{
+  "name": "Authify Pass",
+  "short_name": "Authify",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f5f5",
+  "theme_color": "#00796b",
+  "icons": [
+    {
+      "src": "_content/AuthifyPass.Views/img/Logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "_content/AuthifyPass.Views/img/Logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "_content/AuthifyPass.Views/img/AuthifyPass_Desktop.png",
+      "type": "image/png",
+      "sizes": "1280x720",
+      "form_factor": "wide"
+    },
+    {
+      "src": "_content/AuthifyPass.Views/img/AuthifyPass_Mobile.png",
+      "type": "image/png",
+      "sizes": "720x1280",
+      "form_factor": "narrow"
+    }
+  ]
+}

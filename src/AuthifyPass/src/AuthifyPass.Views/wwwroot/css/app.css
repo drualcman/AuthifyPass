@@ -37,3 +37,21 @@ html, body {
 
 
 
+.loading-shell {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+    .loading-shell img {
+        height: 96px;
+        width: 96px;
+    }
+
+    .loading-shell p {
+        color: #00796b;
+        font-weight: bold;
+    }

@@ -11,8 +11,7 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<AddHeaderOperationFilter>();
 });
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents()
-    .AddInteractiveWebAssemblyComponents();
+    .AddInteractiveServerComponents();
 builder.Services.AddSingleton(sp =>
 {
     // Get the address that the app is currently running at
@@ -49,7 +48,7 @@ builder.Services.AddWebApiDocumentator(options =>
 {
     options.ApiName = "AuthifyPass";
     options.Version = "v1";
-    options.Description = "AuthifyPass is an open-source and public API designed to simplify secure Two-Factor Authentication (2FA) integration for developers.\r\nIt provides a trusted backend service to generate and validate TOTP codes (Time-based One-Time Passwords), compatible with standard authenticator apps — while ensuring total privacy for end users.\r\n\r\nUnlike traditional providers (such as Google or Microsoft Authenticator), AuthifyPass offers a privacy-first approach:\r\nwhen developers register users in the system, no personal data or identifiers are ever stored.\r\nInstead, only hashed identifiers and shared secrets are maintained, meaning AuthifyPass has no way to trace real user information.\r\n";
+    options.Description = "AuthifyPass is an open-source and public API designed to simplify secure Two-Factor Authentication (2FA) integration for developers.\r\nIt provides a trusted backend service to generate and validate TOTP codes (Time-based One-Time Passwords), compatible with standard authenticator apps ï¿½ while ensuring total privacy for end users.\r\n\r\nUnlike traditional providers (such as Google or Microsoft Authenticator), AuthifyPass offers a privacy-first approach:\r\nwhen developers register users in the system, no personal data or identifiers are ever stored.\r\nInstead, only hashed identifiers and shared secrets are maintained, meaning AuthifyPass has no way to trace real user information.\r\n";
 });
 
 var app = builder.Build();
@@ -90,14 +89,14 @@ app.UseHttpsRedirection();
 app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
-    .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(AuthifyPass.Views._Imports).Assembly);
+    .AddInteractiveServerRenderMode();
 
 app.MapClientEndPoints();
 app.MapUserEndPoints();
 app.UseCors();
 
 app.UseExceptionHandler(builder => { });
+
+app.MapFallbackToFile("index.html");
 
 await app.RunAsync();
