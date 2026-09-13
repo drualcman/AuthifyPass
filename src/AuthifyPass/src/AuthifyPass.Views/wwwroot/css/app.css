@@ -22,16 +22,23 @@ html, body {
     text-align: center;
 }
 
+.timer-dock {
+    position: sticky;
+    top: 0.5rem;
+    z-index: 20;
+    display: flex;
+    justify-content: flex-end;
+    pointer-events: none; /* the badge must never swallow taps meant for a code card */
+    margin-bottom: 0.25rem;
+}
+
 .timer {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
-    color: #ff5722; 
+    color: #ff5722;
     background: #f3f3f3;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+    padding: 0.25rem 0.9rem;
+    border-radius: 999px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

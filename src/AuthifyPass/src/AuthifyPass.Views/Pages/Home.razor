@@ -14,8 +14,12 @@
     </div>
 </div>
 
-<div>
-</div>
+@if (ViewModel.HasCodes)
+{
+    <div class="timer-dock">
+        <CountDownComponent TimeToCount=30 OnReset=ViewModel.RefreshCodes />
+    </div>
+}
 
 <div class="codes-list">
     @if (ViewModel.HasCodes)
@@ -37,7 +41,6 @@
                 </div>
             </div>
         }
-        <CountDownComponent TimeToCount=30 OnReset=ViewModel.RefreshCodes />
     }
     else
     {
