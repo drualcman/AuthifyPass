@@ -26,6 +26,18 @@ const APP_BUILD = "0";
 const cacheName = `${cacheNamePrefix}${self.assetsManifest.version}_${APP_BUILD}`;
 const offlineShellUrl = '/';
 
+// Interactive WASM routes. They are not prerendered, so their server response is only the boot
+// scaffold, but a navigation OR a Blazor enhanced-navigation fetch (Accept: text/html) to them must
+// resolve offline too. Otherwise the worker hands Blazor a 503 response and it paints an empty error
+// page instead of letting the WASM router render the page. The list mirrors the @page routes whose
+// @rendermode is InteractiveWebAssembly; server-backed pages (/register, /Error) are NOT here because
+// they genuinely need the API and are covered by serverOnlyPaths.
+const clientRoutes = [
+    '/',
+    '/add',
+    '/about-us'
+];
+
 // Server-rendered or API paths that must always reach the network. They never work offline anyway,
 // and caching the interactive shell for them would shadow the real server output.
 const serverOnlyPaths = [
@@ -76,6 +88,10 @@ async function onInstall() {
         cache.add(new Request(offlineShellUrl, { cache: 'no-cache' })),
         cache.add(new Request('_framework/blazor.web.js', { cache: 'no-cache' }))
     ]);
+
+    // Precache every interactive-WASM route shell (see clientRoutes) so offline navigation and Blazor
+    // enhanced-navigation fetches to /add, /about-us, etc. resolve from cache instead of a 503.
+    await Promise.allSettled(clientRoutes.map(route => cache.add(new Request(route, { cache: 'no-cache' }))));
 
     // Read the cached shell and precache exactly what it references (fingerprinted modules, css).
     await cacheShellResources(cache);
@@ -174,7 +190,11 @@ async function onFetch(event) {
         return fetch(request);
     }
 
-    if (request.mode === 'navigate') {
+    const isHtmlNavigation = request.mode === 'navigate'
+        || request.destination === 'document'
+        || (request.headers.get('accept') || '').indexOf('text/html') >= 0;
+
+    if (isHtmlNavigation) {
         return networkFirst(request);
     }
     return staleWhileRevalidate(request);
