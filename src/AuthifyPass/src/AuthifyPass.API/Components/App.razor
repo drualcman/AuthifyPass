@@ -24,6 +24,27 @@
             window.blazorCulture.set(navigator.language || navigator.userLanguage);
         }
     </script>
+    <script>
+        window.getCacheVersion = function () {
+            return new Promise(function (resolve) {
+                var controller = navigator.serviceWorker && navigator.serviceWorker.controller;
+                if (!controller) { resolve(''); return; }
+                function onMessage(e) {
+                    if (e.data && e.data.type === 'version') {
+                        navigator.serviceWorker.removeEventListener('message', onMessage);
+                        clearTimeout(timer);
+                        resolve(e.data.version);
+                    }
+                }
+                var timer = setTimeout(function () {
+                    navigator.serviceWorker.removeEventListener('message', onMessage);
+                    resolve('');
+                }, 2000);
+                navigator.serviceWorker.addEventListener('message', onMessage);
+                controller.postMessage({ type: 'getVersion' });
+            });
+        };
+    </script>
     <ImportMap />
     <HeadOutlet />
 </head>
@@ -31,7 +52,38 @@
 <body>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
-    <script>navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none' });</script>
+    <script>
+        (function () {
+            if (!('serviceWorker' in navigator)) { return; }
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none', scope: '/' })
+                    .then(function (reg) {
+                        // Reload once when a newer worker actually takes control (new build deployed).
+                        var reloaded = false;
+                        navigator.serviceWorker.addEventListener('controllerchange', function () {
+                            if (reloaded) { return; }
+                            reloaded = true;
+                            window.location.reload();
+                        });
+
+                        // If a new worker is already waiting, activate it now instead of on next launch.
+                        if (reg.waiting) { reg.waiting.postMessage('skipWaiting'); }
+
+                        // Ask the browser to re-check the server for a new build periodically.
+                        setInterval(function () {
+                            var r = navigator.serviceWorker.getRegistration();
+                            if (!r) { return; }
+                            Promise.resolve(r).then(function (registration) {
+                                if (!registration) { return; }
+                                if (registration.waiting) { registration.waiting.postMessage('skipWaiting'); }
+                                return registration.update();
+                            }).catch(function () { });
+                        }, 30000);
+                    })
+                    .catch(function () { });
+            });
+        })();
+    </script>
 </body>
 
 </html>

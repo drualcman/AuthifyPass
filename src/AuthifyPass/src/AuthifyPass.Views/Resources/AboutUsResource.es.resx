@@ -180,4 +180,13 @@
   <data name="ViewOnGitHub" xml:space="preserve">
     <value>Ver en GitHub</value>
   </data>
+  <data name="VersionTitle" xml:space="preserve">
+    <value>Versión</value>
+  </data>
+  <data name="AppVersionLabel" xml:space="preserve">
+    <value>Versión de la app</value>
+  </data>
+  <data name="CacheVersionLabel" xml:space="preserve">
+    <value>Build sin conexión (caché)</value>
+  </data>
 </root>

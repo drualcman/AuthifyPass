@@ -364,3 +364,4 @@ FodyWeavers.xsd
 /.sonarqube/conf/cs
 /.sonarqube/conf/vbnet
 /.sonarqube/conf
+/.qwen

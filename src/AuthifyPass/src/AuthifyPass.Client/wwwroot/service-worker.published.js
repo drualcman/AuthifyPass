@@ -1,14 +1,26 @@
 // Offline-first worker used when the app is published (development uses the no-op service-worker.js).
-// This is a Blazor Web App: the HTML shell is server rendered and there is no static index.html,
-// and the host shell references assets (blazor.web.js, fingerprinted css/boot modules) that are not
-// listed in the client-generated assets manifest. Precaching the manifest alone is therefore not
-// enough, so the worker also runs runtime caching (stale-while-revalidate) for same-origin GETs:
-// after the app has been loaded once online, everything it touched is cached and the app cold
-// starts fully offline with no network and no API.
+//
+// This is a Blazor Web App: the HTML shell is server rendered and there is no static index.html, and
+// the shell references host assets (blazor.web.js, fingerprinted css/boot modules) that are not listed
+// in the client-generated assets manifest. So we precache the manifest assets TOLERANTLY (a single
+// failing asset must not abort the whole install, which is why offline silently broke before), we also
+// precache the server-rendered shell "/" and blazor.web.js, and we run runtime caching for same-origin
+// GETs so everything the app touched online is available offline.
+//
+// VERSIONING: the cache name is scoped to the assets manifest version plus a manual APP_BUILD token.
+// Bumping APP_BUILD (or just shipping a new build, which changes the manifest version) yields a new
+// cache; on activate the worker deletes every older "authifypass-offline-*" cache. This rebuilds the
+// whole file cache on update.
+//
+// !!! NEVER clears IndexedDB. This worker only ever touches the Cache Storage API (caches.*). The 2FA
+// codes live in IndexedDB (AddBlazorIndexedDbContext), which is a separate storage bucket; do NOT add
+// indexedDB.deleteDatabase(...) or any storage-eviction call here or the user's codes are lost.
 self.importScripts('./service-worker-assets.js');
 
 const cacheNamePrefix = 'authifypass-offline-';
-const cacheName = `${cacheNamePrefix}${self.assetsManifest.version}`;
+// Bump APP_BUILD to force every installed client to rebuild its cache even if the assets version did not change.
+const APP_BUILD = '2';
+const cacheName = `${cacheNamePrefix}${self.assetsManifest.version}_${APP_BUILD}`;
 const offlineShellUrl = '/';
 
 // Server-rendered or API paths that must always reach the network. They never work offline anyway,
@@ -37,13 +49,14 @@ self.addEventListener('message', event => {
     if (event.data === 'skipWaiting') {
         self.skipWaiting();
     }
+    if (event.data && event.data.type === 'getVersion') {
+        event.source && event.source.postMessage({ type: 'version', version: cacheName });
+    }
 });
 
 async function onInstall() {
     const cache = await caches.open(cacheName);
 
-    // Cache each manifest asset individually so a single failing resource cannot abort the whole
-    // install (which is what the atomic cache.addAll used to do and why offline silently broke).
     const assets = self.assetsManifest.assets
         .filter(asset => !assetsExclude.some(pattern => pattern.test(asset.url)));
     await Promise.all(assets.map(async asset => {
@@ -61,14 +74,19 @@ async function onInstall() {
         cache.add(new Request('_framework/blazor.web.js', { cache: 'no-cache' }))
     ]);
 
+    // Activate immediately once cached: no need to wait for the tabs to close.
     await self.skipWaiting();
 }
 
 async function onActivate() {
+    // Delete every older version of the FILE cache. Only Cache Storage keys with our prefix are
+    // removed; IndexedDB (the 2FA codes) is never touched.
     const cacheKeys = await caches.keys();
     await Promise.all(cacheKeys
         .filter(key => key.startsWith(cacheNamePrefix) && key !== cacheName)
         .map(key => caches.delete(key)));
+
+    // Take control of open clients right away so the page can reload onto the new build.
     await self.clients.claim();
 }
 
