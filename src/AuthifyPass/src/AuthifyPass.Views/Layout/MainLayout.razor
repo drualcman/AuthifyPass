@@ -50,9 +50,12 @@
 </main>
 
 <aside id="blazor-error-ui" data-nosnippet class="blazor-error-boundary">
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
+    <div class="blazor-error-inner">
+        <span class="icon"><i class="fas fa-triangle-exclamation"></i></span>
+        <span class="message">Something didn&apos;t load. Check your connection and try again.</span>
+        <a href="" class="reload button is-small is-warning">Reload</a>
+        <span class="dismiss" title="Dismiss">🗙</span>
+    </div>
 </aside>
 
 @code {

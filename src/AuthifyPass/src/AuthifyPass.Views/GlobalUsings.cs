@@ -1,3 +1,4 @@
+global using AuthifyPass.Client.Core;
 global using AuthifyPass.Client.Core.Interfaces;
 global using AuthifyPass.Client.Core.Models;
 global using AuthifyPass.Entities.Abstractions;

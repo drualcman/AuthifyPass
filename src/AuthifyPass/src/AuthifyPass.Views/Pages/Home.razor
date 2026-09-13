@@ -27,8 +27,8 @@
         foreach (var item in ViewModel.TwoFactorCodes)
         {
             <div class="code-card box">
-                <button class="button is-danger action-button" @onclick="() => ViewModel.OpenDeleteModal(item)">
-                    <span class="icon"><i class="fa-solid fa-trash-can"></i></span>
+                <button class="action-button is-info" title="@ViewModel.ShareTitleText" @onclick="() => ViewModel.OpenShareModal(item)">
+                    <span class="icon"><i class="fa-solid fa-share-nodes"></i></span>
                 </button>
                 <div class="code-display" @onclick="() => ViewModel.CopyToClipboard(item.CurrentCode)">
                     <div class="description-container">
@@ -39,6 +39,9 @@
                         <p class="code is-size-2 has-text-weight-bold">@item.CurrentCode</p>
                     </div>
                 </div>
+                <button class="button is-danger action-button" title="@ViewModel.DeleteButtonContent" @onclick="() => ViewModel.OpenDeleteModal(item)">
+                    <span class="icon"><i class="fa-solid fa-trash-can"></i></span>
+                </button>
             </div>
         }
     }
@@ -62,5 +65,35 @@
     </FooterContent>
 </ModalComponent>
 
+
+<ModalComponent @bind-IsVisible="ViewModel.IsShareVisible"
+                OnClose="ViewModel.CloseShareModal">
+    <Title>
+        @ViewModel.ShareTitleText
+    </Title>
+    <BodyContent>
+        <div class="content has-text-centered">
+            @if (ViewModel.HasShareQr)
+            {
+                <div class="share-qr">@((MarkupString)ViewModel.ShareQrSvg)</div>
+            }
+            <p>@ViewModel.ShareHintText</p>
+        </div>
+    </BodyContent>
+    <FooterContent>
+        @if (ViewModel.IsConfirmingSecretCopy)
+        {
+            <span class="has-text-danger"><i class="fas fa-triangle-exclamation"></i> @ViewModel.ConfirmSecretText</span>
+            <button class="button is-danger" @onclick="ViewModel.ConfirmCopySecret">@ViewModel.ConfirmYesText</button>
+            <button class="button" @onclick="ViewModel.CancelCopySecret">@ViewModel.ConfirmNoText</button>
+        }
+        else
+        {
+            <button class="button is-link" @onclick="ViewModel.CopyOtpAuthUri">@ViewModel.CopyLinkButtonText</button>
+            <button class="button is-info is-light" @onclick="ViewModel.RequestCopySecret">@ViewModel.CopySecretButtonText</button>
+            <button class="button" @onclick="ViewModel.CloseShareModal">@ViewModel.ShareCloseButtonText</button>
+        }
+    </FooterContent>
+</ModalComponent>
 
 <ToastMessageComponent />

@@ -33,10 +33,21 @@
         background-color: #f14668;
     }
 
+    .action-button.is-info {
+        background-color: #00b8a9;
+    }
+
+.share-qr {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem auto 1rem auto;
+}
+
 .code-display {
     display: flex;
     justify-content: space-between; /* Deja espacio entre los tres elementos */
     align-items: center;
+    flex: 1 1 auto; /* fill the space between the two edge buttons */
     padding: 0 1rem;
     width: 100%; /* Ocupa todo el ancho del contenedor */
     overflow: hidden;

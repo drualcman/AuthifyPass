@@ -79,6 +79,96 @@ namespace AuthifyPass.Views.Resources {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Share this 2FA code.
+        /// </summary>
+        internal static string ShareTitleText {
+            get {
+                return ResourceManager.GetString("ShareTitleText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Scan this QR with another authenticator, or copy the sharing link / secret to transfer it..
+        /// </summary>
+        internal static string ShareHintText {
+            get {
+                return ResourceManager.GetString("ShareHintText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Copy link.
+        /// </summary>
+        internal static string CopyLinkButtonText {
+            get {
+                return ResourceManager.GetString("CopyLinkButtonText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Copy secret.
+        /// </summary>
+        internal static string CopySecretButtonText {
+            get {
+                return ResourceManager.GetString("CopySecretButtonText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string ShareCloseButtonText {
+            get {
+                return ResourceManager.GetString("ShareCloseButtonText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Sharing link copied to clipboard..
+        /// </summary>
+        internal static string ShareLinkCopiedText {
+            get {
+                return ResourceManager.GetString("ShareLinkCopiedText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Secret copied to clipboard..
+        /// </summary>
+        internal static string ShareSecretCopiedText {
+            get {
+                return ResourceManager.GetString("ShareSecretCopiedText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to This copies your secret 2FA key. Copy it anyway?.
+        /// </summary>
+        internal static string ConfirmSecretText {
+            get {
+                return ResourceManager.GetString("ConfirmSecretText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Yes, copy.
+        /// </summary>
+        internal static string ConfirmYesText {
+            get {
+                return ResourceManager.GetString("ConfirmYesText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ConfirmNoText {
+            get {
+                return ResourceManager.GetString("ConfirmNoText", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string DeleteButtonText {

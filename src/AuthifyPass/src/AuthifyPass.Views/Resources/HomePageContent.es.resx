@@ -123,6 +123,36 @@
   <data name="CodeCopiedText" xml:space="preserve">
     <value>Código copiado al portapapeles.</value>
   </data>
+  <data name="ShareTitleText" xml:space="preserve">
+    <value>Compartir este código 2FA</value>
+  </data>
+  <data name="ShareHintText" xml:space="preserve">
+    <value>Escanea este QR con otro autenticador, o copia el enlace / la clave para transferirlo.</value>
+  </data>
+  <data name="CopyLinkButtonText" xml:space="preserve">
+    <value>Copiar enlace</value>
+  </data>
+  <data name="CopySecretButtonText" xml:space="preserve">
+    <value>Copiar clave</value>
+  </data>
+  <data name="ShareCloseButtonText" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="ShareLinkCopiedText" xml:space="preserve">
+    <value>Enlace para compartir copiado al portapapeles.</value>
+  </data>
+  <data name="ShareSecretCopiedText" xml:space="preserve">
+    <value>Clave copiada al portapapeles.</value>
+  </data>
+  <data name="ConfirmSecretText" xml:space="preserve">
+    <value>Esto copia tu clave secreta 2FA. ¿Copiarla de todos modos?</value>
+  </data>
+  <data name="ConfirmYesText" xml:space="preserve">
+    <value>Sí, copiar</value>
+  </data>
+  <data name="ConfirmNoText" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
   <data name="DeleteButtonText" xml:space="preserve">
     <value>Borrar</value>
   </data>

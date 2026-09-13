@@ -52,6 +52,68 @@ internal class HomeViewModel(
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", code);
         await ToastMessage.Information(content[nameof(HomePageContent.CodeCopiedText)]);
     }
+
+    private TwoFactorCode? shareItem;
+
+    public bool IsShareVisible { get; set; }
+    public string ShareOtpAuthUri { get; private set; } = string.Empty;
+    public string ShareQrSvg { get; private set; } = string.Empty;
+    public bool HasShareQr => !string.IsNullOrEmpty(ShareQrSvg);
+    public string ShareTitleText => content[nameof(HomePageContent.ShareTitleText)];
+    public string ShareHintText => content[nameof(HomePageContent.ShareHintText)];
+    public string CopyLinkButtonText => content[nameof(HomePageContent.CopyLinkButtonText)];
+    public string CopySecretButtonText => content[nameof(HomePageContent.CopySecretButtonText)];
+    public string ShareCloseButtonText => content[nameof(HomePageContent.ShareCloseButtonText)];
+    public bool IsConfirmingSecretCopy { get; private set; }
+    public string ConfirmSecretText => content[nameof(HomePageContent.ConfirmSecretText)];
+    public string ConfirmYesText => content[nameof(HomePageContent.ConfirmYesText)];
+    public string ConfirmNoText => content[nameof(HomePageContent.ConfirmNoText)];
+
+    public void OpenShareModal(TwoFactorCode code)
+    {
+        shareItem = code;
+        ShareOtpAuthUri = OtpAuthUri.Build(code);
+        ShareQrSvg = QrCodeSvgRenderer.RenderSvg(ShareOtpAuthUri);
+        IsConfirmingSecretCopy = false;
+        IsShareVisible = true;
+    }
+
+    public void CloseShareModal()
+    {
+        IsShareVisible = false;
+        shareItem = null;
+        ShareOtpAuthUri = string.Empty;
+        ShareQrSvg = string.Empty;
+        IsConfirmingSecretCopy = false;
+    }
+
+    public async Task CopyOtpAuthUri()
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", ShareOtpAuthUri);
+        await ToastMessage.Information(content[nameof(HomePageContent.ShareLinkCopiedText)]);
+    }
+
+    public void RequestCopySecret()
+    {
+        IsConfirmingSecretCopy = true;
+    }
+
+    public void CancelCopySecret()
+    {
+        IsConfirmingSecretCopy = false;
+    }
+
+    public async Task ConfirmCopySecret()
+    {
+        IsConfirmingSecretCopy = false;
+
+        if (shareItem is not null)
+        {
+            await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", shareItem.SharedKey);
+            await ToastMessage.Information(content[nameof(HomePageContent.ShareSecretCopiedText)]);
+        }
+    }
+
     public void OpenDeleteModal(TwoFactorCode code)
     {
         SelectedItem = code;

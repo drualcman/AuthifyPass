@@ -77,8 +77,69 @@ async function onInstall() {
         cache.add(new Request('_framework/blazor.web.js', { cache: 'no-cache' }))
     ]);
 
+    // The shell's import map / preload tags point at fingerprinted _framework modules and css that the
+    // client assets manifest does not always list under the same URL. Cache exactly what the shell asks
+    // for, or the first offline cold start after an update fails to boot (the yellow Blazor error).
+    await cacheShellResources(cache);
+
     // Activate immediately once cached: no need to wait for the tabs to close.
     await self.skipWaiting();
+}
+
+// Reads the cached shell HTML and precaches every same-origin resource it references.
+async function cacheShellResources(cache) {
+    let shellText = '';
+
+    try {
+        const shell = await cache.match(offlineShellUrl);
+        if (shell) {
+            shellText = await shell.text();
+        }
+    }
+    catch {
+        return;
+    }
+
+    if (!shellText) {
+        return;
+    }
+
+    const urls = new Set();
+
+    const importMapMatch = shellText.match(/<script[^>]*type=["']importmap["'][^>]*>([\s\S]*?)<\/script>/i);
+    if (importMapMatch) {
+        try {
+            const importMap = JSON.parse(importMapMatch[1]);
+            for (const target of Object.values(importMap.imports || {})) {
+                urls.add(target);
+            }
+        }
+        catch { }
+    }
+
+    const refRegex = /(?:href|src)\s*=\s*["']([^"']+)["']/ig;
+    let match = refRegex.exec(shellText);
+    while (match !== null) {
+        urls.add(match[1]);
+        match = refRegex.exec(shellText);
+    }
+
+    await Promise.all(Array.from(urls).map(async (raw) => {
+        try {
+            const url = new URL(raw, self.location.href);
+            if (url.origin !== self.location.origin || isServerOnly(url.pathname)) {
+                return;
+            }
+            if (/^\/service-worker(\.published)?\.js$/.test(url.pathname) || url.pathname === '/service-worker-assets.js') {
+                return;
+            }
+            const request = new Request(url.pathname + url.search, { cache: 'no-cache' });
+            if (!(await cache.match(request))) {
+                await cache.add(request);
+            }
+        }
+        catch { }
+    }));
 }
 
 async function onActivate() {
