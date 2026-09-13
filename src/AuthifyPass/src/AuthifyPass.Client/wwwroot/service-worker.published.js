@@ -80,6 +80,12 @@ async function onInstall() {
     // Read the cached shell and precache exactly what it references (fingerprinted modules, css).
     await cacheShellResources(cache);
 
+    // NOTE: every dynamic-import JS module (MyDbJS.js, ZXingBlazor BarcodeReader.razor.js and its
+    // lib/*.js) is already a static web asset listed in self.assetsManifest and precached by the loop
+    // above. They fail offline only because the runtime import() appends a cache-busting query string
+    // (?a=<ver>&v=<date>) that made cache.match miss the base-url entry; the fetch handler now matches
+    // with ignoreSearch, so no hand-maintained list is needed here.
+
     // Manual update: do NOT skipWaiting here. While a new build is installing it stays in the
     // "waiting" state so the PREVIOUS cache keeps serving (offline keeps working). The new build is
     // fully precached during that waiting window; only when the user taps "Reiniciar" (which posts
@@ -184,7 +190,7 @@ async function networkFirst(request) {
         cache.put(request, response.clone()).catch(() => { });
     }
     catch {
-        response = await cache.match(request) || await cache.match(offlineShellUrl);
+        response = await cache.match(request, { ignoreSearch: true }) || await cache.match(offlineShellUrl);
         if (!response) {
             response = new Response('', { status: 503, statusText: 'Offline' });
         }
@@ -196,7 +202,7 @@ async function networkFirst(request) {
 // Assets: serve from cache when present and refresh in the background; populate cache on first use.
 async function staleWhileRevalidate(request) {
     const cache = await caches.open(cacheName);
-    const cached = await cache.match(request);
+    const cached = await cache.match(request, { ignoreSearch: true });
     const refreshed = fetch(request).then(response => {
         if (response && response.status === 200 && response.type === 'basic') {
             cache.put(request, response.clone()).catch(() => { });
