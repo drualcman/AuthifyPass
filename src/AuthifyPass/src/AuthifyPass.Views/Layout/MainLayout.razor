@@ -48,11 +48,13 @@
         @Body
     </article>
     <footer class="content has-text-centered app-version">
-        AuthifyPass v@AppInfo.Version
+        @AppVersionText
     </footer>
 </main>
 
 @code {
+    private string AppVersionText { get; } = "AuthifyPass v" + AppInfo.Version;
+
     private DotNetObjectReference<MainLayout>? selfReference;
     private bool updateAvailable;
 
