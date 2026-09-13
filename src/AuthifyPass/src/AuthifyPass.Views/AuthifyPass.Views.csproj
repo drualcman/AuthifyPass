@@ -11,10 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DrUalcman-BlazorIndexedDb" Version="1.9.49" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.7" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.7" />
-    <PackageReference Include="ZXingBlazor" Version="1.1.6" />
+    <PackageReference Include="DrUalcman-BlazorIndexedDb" Version="1.11.52" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.12" />
+    <PackageReference Include="ZXingBlazor" Version="1.1.8" />
   </ItemGroup>
 
   <ItemGroup>

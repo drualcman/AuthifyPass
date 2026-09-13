@@ -1,0 +1,36 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- major.minor is bumped by hand only on big redesigns; the build number is the git commit count. -->
+    <VersionPrefix>1.0</VersionPrefix>
+    <!-- Keep the informational version clean (do not append "+<git sha>" that the SDK adds by default). -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <!-- Expose the commit count to targets (assembly version + service worker injection). -->
+    <EnableGitVersioning Condition="'$(EnableGitVersioning)' == ''">true</EnableGitVersioning>
+  </PropertyGroup>
+
+  <!--
+    Derive the version from the number of commits so nothing has to be hand-edited.
+    The git "rev-list count HEAD" command returns a single integer that grows by one per commit and
+    can never be forgotten. Runs before the assembly-info file is generated so Version is consumed.
+  -->
+  <Target Name="SetVersionFromGit"
+          Condition="'$(EnableGitVersioning)' == 'true' and '$(GitCommitCount)' == ''"
+          BeforeTargets="GetAssemblyVersion;GenerateAssemblyInfo;CoreCompile">
+    <Exec Command="git rev-list --count HEAD"
+          WorkingDirectory="$(MSBuildThisFileDirectory)"
+          ConsoleToMSBuild="true"
+          StandardOutputImportance="low"
+          IgnoreExitCode="true">
+      <Output TaskParameter="ConsoleOutput" PropertyName="GitCommitCountRaw" />
+      <Output TaskParameter="ExitCode" PropertyName="GitCommitCountExitCode" />
+    </Exec>
+    <PropertyGroup Condition="'$(GitCommitCountExitCode)' == '0'">
+      <GitCommitCount>$(GitCommitCountRaw.Trim())</GitCommitCount>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(GitCommitCount)' != '' and '$(GitCommitCount)' != '0'">
+      <Version>$(VersionPrefix).$(GitCommitCount)</Version>
+    </PropertyGroup>
+  </Target>
+
+</Project>

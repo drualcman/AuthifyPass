@@ -53,36 +53,52 @@
     <Routes />
     <script src="_framework/blazor.web.js"></script>
     <script>
-        (function () {
+        // Registered/called from MainLayout (interactive WASM) so the app can show an explicit
+        // "update available" banner instead of reloading silently.
+        window.initServiceWorker = function (dotNetRef) {
             if (!('serviceWorker' in navigator)) { return; }
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none', scope: '/' })
-                    .then(function (reg) {
-                        // Reload once when a newer worker actually takes control (new build deployed).
-                        var reloaded = false;
-                        navigator.serviceWorker.addEventListener('controllerchange', function () {
-                            if (reloaded) { return; }
-                            reloaded = true;
-                            window.location.reload();
+            navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none', scope: '/' })
+                .then(function (registration) {
+                    function hasController() { return !!navigator.serviceWorker.controller; }
+
+                    function announceWaiting() {
+                        if (registration.waiting && hasController()) {
+                            dotNetRef.invokeMethodAsync('NotifyUpdateAvailable');
+                        }
+                    }
+
+                    announceWaiting();
+
+                    registration.addEventListener('updatefound', function () {
+                        var installing = registration.installing;
+                        if (!installing) { return; }
+                        installing.addEventListener('statechange', function () {
+                            if (installing.state === 'installed' && hasController()) {
+                                dotNetRef.invokeMethodAsync('NotifyUpdateAvailable');
+                            }
                         });
+                    });
 
-                        // If a new worker is already waiting, activate it now instead of on next launch.
-                        if (reg.waiting) { reg.waiting.postMessage('skipWaiting'); }
+                    // Re-check the server for a new build periodically.
+                    setInterval(function () { registration.update().catch(function () { }); }, 60000);
+                })
+                .catch(function () { });
+        };
 
-                        // Ask the browser to re-check the server for a new build periodically.
-                        setInterval(function () {
-                            var r = navigator.serviceWorker.getRegistration();
-                            if (!r) { return; }
-                            Promise.resolve(r).then(function (registration) {
-                                if (!registration) { return; }
-                                if (registration.waiting) { registration.waiting.postMessage('skipWaiting'); }
-                                return registration.update();
-                            }).catch(function () { });
-                        }, 30000);
-                    })
-                    .catch(function () { });
+        // Only called when the user taps "Restart": skip the waiting phase and reload onto the new build.
+        window.restartServiceWorker = function () {
+            navigator.serviceWorker.getRegistration().then(function (registration) {
+                if (registration && registration.waiting) {
+                    navigator.serviceWorker.addEventListener('controllerchange', function () {
+                        window.location.reload();
+                    }, { once: true });
+                    registration.waiting.postMessage('skipWaiting');
+                }
+                else {
+                    window.location.reload();
+                }
             });
-        })();
+        };
     </script>
 </body>
 

@@ -10,13 +10,48 @@
     <ProjectReference Include="..\AuthifyPass.API.IoC\AuthifyPass.API.IoC.csproj" />
     <ProjectReference Include="..\AuthifyPass.Client\AuthifyPass.Client.csproj" />
     <PackageReference Include="BlazorBasics.Captcha" Version="1.2.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.12" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
     <PackageReference Include="WebApiDocumentator" Version="1.1.10" />
   </ItemGroup>
 
 	<PropertyGroup>
 		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 	</PropertyGroup>
+
+    <!--
+      Bake the git commit count into the PUBLISHED wwwroot/service-worker.js (APP_BUILD token below).
+      Editing only the published artifact keeps the tracked source clean, and because the file's bytes
+      change per build the browser's service worker update check detects the new worker, re-caches, and
+      the app can offer a "restart to update" prompt. It never touches IndexedDB (2FA codes).
+    -->
+    <Target Name="InjectServiceWorkerBuildVersion" AfterTargets="Publish">
+      <Exec Command="git rev-list --count HEAD" WorkingDirectory="$(MSBuildThisFileDirectory)" ConsoleToMSBuild="true" StandardOutputImportance="low" IgnoreExitCode="true">
+        <Output TaskParameter="ConsoleOutput" PropertyName="SwCommitCountRaw" />
+        <Output TaskParameter="ExitCode" PropertyName="SwCommitCountExit" />
+      </Exec>
+      <PropertyGroup Condition="'$(SwCommitCountExit)' == '0'">
+        <SwCommitCount>$(SwCommitCountRaw.Trim())</SwCommitCount>
+      </PropertyGroup>
+      <PropertyGroup Condition="'$(SwCommitCount)' == '' and '$(GitCommitCount)' != ''">
+        <SwCommitCount>$(GitCommitCount)</SwCommitCount>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <ServiceWorkerPublishedFile Include="$(PublishDir)wwwroot\service-worker.js" Condition="Exists('$(PublishDir)wwwroot\service-worker.js')" />
+      </ItemGroup>
+
+      <ReadLinesFromFile File="@(ServiceWorkerPublishedFile)" Condition="'$(SwCommitCount)' != '' and '@(ServiceWorkerPublishedFile)' != ''">
+        <Output TaskParameter="Lines" ItemName="ServiceWorkerLines" />
+      </ReadLinesFromFile>
+
+      <ItemGroup>
+        <ServiceWorkerLinesReplaced Include="@(ServiceWorkerLines-&gt;Replace('const APP_BUILD = &quot;0&quot;;', 'const APP_BUILD = &quot;$(SwCommitCount)&quot;;'))" />
+      </ItemGroup>
+
+      <WriteLinesToFile File="@(ServiceWorkerPublishedFile)" Lines="@(ServiceWorkerLinesReplaced)" Overwrite="true" Condition="'$(SwCommitCount)' != '' and '@(ServiceWorkerPublishedFile)' != '' and '@(ServiceWorkerLines)' != ''" />
+
+      <Message Importance="high" Text="Injected service-worker.js APP_BUILD = $(SwCommitCount)" Condition="'$(SwCommitCount)' != '' and '@(ServiceWorkerPublishedFile)' != ''" />
+    </Target>
 
 </Project>

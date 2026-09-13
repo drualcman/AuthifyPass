@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SkiaSharp" Version="3.119.2" />
+    <PackageReference Include="SkiaSharp" Version="4.152.0" />
     <PackageReference Include="ZXing.Net" Version="0.16.11" />
   </ItemGroup>
 

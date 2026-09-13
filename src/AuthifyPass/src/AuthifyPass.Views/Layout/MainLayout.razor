@@ -1,5 +1,7 @@
 @inherits LayoutComponentBase
+@implements IDisposable
 @inject IStringLocalizer<MainLayoutResource> L
+@inject IJSRuntime JS
 
 <header class="navbar is-light has-shadow" >
     <div class="navbar-brand">
@@ -32,6 +34,15 @@
     </div>
 </header>
 
+@if (updateAvailable)
+{
+    <div class="notification is-warning is-light"
+         style="position:fixed;top:0;left:0;right:0;z-index:1000;margin:0;border-radius:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0.5rem 1rem;">
+        <span><i class="fas fa-download"></i> @L["UpdateAvailable"]</span>
+        <button class="button is-small is-warning" @onclick="RestartAsync">@L["RestartNow"]</button>
+    </div>
+}
+
 <main class="container">
     <article class="content">
         @Body
@@ -43,3 +54,36 @@
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </aside>
+
+@code {
+    private DotNetObjectReference<MainLayout>? selfReference;
+    private bool updateAvailable;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            selfReference = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("initServiceWorker", selfReference);
+        }
+
+        await Task.CompletedTask;
+    }
+
+    [JSInvokable]
+    public void NotifyUpdateAvailable()
+    {
+        updateAvailable = true;
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async Task RestartAsync()
+    {
+        await JS.InvokeVoidAsync("restartServiceWorker");
+    }
+
+    public void Dispose()
+    {
+        selfReference?.Dispose();
+    }
+}

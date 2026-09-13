@@ -18,8 +18,11 @@
 self.importScripts('./service-worker-assets.js');
 
 const cacheNamePrefix = 'authifypass-offline-';
-// Bump APP_BUILD to force every installed client to rebuild its cache even if the assets version did not change.
-const APP_BUILD = '2';
+// APP_BUILD is injected at publish time by the InjectServiceWorkerBuildVersion target in the API
+// project (it replaces the string below with the git commit count). Do not rely on editing this by
+// hand: shipping a new build changes both this token and the assets manifest version, so installed
+// clients detect the new worker and rebuild their cache. The literal '0' is only the committed default.
+const APP_BUILD = "0";
 const cacheName = `${cacheNamePrefix}${self.assetsManifest.version}_${APP_BUILD}`;
 const offlineShellUrl = '/';
 

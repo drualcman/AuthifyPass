@@ -123,4 +123,10 @@
   <data name="RegisterAsDeveloper" xml:space="preserve">
     <value>Desarrollador</value>
   </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>Hay una nueva versión disponible.</value>
+  </data>
+  <data name="RestartNow" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
 </root>
