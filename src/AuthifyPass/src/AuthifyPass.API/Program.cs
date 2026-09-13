@@ -11,7 +11,8 @@ builder.Services.AddSwaggerGen(options =>
     options.OperationFilter<AddHeaderOperationFilter>();
 });
 builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
 builder.Services.AddSingleton(sp =>
 {
     // Get the address that the app is currently running at
@@ -89,14 +90,14 @@ app.UseHttpsRedirection();
 app.UseAntiforgery();
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode()
+    .AddAdditionalAssemblies(typeof(AuthifyPass.Views.Pages.Home).Assembly);
 
 app.MapClientEndPoints();
 app.MapUserEndPoints();
 app.UseCors();
 
 app.UseExceptionHandler(builder => { });
-
-app.MapFallbackToFile("index.html");
 
 await app.RunAsync();

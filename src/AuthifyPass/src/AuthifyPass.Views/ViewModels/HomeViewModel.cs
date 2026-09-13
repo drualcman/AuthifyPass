@@ -50,7 +50,7 @@ internal class HomeViewModel(
     public async Task CopyToClipboard(string code)
     {
         await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", code);
-        await ToastMessage.Information("Codigo copiado");
+        await ToastMessage.Information(content[nameof(HomePageContent.CodeCopiedText)]);
     }
     public void OpenDeleteModal(TwoFactorCode code)
     {

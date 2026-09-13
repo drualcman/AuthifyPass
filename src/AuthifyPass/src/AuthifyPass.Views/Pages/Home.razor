@@ -1,4 +1,5 @@
 ﻿@page "/"
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
 @inject IStringLocalizer<AboutUsResource> L
 
 <div class="field has-addons">
@@ -53,7 +54,7 @@
         @(new MarkupString(ViewModel.ModalBodyContent))
     </BodyContent>
     <FooterContent>
-        <button class="button is-danger @(ViewModel.IsDeleting ? "is-loading":"")" @onclick="ViewModel.DeleteSelectedCode">@(new MarkupString(ViewModel.DeleteButtonContent))lete</button>
+        <button class="button is-danger @(ViewModel.IsDeleting ? "is-loading":"")" @onclick="ViewModel.DeleteSelectedCode">@(new MarkupString(ViewModel.DeleteButtonContent))</button>
         <button class="button" @onclick="ViewModel.CloseModal">@(new MarkupString(ViewModel.CancelButtonContent))</button>
     </FooterContent>
 </ModalComponent>

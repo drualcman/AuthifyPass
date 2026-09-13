@@ -120,6 +120,9 @@
   <data name="CancelButtonText" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="CodeCopiedText" xml:space="preserve">
+    <value>Código copiado al portapapeles.</value>
+  </data>
   <data name="DeleteButtonText" xml:space="preserve">
     <value>Borrar</value>
   </data>

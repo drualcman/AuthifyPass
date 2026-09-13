@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
+    <link href="manifest.webmanifest" rel="manifest" />
+    <meta name="theme-color" content="#00796b" />
     <link rel="icon" href="_content/AuthifyPass.Views/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="_content/AuthifyPass.Views/img/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" sizes="512x512" href="_content/AuthifyPass.Views/img/Logo512.png" />
@@ -13,6 +15,15 @@
     <link rel="stylesheet" href="@Assets["_content/AuthifyPass.Views/css/app.css"]" />
     <link rel="stylesheet" href="@Assets["AuthifyPass.API.styles.css"]" />
     <title>AuthifyPass</title>
+    <script>
+        window.blazorCulture = {
+            get: () => window.localStorage['BlazorCulture'],
+            set: (value) => window.localStorage['BlazorCulture'] = value
+        };
+        if (!window.blazorCulture.get()) {
+            window.blazorCulture.set(navigator.language || navigator.userLanguage);
+        }
+    </script>
     <ImportMap />
     <HeadOutlet />
 </head>
@@ -20,6 +31,7 @@
 <body>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js', { updateViaCache: 'none' });</script>
 </body>
 
 </html>

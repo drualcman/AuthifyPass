@@ -70,6 +70,15 @@ namespace AuthifyPass.Views.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code copied to clipboard..
+        /// </summary>
+        internal static string CodeCopiedText {
+            get {
+                return ResourceManager.GetString("CodeCopiedText", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string DeleteButtonText {
