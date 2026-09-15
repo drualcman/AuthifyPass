@@ -156,6 +156,9 @@
   <data name="DeleteButtonText" xml:space="preserve">
     <value>Borrar</value>
   </data>
+  <data name="DeleteFailedText" xml:space="preserve">
+    <value>No se pudo borrar este código ahora. Inténtalo de nuevo cuando tengas conexión.</value>
+  </data>
   <data name="ModalBodyTemplate" xml:space="preserve">
     <value>¿Seguro que desea eliminar la autenticación de dos factores para &lt;strong&gt;{0}&lt;/strong&gt;?
 &lt;p class="has-text-danger"&gt;Esta acción no se puede deshacer.

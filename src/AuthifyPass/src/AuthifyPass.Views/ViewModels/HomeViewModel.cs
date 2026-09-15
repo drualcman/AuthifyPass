@@ -128,14 +128,30 @@ internal class HomeViewModel(
 
     public async Task DeleteSelectedCode()
     {
+        bool deleteSucceeded = true;
+
         if (SelectedItem is not null)
         {
             IsDeleting = true;
-            await Repository.Delete(SelectedItem.Id);
-            await GetCodes();
+
+            try
+            {
+                await Repository.Delete(SelectedItem.Id);
+                await GetCodes();
+            }
+            catch (Exception)
+            {
+                deleteSucceeded = false;
+            }
         }
+
         CloseModal();
         IsDeleting = false;
+
+        if (!deleteSucceeded)
+        {
+            await ToastMessage.Warning(content[nameof(HomePageContent.DeleteFailedText)]);
+        }
     }
 
     public async Task GetCodes()

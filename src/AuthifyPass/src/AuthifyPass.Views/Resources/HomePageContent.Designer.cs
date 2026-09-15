@@ -176,6 +176,15 @@ namespace AuthifyPass.Views.Resources {
                 return ResourceManager.GetString("DeleteButtonText", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t delete this code right now. Please try again when you have a connection..
+        /// </summary>
+        internal static string DeleteFailedText {
+            get {
+                return ResourceManager.GetString("DeleteFailedText", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove two-factor authentication for &lt;strong&gt;{0}&lt;/strong&gt;?

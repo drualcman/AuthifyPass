@@ -156,6 +156,9 @@
   <data name="DeleteButtonText" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DeleteFailedText" xml:space="preserve">
+    <value>Couldn't delete this code right now. Please try again when you have a connection.</value>
+  </data>
   <data name="ModalBodyTemplate" xml:space="preserve">
     <value>Are you sure you want to remove two-factor authentication for &lt;strong&gt;{0}&lt;/strong&gt;?
 &lt;p class="has-text-danger"&gt;This action cannot be undone.
